@@ -56,6 +56,11 @@ extension TransactionListTableViewManager: UITableViewDataSource {
 
 extension TransactionListTableViewManager: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        self.viewModel.userDidTapOnElementAtIndexPath(indexPath: indexPath)
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let dest = MonthViewCell()
         dest.configure(month: self.viewModel.transactionModel.value[section].name)

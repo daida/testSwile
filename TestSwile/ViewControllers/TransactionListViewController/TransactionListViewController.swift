@@ -53,6 +53,7 @@ class TransactionListViewController: UIViewController {
             if data.isEmpty == false {
                 self.tableView.alpha = 0.0
                 self.tableView.reloadData()
+
                 UIView.animate(withDuration: 0.35) {
                     self.tableView.alpha = 1.0
                 }
@@ -79,11 +80,16 @@ class TransactionListViewController: UIViewController {
         self.setupViewModel()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor.white
-        self.title = "Titre-resto"
+        self.title = "Titres-resto"
         self.viewModel.viewDidAppear()
     }
 

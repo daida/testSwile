@@ -19,6 +19,13 @@ extension DateFormatter {
         return formater
     }()
 
+    static let fullDateFormatter: DateFormatter = {
+        let dest = DateFormatter()
+        dest.locale = Locale(identifier: "fr_FR")
+        dest.dateFormat = "EEEE d MMMM, HH:mm"
+        return dest
+    }()
+
     static let shortDateFormatter: DateFormatter = {
         let dest = DateFormatter()
         dest.locale = Locale(identifier: "fr_FR")

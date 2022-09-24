@@ -25,8 +25,8 @@ class PriceView: UIView {
 
         self.label.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
-            self.leadConstraint =  make.leading.equalTo(self.snp.leading).offset(10).constraint
-            self.trailingConstraint = make.trailing.equalTo(self.snp.trailing).offset(-10).constraint
+            self.leadConstraint =  make.leading.equalTo(self.snp.leading).offset(6).constraint
+            self.trailingConstraint = make.trailing.equalTo(self.snp.trailing).offset(-6).constraint
             make.bottom.equalTo(self.snp.bottom)
         }
 
@@ -52,8 +52,8 @@ class PriceView: UIView {
         if isPositivePrice == true {
             self.label.textColor = SWKit.Colors.positivePriceTextColor
             self.backgroundColor = SWKit.Colors.positivePriceTextBackgroundColor
-            self.leadConstraint?.update(offset: 10)
-            self.trailingConstraint?.update(offset: -10)
+            self.leadConstraint?.update(offset: 6)
+            self.trailingConstraint?.update(offset: -6)
         } else {
             self.leadConstraint?.update(offset: 0)
             self.trailingConstraint?.update(offset: 0)

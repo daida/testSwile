@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Combine
+import SnapKit
 
 class AccessoryImageView: UIView {
 
@@ -16,19 +17,41 @@ class AccessoryImageView: UIView {
         dest.contentMode = .scaleAspectFit
         dest.layer.cornerRadius = 8
         dest.clipsToBounds = true
-        dest.backgroundColor = UIColor.white
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
 
     private let imageView: UIImageView = {
         let dest = UIImageView()
-        dest.contentMode = .center
-        dest.layer.cornerRadius = 8
+        dest.contentMode = .scaleAspectFit
         dest.clipsToBounds = true
         dest.backgroundColor = UIColor.white
         return dest
     }()
+
+    var widthConstraint: Constraint?
+    var heightContraint: Constraint?
+
+    var imageConstraintWidth: Constraint?
+    var imageConstraintHeight: Constraint?
+
+    var remoteConstraintWidth: Constraint?
+    var remoteConstraintHeight: Constraint?
+
+
+    func setupBig() {
+        self.widthConstraint?.update(offset: 32)
+        self.heightContraint?.update(offset: 32)
+
+        self.imageConstraintWidth?.update(offset: 18)
+        self.imageConstraintHeight?.update(offset: 18)
+
+        self.remoteConstraintWidth?.update(offset: 18)
+        self.remoteConstraintHeight?.update(offset: 18)
+
+        self.remoteImageView.layer.cornerRadius = 9
+        self.layer.cornerRadius = 16
+    }
 
     func setup() {
 
@@ -39,24 +62,23 @@ class AccessoryImageView: UIView {
 
         self.remoteImageView.snp.makeConstraints { make in
             make.center.equalTo(self.snp.center)
-            make.width.equalTo(self.imageView)
-            make.height.equalTo(self.imageView)
+            self.remoteConstraintWidth = make.width.equalTo(16).constraint
+            self.remoteConstraintHeight = make.height.equalTo(16).constraint
         }
 
         self.imageView.snp.makeConstraints { make in
             make.center.equalTo(self.snp.center)
-            make.height.equalTo(16)
-            make.width.equalTo(16)
+            self.imageConstraintWidth = make.width.equalTo(12).constraint
+            self.imageConstraintHeight = make.height.equalTo(12).constraint
         }
 
         self.snp.makeConstraints { make in
-            make.width.equalTo(20)
-            make.height.equalTo(20)
+            self.widthConstraint = make.width.equalTo(23).constraint
+            self.heightContraint = make.height.equalTo(23).constraint
         }
 
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 11.5
         self.clipsToBounds = true
-
 
     }
 
@@ -95,29 +117,68 @@ class TransactionImageView: UIView {
         return dest
     }()
 
+
+    func enableBigMode() {
+
+        self.backgroundColor = self.viewModel?.bigBackgroundColor
+        self.circleBackgroundView.backgroundColor = self.viewModel?.bigBackgroundColor
+
+        self.circleBackgroundView.layer.cornerRadius = 120
+        self.trailingConstraint?.update(offset: -30)
+        self.bottomConstraint?.update(offset: 16)
+        self.circleBackgroundView.layer.borderWidth = 0
+        self.accessoryView.setupBig()
+
+        self.imageWidth?.update(offset: 57)
+        self.imageHeight?.update(offset: 57)
+
+        self.imageCenter?.deactivate()
+
+        self.imageView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.circleBackgroundView).offset(-62)
+            make.centerX.equalTo(self.circleBackgroundView.snp.centerX)
+        }
+
+        self.remoteImageView.snp.removeConstraints()
+        
+        self.remoteImageView.snp.makeConstraints { make in
+            make.center.equalTo(self.imageView)
+            make.width.equalTo(self.imageView)
+            make.height.equalTo(self.imageView)
+        }
+    }
+
     private let circleBackgroundView: UIView = {
         let dest = UIView()
-        dest.layer.cornerRadius = 28
+        dest.layer.cornerRadius = 23
         dest.translatesAutoresizingMaskIntoConstraints = false
-        dest.layer.borderWidth = 1
+	    dest.layer.borderWidth = 2
         dest.clipsToBounds = true
         return dest
     }()
 
     private let imageView: UIImageView = {
-        let dest = UIImageView()
-        dest.contentMode = .center
-        dest.translatesAutoresizingMaskIntoConstraints = false
-        return dest
-    }()
-
-    private let remoteImageView: UIImageView = {
-        let dest = UIImageView()
+        let dest = UIImageView(frame: .zero)
         dest.contentMode = .scaleAspectFit
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
 
+    private let remoteImageView: UIImageView = {
+        let dest = UIImageView(frame: .zero)
+        dest.contentMode = .scaleAspectFit
+        dest.backgroundColor = UIColor.clear
+        dest.translatesAutoresizingMaskIntoConstraints = false
+        return dest
+    }()
+
+    var trailingConstraint: Constraint?
+    var bottomConstraint: Constraint?
+
+    var imageWidth: Constraint?
+    var imageHeight: Constraint?
+
+    var imageCenter: Constraint?
 
     private func setupLayout() {
 
@@ -129,22 +190,20 @@ class TransactionImageView: UIView {
         }
 
         self.imageView.snp.makeConstraints { make in
-            make.top.equalTo(self.circleBackgroundView)
-            make.bottom.equalTo(self.circleBackgroundView)
-            make.leading.equalTo(self.circleBackgroundView)
-            make.trailing.equalTo(self.circleBackgroundView)
+            self.imageCenter = make.center.equalTo(self.circleBackgroundView).constraint
+            self.imageWidth = make.width.equalTo(28).constraint
+            self.imageHeight = make.height.equalTo(28).constraint
         }
 
         self.remoteImageView.snp.makeConstraints { make in
-            make.top.equalTo(self.circleBackgroundView)
-            make.bottom.equalTo(self.circleBackgroundView)
-            make.leading.equalTo(self.circleBackgroundView)
-            make.trailing.equalTo(self.circleBackgroundView)
+            make.center.equalTo(self.circleBackgroundView)
+            make.width.equalTo(56)
+            make.height.equalTo(56)
         }
 
         self.accessoryView.snp.makeConstraints { make in
-            make.bottom.equalTo(self.snp.bottom)
-            make.trailing.equalTo(self.snp.trailing).offset(2)
+            self.trailingConstraint = make.trailing.equalTo(self.snp.trailing).offset(5).constraint
+            self.bottomConstraint = make.bottom.equalTo(self.snp.bottom).constraint.update(offset: 5)
         }
     }
 
@@ -165,6 +224,7 @@ class TransactionImageView: UIView {
         self.setup()
     }
 
+
     func configure(viewModel: TransactionImageViewModelInterface) {
 
         self.remoteImageView.image = nil
@@ -174,18 +234,24 @@ class TransactionImageView: UIView {
         self.viewModel = viewModel
         self.imageView.image = viewModel.picto
         self.accessoryView.setImage(viewModel.acessoryPicto)
-        self.circleBackgroundView.layer.borderColor = viewModel.borderColor.cgColor
+
+
         self.circleBackgroundView.backgroundColor = viewModel.backgroundColor
+        self.circleBackgroundView.layer.borderColor = viewModel.borderColor.cgColor
 
         viewModel.remoteImage.receive(on: DispatchQueue.main).sink { [weak self] image in
             guard let self = self else { return }
-            self.remoteImageView.image = image
+            if let image = image {
+                self.imageView.image = nil
+                self.remoteImageView.image = image
+            }
         }.store(in: &self.cancelable)
 
         viewModel.accessoryRemoteImage.receive(on: DispatchQueue.main).sink { [weak self] image in
             guard let self = self else { return }
             self.accessoryView.setRemoteImage(image)
         }.store(in: &self.cancelable)
+
 
     }
 

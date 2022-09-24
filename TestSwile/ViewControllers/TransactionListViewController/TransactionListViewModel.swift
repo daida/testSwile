@@ -32,6 +32,7 @@ class TransactionListViewModel: TransactionListViewModelInterface {
 
     func viewDidAppear() {
         Task {
+            guard self.originalTransactionsModels.isEmpty == true else { return }
             self.shouldDisplaySpinner.value = true
             do {
                 let result = try await self.manager.getTransactions()
@@ -79,6 +80,8 @@ protocol TransactionListViewModelInterface {
     var shouldDisplaySpinner: CurrentValueSubject<Bool, Never> { get }
     var transactionModel:CurrentValueSubject<[DateSectionInterface], Never> { get }
     var alertModel: CurrentValueSubject<AlertModel?, Never> { get }
+    
+    func userDidTapOnElementAtIndexPath(indexPath: IndexPath)
 
 }
 

@@ -41,7 +41,7 @@ class TransactionListCell: UITableViewCell {
         }
 
         self.subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(2)
             make.leading.equalTo(self.textView)
             make.height.equalTo(16)
             make.bottom.equalTo(self.textView)

@@ -10,10 +10,27 @@ import UIKit
 
 struct SWKit {
 
-    func setup() {
-        let attributes = [NSAttributedString.Key.font: UIFont(name: "Segma-Bold", size: 34) ?? UIFont.systemFont(ofSize: 34),
+    static func setup() {
+        let largeAttributes = [NSAttributedString.Key.font: UIFont(name: "Segma-Bold", size: 34) ?? UIFont.systemFont(ofSize: 34),
                           NSAttributedString.Key.foregroundColor: SWKit.Colors.titleColor]
-        UINavigationBar.appearance().titleTextAttributes = attributes
+
+        let smallAttributes = [NSAttributedString.Key.font: UIFont(name: "Segma-Bold", size: 24) ?? UIFont.systemFont(ofSize: 24),
+                          NSAttributedString.Key.foregroundColor: SWKit.Colors.titleColor]
+
+        UINavigationBar.appearance().largeTitleTextAttributes = largeAttributes
+        UINavigationBar.appearance().titleTextAttributes = smallAttributes
+    }
+
+    class SWBackButton: UIButton {
+
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.setImage(UIImage(named: "backIcon"), for: UIControl.State.normal)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
     }
 
     class SWLabel: UILabel {
@@ -24,6 +41,10 @@ struct SWKit {
             case bigTitle
             case title
             case subTitle
+
+            case actionTitle
+
+            case impactTitle
         }
 
         init(style: Style) {
@@ -37,8 +58,20 @@ struct SWKit {
                 self.textColor = SWKit.Colors.subTitleColor
                 self.font = UIFont(name: "Segma-Medium", size: 12)
             case .bigTitle:
-                self.font = UIFont(name: "Segma-Medium", size: 15)
+                self.font = UIFont(name: "Segma-Bold", size: 34)
+                self.textColor = SWKit.Colors.titleColor
+
+            case .impactTitle:
+                self.font = UIFont(name: "Segma-SemiBold", size: 13)
+                self.textColor = SWKit.Colors.titleColor
+
+            case .actionTitle:
+                self.font = UIFont(name: "Segma-SemiBold", size: 12)
+                self.textColor = SWKit.Colors.actionTitleColor
+
             }
+
+            
         }
 
         override var text: String? {
@@ -82,6 +115,11 @@ struct SWKit {
         static let positivePriceTextColor = UIColor(red: 0.388, green: 0.247, blue: 0.827, alpha: 1)
 
         static let positivePriceTextBackgroundColor = UIColor(red: 0.902, green: 0.878, blue: 0.973, alpha: 1)
+
+        static let actionTitleColor = UIColor(red: 0.388, green: 0.247, blue: 0.827, alpha: 1)
+
+        static let disabledColor = UIColor(red: 0.965, green: 0.965, blue: 0.973, alpha: 1)
+        static let disabledBorderColor = UIColor(red: 0.933, green: 0.929, blue: 0.945, alpha: 1)
 
     }
 }
