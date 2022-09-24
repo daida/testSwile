@@ -25,6 +25,18 @@ class TransactionListCell: UITableViewCell {
 
     private let textView = UIView()
 
+    var imageViewFrame: CGRect {
+        return self.transactionImageView.frame
+    }
+
+    func hideImageView() {
+        self.transactionImageView.isHidden = true
+    }
+
+    func revealImageView() {
+        self.transactionImageView.isHidden = false
+    }
+
     private func setupLayout() {
 
         self.textView.snp.makeConstraints { make in
@@ -77,6 +89,14 @@ class TransactionListCell: UITableViewCell {
     private func setup() {
         self.setupView()
         self.setupLayout()
+    }
+
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

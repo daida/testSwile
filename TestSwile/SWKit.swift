@@ -97,7 +97,7 @@ struct SWKit {
 
         static let subTitleColor = UIColor(red: 0.569, green: 0.545, blue: 0.651, alpha: 1)
 
-        static let donationColor = UIColor.white
+        static let donationColor = UIColor.systemGray6
         static let donationBorderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.06)
 
         static let mealVocherColor = UIColor(red: 1, green: 0.922, blue: 0.831, alpha: 1)
@@ -109,7 +109,7 @@ struct SWKit {
         static let mobilityColor = UIColor(red: 0.996, green: 0.878, blue: 0.882, alpha: 1)
         static let mobilityBorderColor = UIColor(red: 0.988, green: 0.388, blue: 0.42, alpha: 0.06)
 
-        static let paymentColor = UIColor.white
+        static let paymentColor = UIColor.systemGray6
         static let paymentBorderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.06)
 
         static let positivePriceTextColor = UIColor(red: 0.388, green: 0.247, blue: 0.827, alpha: 1)

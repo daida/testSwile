@@ -12,6 +12,8 @@ class TransactionCoordinator: Coordinator {
 
     var child: [Coordinator] = []
 
+    var animator: UINavigationControllerDelegate?
+
     private let financeManager: TransactionManagerInterface
     private let viewControllerFactory: ViewControllerFactoryInterface
 
@@ -30,6 +32,8 @@ class TransactionCoordinator: Coordinator {
     }
 
     func displayList() {
+        self.animator = self.viewControllerFactory.generateAnimator()
+        self.navigationController.delegate = self.animator
         let viewModel = TransactionListViewModel(manager: self.financeManager)
         viewModel.delegate = self
         let vc = self.viewControllerFactory.generateTransactionViewController(viewModel: viewModel)

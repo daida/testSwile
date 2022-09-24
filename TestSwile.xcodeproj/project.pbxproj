@@ -38,6 +38,7 @@
 		A14E34E228DF52FD005DC65F /* Segma-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A14E34DF28DF4E8A005DC65F /* Segma-SemiBold.otf */; };
 		A14E34E428DF605F005DC65F /* DetailActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E328DF605F005DC65F /* DetailActionView.swift */; };
 		A14E34E628DF606E005DC65F /* DetailActionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E528DF606E005DC65F /* DetailActionViewItem.swift */; };
+		A14E34E828DF73EE005DC65F /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E728DF73EE005DC65F /* TransitionAnimator.swift */; };
 		A156F58428DC81A80005145D /* MonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A156F58328DC81A80005145D /* MonthCell.swift */; };
 		A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E128DDB44B0061D73C /* TransactionImageView.swift */; };
 		A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */; };
@@ -110,6 +111,7 @@
 		A14E34E028DF521D005DC65F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		A14E34E328DF605F005DC65F /* DetailActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailActionView.swift; sourceTree = "<group>"; };
 		A14E34E528DF606E005DC65F /* DetailActionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailActionViewItem.swift; sourceTree = "<group>"; };
+		A14E34E728DF73EE005DC65F /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		A156F58328DC81A80005145D /* MonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCell.swift; sourceTree = "<group>"; };
 		A1D989E128DDB44B0061D73C /* TransactionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageView.swift; sourceTree = "<group>"; };
 		A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageViewModel.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				A10EEBD728DB062500DCA882 /* Coordinator.swift */,
 				A10EEBD928DB062F00DCA882 /* CoordinatorFactory.swift */,
 				A10EEBDB28DB063800DCA882 /* ViewControllerFactory.swift */,
+				A14E34E728DF73EE005DC65F /* TransitionAnimator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */,
 				A10EEBDF28DB067800DCA882 /* TransactionListViewController.swift in Sources */,
 				A10EEBF728DB35CC00DCA882 /* ImageModel.swift in Sources */,
+				A14E34E828DF73EE005DC65F /* TransitionAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

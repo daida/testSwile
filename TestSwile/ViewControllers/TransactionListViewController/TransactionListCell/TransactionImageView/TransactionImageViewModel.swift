@@ -22,7 +22,6 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
 
     let borderColor: UIColor
     let backgroundColor: UIColor
-    let bigBackgroundColor: UIColor
 
     init(transaction: TransactionModel, manager: TransactionManagerInterface) {
 
@@ -32,27 +31,21 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
         case "donation":
             self.borderColor = SWKit.Colors.donationBorderColor
             self.backgroundColor = SWKit.Colors.donationColor
-            self.bigBackgroundColor = SWKit.Colors.disabledColor
         case "meal_voucher":
             self.borderColor = SWKit.Colors.mealVocherBorderColor
             self.backgroundColor = SWKit.Colors.mealVocherColor
-            self.bigBackgroundColor = SWKit.Colors.mealVocherColor
         case "gift":
             self.borderColor = SWKit.Colors.giftBorderColor
             self.backgroundColor = SWKit.Colors.giftColor
-            self.bigBackgroundColor = SWKit.Colors.giftColor
         case "mobility":
             self.borderColor = SWKit.Colors.mobilityBorderColor
             self.backgroundColor = SWKit.Colors.mobilityColor
-            self.bigBackgroundColor = SWKit.Colors.mobilityColor
         case "payment":
             self.borderColor = SWKit.Colors.paymentBorderColor
             self.backgroundColor = SWKit.Colors.paymentColor
-            self.bigBackgroundColor = SWKit.Colors.disabledColor
         default:
             self.borderColor = SWKit.Colors.mealVocherBorderColor
             self.backgroundColor = SWKit.Colors.mealVocherColor
-            self.bigBackgroundColor = SWKit.Colors.mealVocherColor
         }
 
         self.acessoryPicto = UIImage(named: transaction.smallIcon.category)
@@ -79,7 +72,6 @@ protocol TransactionImageViewModelInterface {
     var picto: UIImage? { get }
     var borderColor: UIColor { get }
     var backgroundColor: UIColor { get }
-    var bigBackgroundColor: UIColor { get }
 
 
     var remoteImage: CurrentValueSubject<UIImage?, Never> { get }

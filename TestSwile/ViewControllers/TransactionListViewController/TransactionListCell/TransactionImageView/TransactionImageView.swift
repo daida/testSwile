@@ -53,6 +53,20 @@ class AccessoryImageView: UIView {
         self.layer.cornerRadius = 16
     }
 
+    func revert() {
+        self.widthConstraint?.update(offset: 23)
+        self.heightContraint?.update(offset: 23)
+
+        self.imageConstraintWidth?.update(offset: 12)
+        self.imageConstraintHeight?.update(offset: 12)
+
+        self.remoteConstraintWidth?.update(offset: 16)
+        self.remoteConstraintHeight?.update(offset: 16)
+
+        self.remoteImageView.layer.cornerRadius = 8
+        self.layer.cornerRadius = 11.5
+    }
+
     func setup() {
 
         self.backgroundColor = UIColor.white
@@ -117,16 +131,50 @@ class TransactionImageView: UIView {
         return dest
     }()
 
+    func activateBackgroundAlpha() {
+        self.bigBackground.backgroundColor = self.viewModel?.backgroundColor
+        self.bigBackground.alpha = 0
+    }
+
+
+    func disableBigMode() {
+        self.bigBackground.alpha = 0
+        self.circleBackgroundView.layer.cornerRadius = 23
+        self.circleBackgroundView.layer.borderWidth = 2
+
+        self.accessoryView.snp.makeConstraints { make in
+            self.trailingConstraint?.update(offset: 5)
+            self.bottomConstraint?.update(offset: 5)
+        }
+
+        self.imageView.snp.removeConstraints()
+
+        self.imageView.snp.makeConstraints { make in
+            self.imageCenter = make.center.equalTo(self.circleBackgroundView).constraint
+            self.imageWidth = make.width.equalTo(28).constraint
+            self.imageHeight = make.height.equalTo(28).constraint
+        }
+
+
+        self.remoteImageView.snp.removeConstraints()
+
+        self.remoteImageView.snp.makeConstraints { make in
+            make.center.equalTo(self.circleBackgroundView)
+            make.width.equalTo(56)
+            make.height.equalTo(56)
+        }
+
+        self.accessoryView.revert()
+
+    }
 
     func enableBigMode() {
-
-        self.backgroundColor = self.viewModel?.bigBackgroundColor
-        self.circleBackgroundView.backgroundColor = self.viewModel?.bigBackgroundColor
-
+        self.bigBackground.alpha = 1
         self.circleBackgroundView.layer.cornerRadius = 120
+        self.circleBackgroundView.layer.borderWidth = 0
         self.trailingConstraint?.update(offset: -30)
         self.bottomConstraint?.update(offset: 16)
-        self.circleBackgroundView.layer.borderWidth = 0
+
         self.accessoryView.setupBig()
 
         self.imageWidth?.update(offset: 57)
@@ -172,6 +220,8 @@ class TransactionImageView: UIView {
         return dest
     }()
 
+    private let bigBackground = UIView()
+
     var trailingConstraint: Constraint?
     var bottomConstraint: Constraint?
 
@@ -181,6 +231,13 @@ class TransactionImageView: UIView {
     var imageCenter: Constraint?
 
     private func setupLayout() {
+
+        self.bigBackground.snp.makeConstraints { make in
+            make.top.equalTo(self)
+            make.bottom.equalTo(self)
+            make.leading.equalTo(self)
+            make.trailing.equalTo(self)
+        }
 
         self.circleBackgroundView.snp.makeConstraints { make in
             make.top.equalTo(self)
@@ -208,6 +265,8 @@ class TransactionImageView: UIView {
     }
 
     private func setupView() {
+        self.addSubview(self.bigBackground)
+        self.bigBackground.alpha = 0
         self.addSubview(self.circleBackgroundView)
         self.circleBackgroundView.addSubview(self.imageView)
         self.circleBackgroundView.addSubview(self.remoteImageView)
@@ -239,6 +298,8 @@ class TransactionImageView: UIView {
         self.circleBackgroundView.backgroundColor = viewModel.backgroundColor
         self.circleBackgroundView.layer.borderColor = viewModel.borderColor.cgColor
 
+        self.remoteImageView.image = viewModel.remoteImage.value
+
         viewModel.remoteImage.receive(on: DispatchQueue.main).sink { [weak self] image in
             guard let self = self else { return }
             if let image = image {
@@ -246,6 +307,10 @@ class TransactionImageView: UIView {
                 self.remoteImageView.image = image
             }
         }.store(in: &self.cancelable)
+
+        if viewModel.accessoryRemoteImage.value != nil {
+            self.accessoryView.setRemoteImage(viewModel.accessoryRemoteImage.value)
+        }
 
         viewModel.accessoryRemoteImage.receive(on: DispatchQueue.main).sink { [weak self] image in
             guard let self = self else { return }

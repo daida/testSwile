@@ -12,7 +12,7 @@ class TransactionDetailViewController: UIViewController {
 
     private let viewModel: TransactionDetailViewModelInterface
 
-    private let header = TransactionImageView()
+    let header = TransactionImageView()
 
     private let backButton = SWKit.SWBackButton()
 
@@ -54,6 +54,52 @@ class TransactionDetailViewController: UIViewController {
 
     }
 
+    func prepareForAnimation() {
+        self.backButton.alpha = 0
+        self.header.isHidden = true
+        self.detailView.alpha = 0
+        self.detailAction.alpha = 0
+
+        self.detailView.transform = CGAffineTransform(translationX: 0, y: 20)
+        self.detailAction.transform = CGAffineTransform(translationX: 0, y: 20)
+    }
+
+    func startHideAnimation() {
+        self.header.isHidden = true
+        self.detailView.alpha = 0
+        self.detailView.transform = CGAffineTransform(translationX: 0, y: 20)
+        self.detailAction.alpha = 0
+        self.backButton.alpha = 0
+    }
+
+    func displayHeader() {
+        self.header.isHidden = false
+    }
+
+    func headerCopy() -> TransactionImageView {
+        let dest = TransactionImageView()
+        dest.configure(viewModel: self.viewModel.imageViewModel)
+        dest.activateBackgroundAlpha()
+        dest.enableBigMode()
+        dest.frame = self.headerFrame
+        return dest
+    }
+
+    func firstAnimDone() {
+        self.backButton.alpha = 1
+        self.detailView.alpha = 1
+        self.detailView.transform = .identity
+    }
+
+    func secoundAnimDone() {
+        self.detailAction.alpha = 1
+        self.detailAction.transform = .identity
+    }
+
+    var headerFrame: CGRect {
+		return self.header.frame
+    }
+
 	private func setup() {
         self.view.backgroundColor = UIColor.white
         self.view.addSubview(self.header)
@@ -62,6 +108,7 @@ class TransactionDetailViewController: UIViewController {
         self.view.addSubview(self.detailView)
         self.view.addSubview(self.detailAction)
         self.setupLayout()
+        self.header.activateBackgroundAlpha()
         self.header.enableBigMode()
 
         self.backButton.addTarget(self, action: #selector(userDidTapOnBackButton(button: )), for: .touchUpInside)

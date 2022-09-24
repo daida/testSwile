@@ -16,9 +16,28 @@ class TransactionListViewController: UIViewController {
 
     private var cancellables = Set<AnyCancellable>()
 
+    private let titleLabel: SWKit.SWLabel = {
+        let dest = SWKit.SWLabel(style: .bigTitle)
+        dest.text = "Titres-resto"
+        return dest
+    }()
+
     private let tableView = UITableView()
 
     private let spinner = UIActivityIndicatorView()
+
+    var imageViewFrame: CGRect? {
+        if let imagFrame = self.tableViewManager.imageViewFrame {
+    		let dest = self.tableView.convert(imagFrame, to: self.view)            
+            return dest
+        } else {
+            return nil
+        }
+    }
+
+    var viewToAnimate: TransactionImageView? {
+        return self.tableViewManager.viewToAnimate
+    }
 
     init(viewModel: TransactionListViewModelInterface) {
         self.viewModel = viewModel
@@ -28,23 +47,33 @@ class TransactionListViewController: UIViewController {
     }
 
     func setupView() {
+        self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.spinner)
     }
 
     func setupLayout() {
 
+        self.titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.view).offset(63)
+            make.leading.equalTo(self.view).offset(20)
+        }
+
         self.tableView.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
 
-            make.top.equalTo(self.view.snp.top)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.bottom.equalTo(self.view.snp.bottom)
         }
 
         self.spinner.snp.makeConstraints { make in
             make.center.equalTo(self.view)
         }
+    }
+
+    func revealHiddenCell() {
+        self.tableViewManager.revealHiddenCell()
     }
 
     func setupViewModel() {
@@ -80,16 +109,16 @@ class TransactionListViewController: UIViewController {
         self.setupViewModel()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+//        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor.white
-        self.title = "Titres-resto"
+//        self.title = "Titres-resto"
         self.viewModel.viewDidAppear()
     }
 
