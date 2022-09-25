@@ -14,7 +14,7 @@ class TransactionDetailViewController: UIViewController {
 
     let header = TransactionImageView()
 
-    private let backButton = SWKit.SWBackButton()
+    private let backButton = SWKit.Button.SWBackButton()
 
     private let detailView: DetailTransactionInfoView
 
@@ -101,6 +101,7 @@ class TransactionDetailViewController: UIViewController {
     }
 
 	private func setup() {
+        self.view.accessibilityIdentifier = "Transaction Detail"
         self.view.backgroundColor = SWKit.Colors.backgroundColor
         self.view.addSubview(self.header)
         self.view.addSubview(self.backTouchZone)

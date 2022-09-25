@@ -16,7 +16,7 @@ class CoordinatorFactory {
 
         let manager = transactionManager ?? TransactionManager(apiService:
                                                         APIService(requestFactory: RequestFactory(),
-                                                                   internetChecker: InternetChecker()))
+                                                                   internetChecker: InternetChecker()), archiverManager: ArchiverManager())
 
         let factory = viewControllerFactory ?? ViewControllerFactory()
 

@@ -16,10 +16,14 @@ class TransactionManager: TransactionManagerInterface {
 
     private var previousGetTransactionTask: Task<Data, Error>?
 
-    private var imageTask = [String: Task<Data, Error>]()
+    private let archiverManager: ArchiverManagerInterface?
 
-    init(apiService: APIServiceInterface, jsonDecoder: JSONDecoder? = nil) {
+    init(apiService: APIServiceInterface,
+         jsonDecoder: JSONDecoder? = nil,
+         archiverManager: ArchiverManagerInterface? = nil) {
+
         self.apiService = apiService
+        self.archiverManager = archiverManager
 
         if let jsonDecoder = jsonDecoder {
             self.jsonDecoder = jsonDecoder
@@ -58,12 +62,7 @@ class TransactionManager: TransactionManagerInterface {
     }
 
     func getImage(imageURL: String) async throws -> UIImage {
-
-        self.imageTask[imageURL]?.cancel()
-        let task = self.apiService.getImage(imageURL: imageURL)
-        self.imageTask[imageURL] = task
-        let ret = await task.result
-        self.imageTask.removeValue(forKey: imageURL)
+        let ret = await self.apiService.getImage(imageURL: imageURL).result
         switch ret {
         case .success(let data):
             guard let image = UIImage(data: data) else {
@@ -91,12 +90,24 @@ class TransactionManager: TransactionManagerInterface {
         case .success(let data):
             do {
         		let responseModel = try self.jsonDecoder.decode(TransactionResponseModel.self, from: data)
+                do {
+                    try await self.archiverManager?.archiveTransaction(transactions: responseModel.transactions)
+                } catch {
+                    if let error = error as? ArchiverManagerError {
+                    	print(error)
+                    }
+                }
                 return responseModel.transactions
             } catch {
                 throw TransactionManagerError.serialisationError(error: error)
             }
 
         case .failure(let error):
+
+            if let cachedResult = try? await self.archiverManager?.retriveTransaction() {
+                return cachedResult
+            }
+
             if let apiError = error as? APIServiceError {
                 throw TransactionManagerError.apiServiceError(error: apiError)
             } else {
@@ -127,15 +138,15 @@ enum TransactionManagerError: Error {
         case .apiServiceError(error: let apiError):
             switch apiError {
             case .noInternet:
-                return "There is no internet"
+                return  NSLocalizedString("error.internet", comment: "")
             case .apiError, .wrongRequest, .wrongResponse:
-                return "Server error"
+                return NSLocalizedString("error.server", comment: "")
             case .forbidden:
-                return "Access forbidden"
+                return NSLocalizedString("error.forbidden", comment: "")
 
             }
         default:
-            return "Unknow error"
+            return NSLocalizedString("error.unknow", comment: "")
         }
     }
 

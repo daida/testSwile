@@ -20,7 +20,7 @@ class TransactionListViewModel: TransactionListViewModelInterface {
 
     var toInsert = CurrentValueSubject<IndexSet?, Never>(nil)
 
-    var shoulReloadList = CurrentValueSubject<Bool, Never>(false)
+    var shouldReloadList = CurrentValueSubject<Bool, Never>(false)
 
     let alertModel = CurrentValueSubject<AlertModel?, Never>(nil)
 
@@ -57,7 +57,7 @@ class TransactionListViewModel: TransactionListViewModelInterface {
             refreshTask?.cancel()
 
             self.refreshTask = Task {
-                try await Task.sleep(nanoseconds: UInt64(0.8) * NSEC_PER_SEC)
+                try await Task.sleep(nanoseconds: UInt64(1.0) * NSEC_PER_SEC)
                 try Task.checkCancellation()
                 self.toInsert.value = dest
             }
@@ -79,22 +79,22 @@ class TransactionListViewModel: TransactionListViewModelInterface {
                     .sorted { $0.sectionDate > $1.sectionDate }
 
                 self.toAddElement = self.originalTransactionsModels
-                self.shoulReloadList.value = true
+                self.shouldReloadList.value = true
 
             } catch {
 
-                let title = "Error"
+                let title = NSLocalizedString("error.title", comment: "")
                 let subtitle: String
 
 
                 if let mangerError = error as? TransactionManagerError {
                     subtitle = mangerError.text
                 } else {
-                    subtitle = "Unknow error"
+                    subtitle = NSLocalizedString("error.unknow", comment: "")
                 }
 
 
-                let retry = AlertModel.ButtonAction(name: "Retry") { [weak self] in
+                let retry = AlertModel.ButtonAction(name: NSLocalizedString("error.retry", comment: "")) { [weak self] in
                     self?.viewDidAppear()
                 }
 
@@ -122,7 +122,7 @@ protocol TransactionListViewModelInterface {
     func userDidReachTheEndOfTheList()
     func userDidTapOnElementAtIndexPath(indexPath: IndexPath)
     var toInsert: CurrentValueSubject<IndexSet?, Never> { get }
-    var shoulReloadList: CurrentValueSubject<Bool, Never> { get }
+    var shouldReloadList: CurrentValueSubject<Bool, Never> { get }
 
 }
 

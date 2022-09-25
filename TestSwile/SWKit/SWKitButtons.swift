@@ -9,17 +9,21 @@ import Foundation
 import UIKit
 
 extension SWKit {
-    
-    class SWBackButton: UIButton {
 
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.setImage(UIImage(named: "backIcon"), for: .normal)
-        }
+    struct Button {
+        class SWBackButton: UIButton {
 
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
+            override init(frame: CGRect) {
+                super.init(frame: frame)
+                self.accessibilityIdentifier = "Back Button"
+                self.setImage(UIImage(named: "backIcon"), for: .normal)
+            }
+
+            required init?(coder: NSCoder) {
+                fatalError("init(coder:) has not been implemented")
+            }
         }
     }
+
 }
 

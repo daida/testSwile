@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  TestSwile
+
+  Created by Nicolas Bellon on 25/09/2022.
+  
+*/
+
+"error.title" = "Erreur";
+"error.unknow" = "Erreur inconnue";
+"error.forbidden" = "Accès interdit";
+"error.server" = "Erreur serveur";
+"error.internet" = "Aucune connexion internet";
+"error.retry" = "Réessayer";
+
+"detail.titre_resto" = "Titres-resto";
+"detail.bill.split" = "Partage d’addition";
+"detail.like" = "Aimer";
+"detail.report" = "Signaler un problème";
+
+"detail.swich_account" = "Changer\nde compte";

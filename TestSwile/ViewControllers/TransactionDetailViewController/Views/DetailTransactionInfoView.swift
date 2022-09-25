@@ -26,6 +26,10 @@ class DetailTransactionInfoView: UIView {
         self.addSubview(self.nameTitle)
         self.addSubview(self.dateTitle)
 
+        self.priceTitleLabel.accessibilityIdentifier = "Detail Price"
+        self.nameTitle.accessibilityIdentifier = "Detail Name"
+        self.dateTitle.accessibilityIdentifier = "Detail Date"
+
         self.priceTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(self)
             make.leading.equalTo(self)

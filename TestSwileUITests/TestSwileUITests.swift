@@ -9,33 +9,39 @@ import XCTest
 
 final class TestSwileUITests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
 
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+    func testCellElements() throws {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssert(app.tables.matching(identifier: "Transaction List").element.exists)
+        XCTAssert(app.otherElements.matching(identifier: "Cell Image").element.exists)
+        XCTAssert(app.staticTexts.matching(identifier: "Cell Title").element.exists)
+        XCTAssert(app.staticTexts.matching(identifier: "Cell SubTitle").element.exists)
+        
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testOpenDetail() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        let tablesQuery = app.tables.matching(identifier: "Transaction List")
+        XCTAssert(app.tables.matching(identifier: "Transaction List").element.exists)
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+        tablesQuery.children(matching: .cell).element(boundBy: 3).tap()
+
+        _ = app.otherElements.matching(identifier: "Transaction Detail").element.waitForExistence(timeout: 10)
+        XCTAssert(app.otherElements.matching(identifier: "Transaction Detail").element.exists)
+        XCTAssert(app.otherElements.matching(identifier: "Detail Titre Resto").element.exists)
+        XCTAssert(app.otherElements.matching(identifier: "Detail Addition share").element.exists)
+        XCTAssert(app.otherElements.matching(identifier: "Detail love").element.exists)
+        XCTAssert(app.otherElements.matching(identifier: "Detail problem").element.exists)
+
+        XCTAssert(app.staticTexts.matching(identifier: "Detail Price").element.exists)
+        XCTAssert(app.staticTexts.matching(identifier: "Detail Name").element.exists)
+        XCTAssert(app.staticTexts.matching(identifier: "Detail Date").element.exists)
+
+        app.buttons.matching(identifier: "Back Button").element.tap()
+        _ = tablesQuery.element.waitForExistence(timeout: 10)
     }
 }

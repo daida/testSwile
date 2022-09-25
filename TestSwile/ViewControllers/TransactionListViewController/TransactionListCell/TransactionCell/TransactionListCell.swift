@@ -75,6 +75,10 @@ class TransactionListCell: UITableViewCell {
 
     private func setupView() {
 
+        self.transactionImageView.accessibilityIdentifier = "Cell Image"
+        self.titleLabel.accessibilityIdentifier = "Cell Title"
+        self.subTitleLabel.accessibilityIdentifier = "Cell SubTitle"
+
         self.addSubview(self.textView)
 
         self.addSubview(self.transactionImageView)

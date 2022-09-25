@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ArchiverManager {
+class ArchiverManager: ArchiverManagerInterface {
 
     private let jsonEncoder: JSONEncoder
     private let jsonDecoder: JSONDecoder
@@ -33,7 +33,7 @@ class ArchiverManager {
             }
         }
 
-    init(jsonEconder: JSONEncoder?, jsonDecoder: JSONDecoder?) {
+    init(jsonEconder: JSONEncoder? = nil, jsonDecoder: JSONDecoder? = nil) {
         if let jsonEconder = jsonEconder {
             self.jsonEncoder = jsonEconder
         } else {
@@ -56,6 +56,7 @@ class ArchiverManager {
             guard let url = self.archivefilePath else  {
                 throw ArchiverManagerError.archiverError(nil)
             }
+            
             do {
                 let data = try self.jsonEncoder.encode(transactions)
                 try data.write(to: url)
@@ -88,6 +89,6 @@ enum ArchiverManagerError: Error {
 
 
 protocol ArchiverManagerInterface {
-    func archiveTransaction(transaction: [TransactionModel]) async
-    func retriveTransaction() async -> [TransactionModel]
+    func archiveTransaction(transactions: [TransactionModel]) async throws 
+    func retriveTransaction() async throws -> [TransactionModel]
 }

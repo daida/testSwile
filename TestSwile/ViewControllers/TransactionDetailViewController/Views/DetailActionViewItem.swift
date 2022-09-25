@@ -12,7 +12,7 @@ class DetailActionViewItem: UIView {
 
     private let actionTitle:SWKit.SWLabel = {
         let dest = SWKit.SWLabel(style: .actionTitle)
-        dest.text = "Changer\nde compte"
+        dest.text = NSLocalizedString("detail.swich_account", comment: "")
         dest.numberOfLines = 2
         dest.textAlignment = .right
         return dest
@@ -104,6 +104,7 @@ class DetailActionViewItem: UIView {
         self.setupView()
         self.setupLayout()
         self.setupModel()
+        self.accessibilityIdentifier = self.mode.identifier
     }
 
     init(mode: Mode) {
@@ -145,6 +146,15 @@ extension DetailActionViewItem {
             case .reportAProblem: return SWKit.Colors.disabledBorderColor
             }
         }
+
+        var identifier: String {
+            switch self {
+            case .titreResto: return "Detail Titre Resto"
+            case .additionShare: return "Detail Addition share"
+            case .like: return "Detail love"
+            case .reportAProblem: return "Detail problem"
+            }
+        }
         
 
         var icon: UIImage? {
@@ -158,10 +168,10 @@ extension DetailActionViewItem {
 
         var text: String {
             switch self {
-            case .titreResto: return "Titres-resto"
-            case .additionShare: return "Partage d’addition"
-            case .like: return "Aimer"
-            case .reportAProblem: return "Signaler un problème"
+            case .titreResto: return NSLocalizedString("detail.titre_resto", comment: "")
+            case .additionShare: return NSLocalizedString("detail.bill.split", comment: "")
+            case .like: return NSLocalizedString("detail.like", comment: "")
+            case .reportAProblem: return NSLocalizedString("detail.report", comment: "")
             }
         }
 

@@ -11,9 +11,8 @@
 		A10EEBA728DB04DE00DCA882 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBA628DB04DE00DCA882 /* SceneDelegate.swift */; };
 		A10EEBAE28DB04DF00DCA882 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10EEBAD28DB04DF00DCA882 /* Assets.xcassets */; };
 		A10EEBB128DB04DF00DCA882 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10EEBAF28DB04DF00DCA882 /* LaunchScreen.storyboard */; };
-		A10EEBBC28DB04DF00DCA882 /* TestSwileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBBB28DB04DF00DCA882 /* TestSwileTests.swift */; };
+		A10EEBBC28DB04DF00DCA882 /* TestTransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBBB28DB04DF00DCA882 /* TestTransactionManager.swift */; };
 		A10EEBC628DB04DF00DCA882 /* TestSwileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBC528DB04DF00DCA882 /* TestSwileUITests.swift */; };
-		A10EEBC828DB04DF00DCA882 /* TestSwileUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBC728DB04DF00DCA882 /* TestSwileUITestsLaunchTests.swift */; };
 		A10EEBD628DB061B00DCA882 /* TransactionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBD528DB061B00DCA882 /* TransactionCoordinator.swift */; };
 		A10EEBD828DB062500DCA882 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBD728DB062500DCA882 /* Coordinator.swift */; };
 		A10EEBDA28DB062F00DCA882 /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBD928DB062F00DCA882 /* CoordinatorFactory.swift */; };
@@ -34,6 +33,15 @@
 		A12283DF28E05388005AF079 /* SWKitButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283DE28E05388005AF079 /* SWKitButtons.swift */; };
 		A12283E128E053AD005AF079 /* SWLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283E028E053AD005AF079 /* SWLabel.swift */; };
 		A12283E328E07C80005AF079 /* ArchiverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283E228E07C80005AF079 /* ArchiverManager.swift */; };
+		A12283E928E08753005AF079 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A12283EB28E08753005AF079 /* Localizable.strings */; };
+		A12283EF28E08DFF005AF079 /* APIMockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283EE28E08DFF005AF079 /* APIMockManager.swift */; };
+		A12283F228E08ED9005AF079 /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = A12283F128E08ED9005AF079 /* mock.json */; };
+		A12283F628E0A660005AF079 /* TestRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283F528E0A660005AF079 /* TestRequestFactory.swift */; };
+		A12283F828E0A7AC005AF079 /* TestAchiverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283F728E0A7AC005AF079 /* TestAchiverManager.swift */; };
+		A12283FA28E0A9A9005AF079 /* TestAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283F928E0A9A9005AF079 /* TestAPIService.swift */; };
+		A12283FC28E0AA0D005AF079 /* InternetCheckerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283FB28E0AA0D005AF079 /* InternetCheckerMock.swift */; };
+		A12283FE28E0AD40005AF079 /* TestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283FD28E0AD40005AF079 /* TestListViewModel.swift */; };
+		A122840028E0BAD7005AF079 /* TestCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283FF28E0BAD7005AF079 /* TestCellViewModel.swift */; };
 		A13AEA2228DF409A00E4E8F8 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13AEA2128DF409A00E4E8F8 /* NumberFormatter.swift */; };
 		A14E34DE28DF4CA7005DC65F /* DetailTransactionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34DD28DF4CA7005DC65F /* DetailTransactionInfoView.swift */; };
 		A14E34E128DF521D005DC65F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E028DF521D005DC65F /* String.swift */; };
@@ -42,6 +50,7 @@
 		A14E34E628DF606E005DC65F /* DetailActionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E528DF606E005DC65F /* DetailActionViewItem.swift */; };
 		A14E34E828DF73EE005DC65F /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E728DF73EE005DC65F /* TransitionAnimator.swift */; };
 		A156F58428DC81A80005145D /* MonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A156F58328DC81A80005145D /* MonthCell.swift */; };
+		A179E8D328E0C36F00D68762 /* TestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */; };
 		A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E128DDB44B0061D73C /* TransactionImageView.swift */; };
 		A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */; };
 		A1D989E928DDE0210061D73C /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E828DDE0210061D73C /* PriceView.swift */; };
@@ -81,13 +90,11 @@
 		A10EEBA428DB04DE00DCA882 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A10EEBA628DB04DE00DCA882 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A10EEBAD28DB04DF00DCA882 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A10EEBB028DB04DF00DCA882 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A10EEBB228DB04DF00DCA882 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A10EEBB728DB04DF00DCA882 /* TestSwileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestSwileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A10EEBBB28DB04DF00DCA882 /* TestSwileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwileTests.swift; sourceTree = "<group>"; };
+		A10EEBBB28DB04DF00DCA882 /* TestTransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTransactionManager.swift; sourceTree = "<group>"; };
 		A10EEBC128DB04DF00DCA882 /* TestSwileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestSwileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10EEBC528DB04DF00DCA882 /* TestSwileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwileUITests.swift; sourceTree = "<group>"; };
-		A10EEBC728DB04DF00DCA882 /* TestSwileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwileUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A10EEBD528DB061B00DCA882 /* TransactionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCoordinator.swift; sourceTree = "<group>"; };
 		A10EEBD728DB062500DCA882 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		A10EEBD928DB062F00DCA882 /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
@@ -108,6 +115,17 @@
 		A12283DE28E05388005AF079 /* SWKitButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWKitButtons.swift; sourceTree = "<group>"; };
 		A12283E028E053AD005AF079 /* SWLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLabel.swift; sourceTree = "<group>"; };
 		A12283E228E07C80005AF079 /* ArchiverManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiverManager.swift; sourceTree = "<group>"; };
+		A12283E628E08703005AF079 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A12283EA28E08753005AF079 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A12283EC28E08766005AF079 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A12283EE28E08DFF005AF079 /* APIMockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMockManager.swift; sourceTree = "<group>"; };
+		A12283F128E08ED9005AF079 /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
+		A12283F528E0A660005AF079 /* TestRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRequestFactory.swift; sourceTree = "<group>"; };
+		A12283F728E0A7AC005AF079 /* TestAchiverManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAchiverManager.swift; sourceTree = "<group>"; };
+		A12283F928E0A9A9005AF079 /* TestAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPIService.swift; sourceTree = "<group>"; };
+		A12283FB28E0AA0D005AF079 /* InternetCheckerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetCheckerMock.swift; sourceTree = "<group>"; };
+		A12283FD28E0AD40005AF079 /* TestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListViewModel.swift; sourceTree = "<group>"; };
+		A12283FF28E0BAD7005AF079 /* TestCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCellViewModel.swift; sourceTree = "<group>"; };
 		A13AEA2128DF409A00E4E8F8 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		A14E34DD28DF4CA7005DC65F /* DetailTransactionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTransactionInfoView.swift; sourceTree = "<group>"; };
 		A14E34DF28DF4E8A005DC65F /* Segma-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Segma-SemiBold.otf"; sourceTree = "<group>"; };
@@ -116,6 +134,7 @@
 		A14E34E528DF606E005DC65F /* DetailActionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailActionViewItem.swift; sourceTree = "<group>"; };
 		A14E34E728DF73EE005DC65F /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		A156F58328DC81A80005145D /* MonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCell.swift; sourceTree = "<group>"; };
+		A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetailViewModel.swift; sourceTree = "<group>"; };
 		A1D989E128DDB44B0061D73C /* TransactionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageView.swift; sourceTree = "<group>"; };
 		A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageViewModel.swift; sourceTree = "<group>"; };
 		A1D989E828DDE0210061D73C /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
@@ -187,12 +206,13 @@
 				A10EEBE828DB08CA00DCA882 /* Managers */,
 				A10EEBDD28DB066700DCA882 /* ViewControllers */,
 				A10EEBD428DB060400DCA882 /* Coordinator */,
-				A1D989F128DE27610061D73C /* Font */,
 				A10EEBA428DB04DE00DCA882 /* AppDelegate.swift */,
 				A10EEBA628DB04DE00DCA882 /* SceneDelegate.swift */,
 				A10EEBAD28DB04DF00DCA882 /* Assets.xcassets */,
 				A10EEBAF28DB04DF00DCA882 /* LaunchScreen.storyboard */,
 				A10EEBB228DB04DF00DCA882 /* Info.plist */,
+				A12283F028E08EC1005AF079 /* Ressources */,
+				A12283EB28E08753005AF079 /* Localizable.strings */,
 			);
 			path = TestSwile;
 			sourceTree = "<group>";
@@ -200,7 +220,13 @@
 		A10EEBBA28DB04DF00DCA882 /* TestSwileTests */ = {
 			isa = PBXGroup;
 			children = (
-				A10EEBBB28DB04DF00DCA882 /* TestSwileTests.swift */,
+				A10EEBBB28DB04DF00DCA882 /* TestTransactionManager.swift */,
+				A12283F528E0A660005AF079 /* TestRequestFactory.swift */,
+				A12283F728E0A7AC005AF079 /* TestAchiverManager.swift */,
+				A12283F928E0A9A9005AF079 /* TestAPIService.swift */,
+				A12283FD28E0AD40005AF079 /* TestListViewModel.swift */,
+				A12283FF28E0BAD7005AF079 /* TestCellViewModel.swift */,
+				A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */,
 			);
 			path = TestSwileTests;
 			sourceTree = "<group>";
@@ -209,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				A10EEBC528DB04DF00DCA882 /* TestSwileUITests.swift */,
-				A10EEBC728DB04DF00DCA882 /* TestSwileUITestsLaunchTests.swift */,
 			);
 			path = TestSwileUITests;
 			sourceTree = "<group>";
@@ -268,6 +293,7 @@
 		A10EEBF128DB353200DCA882 /* APIService */ = {
 			isa = PBXGroup;
 			children = (
+				A12283ED28E08D71005AF079 /* APIMock */,
 				A10EEBEF28DB09A700DCA882 /* RequestFactory.swift */,
 				A10EEBED28DB095700DCA882 /* InternetChecker.swift */,
 				A10EEBE928DB08D800DCA882 /* APIService.swift */,
@@ -306,6 +332,24 @@
 				A12283E028E053AD005AF079 /* SWLabel.swift */,
 			);
 			path = SWKit;
+			sourceTree = "<group>";
+		};
+		A12283ED28E08D71005AF079 /* APIMock */ = {
+			isa = PBXGroup;
+			children = (
+				A12283EE28E08DFF005AF079 /* APIMockManager.swift */,
+				A12283FB28E0AA0D005AF079 /* InternetCheckerMock.swift */,
+			);
+			path = APIMock;
+			sourceTree = "<group>";
+		};
+		A12283F028E08EC1005AF079 /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
+				A1D989F128DE27610061D73C /* Font */,
+				A12283F128E08ED9005AF079 /* mock.json */,
+			);
+			path = Ressources;
 			sourceTree = "<group>";
 		};
 		A14E34DC28DF4C91005DC65F /* Views */ = {
@@ -465,7 +509,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				fr,
 			);
 			mainGroup = A10EEB9828DB04DE00DCA882;
 			packageReferences = (
@@ -490,6 +534,8 @@
 				A14E34E228DF52FD005DC65F /* Segma-SemiBold.otf in Resources */,
 				A10EEBB128DB04DF00DCA882 /* LaunchScreen.storyboard in Resources */,
 				A1D989F528DE2B070061D73C /* Segma-Bold.otf in Resources */,
+				A12283F228E08ED9005AF079 /* mock.json in Resources */,
+				A12283E928E08753005AF079 /* Localizable.strings in Resources */,
 				A1D989F728DE2B0C0061D73C /* Segma-SemiBoldItalic.otf in Resources */,
 				A1D989F628DE2B0A0061D73C /* Segma-Medium.otf in Resources */,
 				A10EEBAE28DB04DF00DCA882 /* Assets.xcassets in Resources */,
@@ -529,6 +575,7 @@
 				A1D989E928DDE0210061D73C /* PriceView.swift in Sources */,
 				A12283E128E053AD005AF079 /* SWLabel.swift in Sources */,
 				A1EB3B7228DB413400BC9477 /* TransactionListCellViewModel.swift in Sources */,
+				A12283FC28E0AA0D005AF079 /* InternetCheckerMock.swift in Sources */,
 				A14E34DE28DF4CA7005DC65F /* DetailTransactionInfoView.swift in Sources */,
 				A10EEBEC28DB08F900DCA882 /* TransactionManager.swift in Sources */,
 				A10EEBE528DB06DA00DCA882 /* TransactionDetailViewController.swift in Sources */,
@@ -551,6 +598,7 @@
 				A14E34E128DF521D005DC65F /* String.swift in Sources */,
 				A1EB3B7528DB44D200BC9477 /* DateFormater.swift in Sources */,
 				A10EEBF928DB35E000DCA882 /* CurencyModel.swift in Sources */,
+				A12283EF28E08DFF005AF079 /* APIMockManager.swift in Sources */,
 				A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */,
 				A12283DD28E05348005AF079 /* SWKitColor.swift in Sources */,
 				A10EEBDF28DB067800DCA882 /* TransactionListViewController.swift in Sources */,
@@ -564,7 +612,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10EEBBC28DB04DF00DCA882 /* TestSwileTests.swift in Sources */,
+				A12283FA28E0A9A9005AF079 /* TestAPIService.swift in Sources */,
+				A12283F828E0A7AC005AF079 /* TestAchiverManager.swift in Sources */,
+				A122840028E0BAD7005AF079 /* TestCellViewModel.swift in Sources */,
+				A179E8D328E0C36F00D68762 /* TestDetailViewModel.swift in Sources */,
+				A12283FE28E0AD40005AF079 /* TestListViewModel.swift in Sources */,
+				A12283F628E0A660005AF079 /* TestRequestFactory.swift in Sources */,
+				A10EEBBC28DB04DF00DCA882 /* TestTransactionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +627,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10EEBC628DB04DF00DCA882 /* TestSwileUITests.swift in Sources */,
-				A10EEBC828DB04DF00DCA882 /* TestSwileUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,9 +649,18 @@
 		A10EEBAF28DB04DF00DCA882 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A10EEBB028DB04DF00DCA882 /* Base */,
+				A12283E628E08703005AF079 /* en */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A12283EB28E08753005AF079 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A12283EA28E08753005AF079 /* en */,
+				A12283EC28E08766005AF079 /* fr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -608,6 +670,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -668,6 +731,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -730,8 +794,8 @@
 				INFOPLIST_FILE = TestSwile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -739,9 +803,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nicolas.bellon.TestSwile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -757,8 +824,8 @@
 				INFOPLIST_FILE = TestSwile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -766,9 +833,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nicolas.bellon.TestSwile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

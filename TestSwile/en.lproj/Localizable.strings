@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  TestSwile
+
+  Created by Nicolas Bellon on 25/09/2022.
+  
+*/
+
+"error.title" = "Error";
+"error.unknow" = "Unknow error";
+"error.forbidden" = "Access forbidden";
+"error.server" = "Server error";
+"error.internet" = "There is no internet";
+"error.retry" = "Retry";
+
+
+"detail.titre_resto" = "Meal Coupon";
+"detail.bill.split" = "Check split";
+"detail.like" = "Like";
+"detail.report" = "Report an issue";
+
+"detail.swich_account" = "Switch\naccount";

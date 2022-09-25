@@ -65,8 +65,8 @@ class TransactionListViewController: UIViewController {
         }
 
         self.tableView.snp.makeConstraints { make in
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide)
 
             make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.bottom.equalTo(self.view.snp.bottom)
@@ -83,7 +83,7 @@ class TransactionListViewController: UIViewController {
 
     func setupViewModel() {
         
-        self.viewModel.shoulReloadList.receive(on: DispatchQueue.main).sink { [weak self] shoulReloadList in
+        self.viewModel.shouldReloadList.receive(on: DispatchQueue.main).sink { [weak self] shoulReloadList in
             guard let self = self else { return }
             if shoulReloadList == true {
                 self.tableView.reloadData()
@@ -105,7 +105,6 @@ class TransactionListViewController: UIViewController {
 
             if shouldDisplaySpinner == false {
                 self.tableView.alpha = 0.0
-              //  self.tableView.reloadData()
 
                 UIView.animate(withDuration: 0.35) { [weak self] in
                     self?.tableView.alpha = 1.0

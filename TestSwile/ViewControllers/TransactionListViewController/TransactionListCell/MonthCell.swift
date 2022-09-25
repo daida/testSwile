@@ -9,8 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class MonthViewCell: UIView {
-
+class MonthViewCell: UITableViewHeaderFooterView {
 
     static let identifier = "MonthViewCell"
 
@@ -27,8 +26,7 @@ class MonthViewCell: UIView {
     }
 
     func setupView() {
-        self.backgroundColor = SWKit.Colors.backgroundColor
-        self.addSubview(self.monthLabel)
+        self.contentView.addSubview(self.monthLabel)
     }
 
     func setup() {
@@ -36,10 +34,16 @@ class MonthViewCell: UIView {
         self.setupLayout()
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         self.setup()
     }
+
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//
+//    }
 
     func configure(month: String) {
         self.monthLabel.text = month

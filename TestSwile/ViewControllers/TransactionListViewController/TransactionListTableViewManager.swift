@@ -40,10 +40,14 @@ class TransactionListTableViewManager: NSObject {
     private func setupTableView() {
         self.tableView.separatorStyle = .none
         self.tableView.register(TransactionListCell.self, forCellReuseIdentifier: TransactionListCell.identifier)
+
+        self.tableView.register(MonthViewCell.self, forHeaderFooterViewReuseIdentifier: MonthViewCell.identifier)
+
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.rowHeight = 72
         self.tableView.sectionHeaderTopPadding = 0
+        self.tableView.accessibilityIdentifier = "Transaction List"
     }
 }
 
@@ -87,8 +91,9 @@ extension TransactionListTableViewManager: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let dest = MonthViewCell()
-        dest.configure(month: self.viewModel.transactionModel[section].name)
+        let dest = tableView.dequeueReusableHeaderFooterView(withIdentifier: MonthViewCell.identifier)
+        guard let castedCell = dest as? MonthViewCell else { return dest }
+        castedCell.configure(month: self.viewModel.transactionModel[section].name)
         return dest
     }
 
