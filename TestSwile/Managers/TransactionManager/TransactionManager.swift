@@ -16,6 +16,8 @@ class TransactionManager: TransactionManagerInterface {
 
     private var previousGetTransactionTask: Task<Data, Error>?
 
+    private var imageTask = [String: Task<Data, Error>]()
+
     init(apiService: APIServiceInterface, jsonDecoder: JSONDecoder? = nil) {
         self.apiService = apiService
 
@@ -39,10 +41,29 @@ class TransactionManager: TransactionManagerInterface {
 
     }
 
-    func getImage(imageURL: String) async throws -> UIImage {
-        let task = self.apiService.getImage(imageURL: imageURL)
-        let ret = await task.result
+    func getCachedImage(imageURL: String) throws -> UIImage? {
 
+        do {
+            let data = try self.apiService.getCachedImage(imageURL: imageURL)
+            guard let image = UIImage(data: data) else { throw TransactionManagerError.wrongImageFormat }
+            return image
+        } catch {
+            if let apiError = error as? APIServiceError {
+                throw TransactionManagerError.apiServiceError(error: apiError)
+            } else {
+                throw TransactionManagerError.unknowError(error: error)
+            }
+        }
+
+    }
+
+    func getImage(imageURL: String) async throws -> UIImage {
+
+        self.imageTask[imageURL]?.cancel()
+        let task = self.apiService.getImage(imageURL: imageURL)
+        self.imageTask[imageURL] = task
+        let ret = await task.result
+        self.imageTask.removeValue(forKey: imageURL)
         switch ret {
         case .success(let data):
             guard let image = UIImage(data: data) else {
@@ -90,6 +111,7 @@ class TransactionManager: TransactionManagerInterface {
 protocol TransactionManagerInterface {
     func getTransactions() async throws -> [TransactionModel]
     func getImage(imageURL: String) async throws -> UIImage
+    func getCachedImage(imageURL: String) throws -> UIImage?
 }
 
 
@@ -98,6 +120,7 @@ enum TransactionManagerError: Error {
 	case serialisationError(error: Error?)
 	case unknowError(error: Error)
     case wrongImageFormat
+    case noImageInCache
 
     var text: String {
         switch self {

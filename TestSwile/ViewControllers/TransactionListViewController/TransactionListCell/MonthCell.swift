@@ -27,7 +27,7 @@ class MonthViewCell: UIView {
     }
 
     func setupView() {
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = SWKit.Colors.backgroundColor
         self.addSubview(self.monthLabel)
     }
 

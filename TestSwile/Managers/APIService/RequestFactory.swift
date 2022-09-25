@@ -33,7 +33,7 @@ class RequestFactory: RequestFactoryInterface {
     func generateGetImage(imageURL: String) -> URLRequest? {
         guard let url = URL(string: imageURL) else { return nil }
     	var request = URLRequest(url: url)
-        request.cachePolicy = .reloadRevalidatingCacheData
+        request.cachePolicy = .useProtocolCachePolicy
         request.httpMethod = "GET"
         return request
     }

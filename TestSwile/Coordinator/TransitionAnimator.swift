@@ -8,28 +8,27 @@
 import Foundation
 import UIKit
 
-class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
+class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
+                            UIViewControllerAnimatedTransitioning {
 
-    private var animTime = 0.0
+    private let duration = 1.4
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return TimeInterval(animTime)
+        return self.duration
     }
 
     func animateToDetailAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard
             let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionListViewController,
-            let toViewController = transitionContext.viewController(forKey: .to) as? TransactionDetailViewController else { return transitionContext.completeTransition(false) }
-
-        self.animTime = 1.2
+            let toViewController = transitionContext.viewController(forKey: .to) as? TransactionDetailViewController,
+            let viewToAnimate = fromViewController.viewToAnimate,
+            let frame = fromViewController.imageViewFrame else { return transitionContext.completeTransition(false) }
 
         transitionContext.containerView.addSubview(toViewController.view)
         toViewController.view.layoutIfNeeded()
-
-        guard let viewToAnimate = fromViewController.viewToAnimate,
-              let frame = fromViewController.imageViewFrame  else { return }
         
         transitionContext.containerView.addSubview(viewToAnimate)
+        fromViewController.hideAnimatedImage()
         viewToAnimate.frame = frame
 
         toViewController.view.alpha = 0.0
@@ -40,32 +39,49 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate, UIVie
 
         toViewController.prepareForAnimation()
 
-        UIView.animate(withDuration: 0.4) {
+        let cellGrowSequence = {
             viewToAnimate.enableBigMode()
             viewToAnimate.frame = toViewController.headerFrame
             viewToAnimate.layoutIfNeeded()
             toViewController.view.alpha = 1.0
-        } completion: { _ in
-            toViewController.displayHeader()
-            viewToAnimate.removeFromSuperview()
-            UIView.animate(withDuration: 0.4) {
-                toViewController.firstAnimDone()
-            } completion: { _ in
-                UIView.animate(withDuration: 0.4) {
-                    toViewController.secoundAnimDone()
-                } completion: { _ in
-                    transitionContext.completeTransition(true)
-                }
-            }
         }
+
+        let firstDetailAnimation = {
+            viewToAnimate.removeFromSuperview()
+            toViewController.firstAnimDone()
+        }
+
+        let lastDetailanimation = {
+            toViewController.secoundAnimDone()
+        }
+
+        let transitionClosure: (Bool) -> Void = { _ in
+            transitionContext.completeTransition(true)
+        }
+
+        let firstDetailAnimationClosure: (Bool) -> Void = { _ in
+            UIView.animate(withDuration: (self.duration / 3.0),
+                           animations: lastDetailanimation, completion: transitionClosure)
+        }
+
+        let cellGrowClosure: (Bool) -> Void = { _ in
+            toViewController.displayHeader()
+            UIView.animate(withDuration: (self.duration / 3.0),
+                           animations: firstDetailAnimation, completion: firstDetailAnimationClosure)
+        }
+
+        UIView.animate(withDuration: (self.duration / 3.0),
+                       animations: cellGrowSequence, completion: cellGrowClosure)
+
     }
 
     func animateToList( transitionContext: UIViewControllerContextTransitioning) {
         guard
             let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionDetailViewController,
-            let toViewController = transitionContext.viewController(forKey: .to) as? TransactionListViewController else { return transitionContext.completeTransition(false) }
-
-        self.animTime = 1.1
+            let toViewController = transitionContext.viewController(forKey: .to) as?
+                TransactionListViewController,
+        let destFrame = toViewController.imageViewFrame
+        else { return transitionContext.completeTransition(false) }
 
         let header = fromViewController.headerCopy()
 
@@ -75,23 +91,32 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate, UIVie
 
         transitionContext.containerView.addSubview(header)
 
-        UIView.animate(withDuration: 0.6) {
-            fromViewController.startHideAnimation()
-        } completion: { _ in
-            UIView.animate(withDuration: 0.5) {
+        let shrinckCellSequence = {
                 header.disableBigMode()
-                if let destFrame = toViewController.imageViewFrame {
-                    header.frame = destFrame
-                }
+                header.frame = destFrame
                 toViewController.view.alpha = 1.0
                 header.layoutIfNeeded()
-            } completion: { _ in
-                toViewController.revealHiddenCell()
-                header.removeFromSuperview()
-                transitionContext.completeTransition(true)
-            }
         }
 
+        let hideDetailAnimation = {
+            fromViewController.startHideAnimation()
+        }
+
+        let completeTransitionClosure: (Bool) -> Void = { _ in
+            toViewController.revealHiddenCell()
+            header.removeFromSuperview()
+            transitionContext.completeTransition(true)
+        }
+
+        let hideAnimationClosure: (Bool) -> Void = {_ in
+            UIView.animate(withDuration: (self.duration / 2.0),
+                           animations: shrinckCellSequence,
+                           completion: completeTransitionClosure)
+        }
+
+        UIView.animate(withDuration: (self.duration / 2.0),
+                       animations: hideDetailAnimation,
+                       completion: hideAnimationClosure)
 
     }
 

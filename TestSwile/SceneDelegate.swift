@@ -18,8 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let aScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: aScene)
 
-        SWKit.setup()
-
 		let coordinator = CoordinatorFactory().generateTransactionCoordinator()
         coordinator.start()
 

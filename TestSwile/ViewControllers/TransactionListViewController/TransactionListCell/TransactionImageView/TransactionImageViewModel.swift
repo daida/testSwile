@@ -48,11 +48,25 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
             self.backgroundColor = SWKit.Colors.mealVocherColor
         }
 
-        self.acessoryPicto = UIImage(named: transaction.smallIcon.category)
-        self.picto = UIImage(named: transaction.largeIcon.category)
+        let acessPictoType = SWKit.CategoriesIcons(rawValue: transaction.smallIcon.category)
+        let picto = SWKit.CategoriesIcons(rawValue: transaction.largeIcon.category)
+
+        self.acessoryPicto = acessPictoType?.image
+        self.picto = picto?.image
         self.transaction = transaction
 
+        if let remoteImageURL = transaction.largeIcon.url,
+           let image = try? self.transactionManager.getCachedImage(imageURL: remoteImageURL) {
+            self.remoteImage.value = image
+        }
+
+        if let accessoryURL = transaction.smallIcon.url,
+           let image = try? self.transactionManager.getCachedImage(imageURL: accessoryURL) {
+            self.accessoryRemoteImage.value = image
+        }
+
         Task {
+            
             if let url = transaction.largeIcon.url {
                 self.remoteImage.value = try? await self.transactionManager.getImage(imageURL: url)
             }

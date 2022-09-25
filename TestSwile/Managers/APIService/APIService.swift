@@ -28,6 +28,17 @@ class APIService: APIServiceInterface {
         self.internetChecker = internetChecker
     }
 
+     func getCachedImage(imageURL: String) throws -> Data  {
+        guard let imageRequest = self.requestFactory.generateGetImage(imageURL: imageURL) else {
+            throw APIServiceError.wrongRequest
+        }
+         if let cachedResponse = self.urlSession.configuration.urlCache?.cachedResponse(for: imageRequest) {
+             return cachedResponse.data
+         } else {
+             throw APIServiceError.noInternet
+         }
+    }
+
     func getImage(imageURL: String) -> Task<Data, Error> {
         let dest: Task<Data, Error> = Task {
 
@@ -96,6 +107,7 @@ class APIService: APIServiceInterface {
 protocol APIServiceInterface {
     func getTransactions() -> Task<Data, Error>
     func getImage(imageURL: String) -> Task<Data, Error>
+    func getCachedImage(imageURL: String) throws -> Data
 }
 
 enum APIServiceError: Error {

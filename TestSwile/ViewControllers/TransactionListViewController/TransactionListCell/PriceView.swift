@@ -58,7 +58,7 @@ class PriceView: UIView {
             self.leadConstraint?.update(offset: 0)
             self.trailingConstraint?.update(offset: 0)
             self.backgroundColor = .clear
-            self.label.textColor = UIColor.black
+            self.label.textColor = SWKit.Colors.titleColor
         }
     }
 

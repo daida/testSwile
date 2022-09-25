@@ -11,7 +11,6 @@ extension DateFormatter {
 
     static let isoFormater: ISO8601DateFormatter = {
         let formater = ISO8601DateFormatter()
-
         formater.formatOptions = [.withYear, .withMonth, .withDay,
             .withTime, .withDashSeparatorInDate,
             .withColonSeparatorInTime, .withFractionalSeconds,
@@ -21,6 +20,8 @@ extension DateFormatter {
 
     static let fullDateFormatter: DateFormatter = {
         let dest = DateFormatter()
+        // I had to force the locale because since the new Xcode updae my
+        // locale is always en_FR...
         dest.locale = Locale(identifier: "fr_FR")
         dest.dateFormat = "EEEE d MMMM, HH:mm"
         return dest
@@ -28,6 +29,8 @@ extension DateFormatter {
 
     static let shortDateFormatter: DateFormatter = {
         let dest = DateFormatter()
+        // I had to force the locale because since the new Xcode updae my
+        // locale is always en_FR...
         dest.locale = Locale(identifier: "fr_FR")
         dest.dateFormat = "d MMMM"
         return dest
@@ -35,6 +38,8 @@ extension DateFormatter {
 
     static let monthDateFormater: DateFormatter = {
         let dest = DateFormatter()
+        // I had to force the locale because since the new Xcode updae my
+        // locale is always en_FR...
         dest.locale = Locale(identifier: "fr_FR")
         dest.dateFormat = "MMMM"
         return dest

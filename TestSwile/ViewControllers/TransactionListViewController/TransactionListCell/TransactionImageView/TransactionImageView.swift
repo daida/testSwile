@@ -25,7 +25,7 @@ class AccessoryImageView: UIView {
         let dest = UIImageView()
         dest.contentMode = .scaleAspectFit
         dest.clipsToBounds = true
-        dest.backgroundColor = UIColor.white
+        dest.backgroundColor = SWKit.Colors.backgroundColor
         return dest
     }()
 
@@ -69,7 +69,7 @@ class AccessoryImageView: UIView {
 
     func setup() {
 
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = SWKit.Colors.backgroundColor
 
         self.addSubview(self.imageView)
         self.addSubview(self.remoteImageView)
@@ -113,9 +113,9 @@ class AccessoryImageView: UIView {
 
     func setRemoteImage(_ image: UIImage?) {
         guard image != nil else { return }
+        self.remoteImageView.image = image
         self.remoteImageView.isHidden = false
         self.imageView.image = nil
-        self.remoteImageView.image = image
     }
 
 }

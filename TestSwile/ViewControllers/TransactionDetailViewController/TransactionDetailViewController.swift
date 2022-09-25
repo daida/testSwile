@@ -101,7 +101,7 @@ class TransactionDetailViewController: UIViewController {
     }
 
 	private func setup() {
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = SWKit.Colors.backgroundColor
         self.view.addSubview(self.header)
         self.view.addSubview(self.backTouchZone)
         self.view.addSubview(self.backButton)

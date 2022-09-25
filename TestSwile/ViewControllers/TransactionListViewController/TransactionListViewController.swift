@@ -39,9 +39,14 @@ class TransactionListViewController: UIViewController {
         return self.tableViewManager.viewToAnimate
     }
 
+    func hideAnimatedImage() {
+        self.tableViewManager.hideAnimatedImage()
+    }
+
     init(viewModel: TransactionListViewModelInterface) {
         self.viewModel = viewModel
-        self.tableViewManager = TransactionListTableViewManager(viewModel: self.viewModel, tableView: self.tableView)
+        self.tableViewManager = TransactionListTableViewManager(viewModel: self.viewModel,
+                                                                tableView: self.tableView)
         super.init(nibName: nil, bundle: nil)
         self.setup()
     }
@@ -77,22 +82,36 @@ class TransactionListViewController: UIViewController {
     }
 
     func setupViewModel() {
-        self.viewModel.transactionModel.receive(on: DispatchQueue.main).sink { [weak self] data in
+        
+        self.viewModel.shoulReloadList.receive(on: DispatchQueue.main).sink { [weak self] shoulReloadList in
             guard let self = self else { return }
-            if data.isEmpty == false {
-                self.tableView.alpha = 0.0
+            if shoulReloadList == true {
                 self.tableView.reloadData()
-
-                UIView.animate(withDuration: 0.35) {
-                    self.tableView.alpha = 1.0
-                }
             }
+        }.store(in: &self.cancellables)
 
+        self.viewModel.toInsert.receive(on: DispatchQueue.main).sink { [weak self] indexSet in
+            guard let self = self else { return }
+            if let indexSet {
+                self.tableView.beginUpdates()
+                self.tableView.insertSections(indexSet, with: .none)
+                self.tableView.endUpdates()
+            }
         }.store(in: &self.cancellables)
 
         self.viewModel.shouldDisplaySpinner.receive(on: DispatchQueue.main).sink { [weak self] shouldDisplaySpinner in
             guard let self = self else { return }
             shouldDisplaySpinner == true ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+
+            if shouldDisplaySpinner == false {
+                self.tableView.alpha = 0.0
+              //  self.tableView.reloadData()
+
+                UIView.animate(withDuration: 0.35) { [weak self] in
+                    self?.tableView.alpha = 1.0
+                }
+            }
+
         }.store(in: &self.cancellables)
 
         self.viewModel.alertModel.receive(on: DispatchQueue.main).sink { [weak self] alertModel in
@@ -107,18 +126,11 @@ class TransactionListViewController: UIViewController {
         self.setupView()
         self.setupLayout()
         self.setupViewModel()
+        self.view.backgroundColor = SWKit.Colors.backgroundColor
     }
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: false)
-//    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.view.backgroundColor = UIColor.white
-//        self.title = "Titres-resto"
         self.viewModel.viewDidAppear()
     }
 

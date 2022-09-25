@@ -30,8 +30,10 @@
 		A10EEBF728DB35CC00DCA882 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBF628DB35CC00DCA882 /* ImageModel.swift */; };
 		A10EEBF928DB35E000DCA882 /* CurencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBF828DB35E000DCA882 /* CurencyModel.swift */; };
 		A10EEBFB28DB363A00DCA882 /* AmountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBFA28DB363A00DCA882 /* AmountModel.swift */; };
-		A13AEA1E28DEF86A00E4E8F8 /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13AEA1D28DEF86A00E4E8F8 /* UIBezierPath+.swift */; };
-		A13AEA2028DF018F00E4E8F8 /* CGAffineTransformExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13AEA1F28DF018F00E4E8F8 /* CGAffineTransformExtension.swift */; };
+		A12283DD28E05348005AF079 /* SWKitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283DC28E05348005AF079 /* SWKitColor.swift */; };
+		A12283DF28E05388005AF079 /* SWKitButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283DE28E05388005AF079 /* SWKitButtons.swift */; };
+		A12283E128E053AD005AF079 /* SWLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283E028E053AD005AF079 /* SWLabel.swift */; };
+		A12283E328E07C80005AF079 /* ArchiverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12283E228E07C80005AF079 /* ArchiverManager.swift */; };
 		A13AEA2228DF409A00E4E8F8 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13AEA2128DF409A00E4E8F8 /* NumberFormatter.swift */; };
 		A14E34DE28DF4CA7005DC65F /* DetailTransactionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34DD28DF4CA7005DC65F /* DetailTransactionInfoView.swift */; };
 		A14E34E128DF521D005DC65F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E028DF521D005DC65F /* String.swift */; };
@@ -49,7 +51,6 @@
 		A1D989F528DE2B070061D73C /* Segma-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A1D989F228DE277B0061D73C /* Segma-Bold.otf */; };
 		A1D989F628DE2B0A0061D73C /* Segma-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A1D989F328DE277B0061D73C /* Segma-Medium.otf */; };
 		A1D989F728DE2B0C0061D73C /* Segma-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A1D989F428DE277B0061D73C /* Segma-SemiBoldItalic.otf */; };
-		A1D989F928DE37730061D73C /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989F828DE37730061D73C /* CircleView.swift */; };
 		A1EB3B7028DB412700BC9477 /* TransactionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB3B6F28DB412700BC9477 /* TransactionListCell.swift */; };
 		A1EB3B7228DB413400BC9477 /* TransactionListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB3B7128DB413400BC9477 /* TransactionListCellViewModel.swift */; };
 		A1EB3B7528DB44D200BC9477 /* DateFormater.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB3B7428DB44D200BC9477 /* DateFormater.swift */; };
@@ -103,8 +104,10 @@
 		A10EEBF628DB35CC00DCA882 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		A10EEBF828DB35E000DCA882 /* CurencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurencyModel.swift; sourceTree = "<group>"; };
 		A10EEBFA28DB363A00DCA882 /* AmountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountModel.swift; sourceTree = "<group>"; };
-		A13AEA1D28DEF86A00E4E8F8 /* UIBezierPath+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
-		A13AEA1F28DF018F00E4E8F8 /* CGAffineTransformExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGAffineTransformExtension.swift; sourceTree = "<group>"; };
+		A12283DC28E05348005AF079 /* SWKitColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWKitColor.swift; sourceTree = "<group>"; };
+		A12283DE28E05388005AF079 /* SWKitButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWKitButtons.swift; sourceTree = "<group>"; };
+		A12283E028E053AD005AF079 /* SWLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLabel.swift; sourceTree = "<group>"; };
+		A12283E228E07C80005AF079 /* ArchiverManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiverManager.swift; sourceTree = "<group>"; };
 		A13AEA2128DF409A00E4E8F8 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		A14E34DD28DF4CA7005DC65F /* DetailTransactionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTransactionInfoView.swift; sourceTree = "<group>"; };
 		A14E34DF28DF4E8A005DC65F /* Segma-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Segma-SemiBold.otf"; sourceTree = "<group>"; };
@@ -122,7 +125,6 @@
 		A1D989F228DE277B0061D73C /* Segma-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Segma-Bold.otf"; sourceTree = "<group>"; };
 		A1D989F328DE277B0061D73C /* Segma-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Segma-Medium.otf"; sourceTree = "<group>"; };
 		A1D989F428DE277B0061D73C /* Segma-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Segma-SemiBoldItalic.otf"; sourceTree = "<group>"; };
-		A1D989F828DE37730061D73C /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		A1EB3B6F28DB412700BC9477 /* TransactionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListCell.swift; sourceTree = "<group>"; };
 		A1EB3B7128DB413400BC9477 /* TransactionListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListCellViewModel.swift; sourceTree = "<group>"; };
 		A1EB3B7428DB44D200BC9477 /* DateFormater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormater.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		A10EEBA328DB04DE00DCA882 /* TestSwile */ = {
 			isa = PBXGroup;
 			children = (
+				A12283DB28E0531E005AF079 /* SWKit */,
 				A1D989EA28DE19FE0061D73C /* AlertView */,
 				A1EB3B7328DB44C100BC9477 /* Extensions */,
 				A10EEBE828DB08CA00DCA882 /* Managers */,
@@ -190,8 +193,6 @@
 				A10EEBAD28DB04DF00DCA882 /* Assets.xcassets */,
 				A10EEBAF28DB04DF00DCA882 /* LaunchScreen.storyboard */,
 				A10EEBB228DB04DF00DCA882 /* Info.plist */,
-				A1D989EF28DE1F420061D73C /* SWKit.swift */,
-				A1D989F828DE37730061D73C /* CircleView.swift */,
 			);
 			path = TestSwile;
 			sourceTree = "<group>";
@@ -279,6 +280,7 @@
 			children = (
 				A10EEBF328DB357C00DCA882 /* Models */,
 				A10EEBEB28DB08F900DCA882 /* TransactionManager.swift */,
+				A12283E228E07C80005AF079 /* ArchiverManager.swift */,
 			);
 			path = TransactionManager;
 			sourceTree = "<group>";
@@ -293,6 +295,17 @@
 				A1EB3B7628DB496000BC9477 /* TransactionResponseModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A12283DB28E0531E005AF079 /* SWKit */ = {
+			isa = PBXGroup;
+			children = (
+				A1D989EF28DE1F420061D73C /* SWKit.swift */,
+				A12283DC28E05348005AF079 /* SWKitColor.swift */,
+				A12283DE28E05388005AF079 /* SWKitButtons.swift */,
+				A12283E028E053AD005AF079 /* SWLabel.swift */,
+			);
+			path = SWKit;
 			sourceTree = "<group>";
 		};
 		A14E34DC28DF4C91005DC65F /* Views */ = {
@@ -357,8 +370,6 @@
 		A1EB3B7328DB44C100BC9477 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A13AEA1F28DF018F00E4E8F8 /* CGAffineTransformExtension.swift */,
-				A13AEA1D28DEF86A00E4E8F8 /* UIBezierPath+.swift */,
 				A1EB3B7428DB44D200BC9477 /* DateFormater.swift */,
 				A13AEA2128DF409A00E4E8F8 /* NumberFormatter.swift */,
 				A14E34E028DF521D005DC65F /* String.swift */,
@@ -509,22 +520,20 @@
 				A1D989F028DE1F420061D73C /* SWKit.swift in Sources */,
 				A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */,
 				A156F58428DC81A80005145D /* MonthCell.swift in Sources */,
-				A13AEA2028DF018F00E4E8F8 /* CGAffineTransformExtension.swift in Sources */,
 				A13AEA2228DF409A00E4E8F8 /* NumberFormatter.swift in Sources */,
 				A10EEBF528DB35BA00DCA882 /* TransactionModel.swift in Sources */,
 				A10EEBD828DB062500DCA882 /* Coordinator.swift in Sources */,
-				A13AEA1E28DEF86A00E4E8F8 /* UIBezierPath+.swift in Sources */,
 				A1D989EC28DE1A0A0061D73C /* AlertModel.swift in Sources */,
 				A10EEBE228DB068C00DCA882 /* TransactionListViewModel.swift in Sources */,
 				A14E34E428DF605F005DC65F /* DetailActionView.swift in Sources */,
 				A1D989E928DDE0210061D73C /* PriceView.swift in Sources */,
+				A12283E128E053AD005AF079 /* SWLabel.swift in Sources */,
 				A1EB3B7228DB413400BC9477 /* TransactionListCellViewModel.swift in Sources */,
 				A14E34DE28DF4CA7005DC65F /* DetailTransactionInfoView.swift in Sources */,
 				A10EEBEC28DB08F900DCA882 /* TransactionManager.swift in Sources */,
 				A10EEBE528DB06DA00DCA882 /* TransactionDetailViewController.swift in Sources */,
 				A10EEBA528DB04DE00DCA882 /* AppDelegate.swift in Sources */,
 				A10EEBEA28DB08D800DCA882 /* APIService.swift in Sources */,
-				A1D989F928DE37730061D73C /* CircleView.swift in Sources */,
 				A1D989EE28DE1A240061D73C /* UIAlertViewControllerExtension.swift in Sources */,
 				A10EEBD628DB061B00DCA882 /* TransactionCoordinator.swift in Sources */,
 				A1EB3B7028DB412700BC9477 /* TransactionListCell.swift in Sources */,
@@ -535,6 +544,7 @@
 				A10EEBA728DB04DE00DCA882 /* SceneDelegate.swift in Sources */,
 				A1EB3B7928DB6BC300BC9477 /* TransactionListTableViewManager.swift in Sources */,
 				A10EEBF028DB09A700DCA882 /* RequestFactory.swift in Sources */,
+				A12283DF28E05388005AF079 /* SWKitButtons.swift in Sources */,
 				A10EEBEE28DB095700DCA882 /* InternetChecker.swift in Sources */,
 				A10EEBFB28DB363A00DCA882 /* AmountModel.swift in Sources */,
 				A10EEBDA28DB062F00DCA882 /* CoordinatorFactory.swift in Sources */,
@@ -542,9 +552,11 @@
 				A1EB3B7528DB44D200BC9477 /* DateFormater.swift in Sources */,
 				A10EEBF928DB35E000DCA882 /* CurencyModel.swift in Sources */,
 				A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */,
+				A12283DD28E05348005AF079 /* SWKitColor.swift in Sources */,
 				A10EEBDF28DB067800DCA882 /* TransactionListViewController.swift in Sources */,
 				A10EEBF728DB35CC00DCA882 /* ImageModel.swift in Sources */,
 				A14E34E828DF73EE005DC65F /* TransitionAnimator.swift in Sources */,
+				A12283E328E07C80005AF079 /* ArchiverManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

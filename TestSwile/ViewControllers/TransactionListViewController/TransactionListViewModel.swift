@@ -16,18 +16,53 @@ class TransactionListViewModel: TransactionListViewModelInterface {
 
     let shouldDisplaySpinner = CurrentValueSubject<Bool, Never>(false)
 
-    let transactionModel = CurrentValueSubject<[DateSectionInterface], Never>([])
+    var transactionModel: [DateSectionInterface] = []
+
+    var toInsert = CurrentValueSubject<IndexSet?, Never>(nil)
+
+    var shoulReloadList = CurrentValueSubject<Bool, Never>(false)
 
     let alertModel = CurrentValueSubject<AlertModel?, Never>(nil)
 
+    private var toAddElement: [DateSection]?
+
     private var originalTransactionsModels: [DateSection] = [] {
         didSet {
-            self.transactionModel.value = self.originalTransactionsModels.compactMap { $0 as DateSectionInterface }
+            self.transactionModel = self.originalTransactionsModels.compactMap { $0 as DateSectionInterface }
         }
     }
 
+    private var refreshTask: Task<Void, Error>?
+
     init(manager: TransactionManagerInterface) {
         self.manager = manager
+    }
+
+
+    func userDidReachTheEndOfTheList() {
+        if let toAddElement = toAddElement {
+
+            let lastCount = self.originalTransactionsModels.count
+
+            self.originalTransactionsModels.append(contentsOf: toAddElement)
+
+            let indexSet = NSMutableIndexSet()
+
+            for element in toAddElement.enumerated() {
+                indexSet.add(element.offset + (lastCount))
+            }
+
+        	let dest = IndexSet(indexSet)
+
+            refreshTask?.cancel()
+
+            self.refreshTask = Task {
+                try await Task.sleep(nanoseconds: UInt64(0.8) * NSEC_PER_SEC)
+                try Task.checkCancellation()
+                self.toInsert.value = dest
+            }
+
+        }
     }
 
     func viewDidAppear() {
@@ -39,8 +74,12 @@ class TransactionListViewModel: TransactionListViewModelInterface {
 
                 let dest = Dictionary(grouping: result) { DateSection(date: $0.date, transactionManager: self.manager) }
 
+
                 self.originalTransactionsModels = dest.compactMap { DateSection(dateSection: $0.key, transactions: $0.value, transactionManager: self.manager) }
                     .sorted { $0.sectionDate > $1.sectionDate }
+
+                self.toAddElement = self.originalTransactionsModels
+                self.shoulReloadList.value = true
 
             } catch {
 
@@ -78,10 +117,12 @@ class TransactionListViewModel: TransactionListViewModelInterface {
 protocol TransactionListViewModelInterface {
     func viewDidAppear()
     var shouldDisplaySpinner: CurrentValueSubject<Bool, Never> { get }
-    var transactionModel:CurrentValueSubject<[DateSectionInterface], Never> { get }
+    var transactionModel: [DateSectionInterface] { get }
     var alertModel: CurrentValueSubject<AlertModel?, Never> { get }
-    
+    func userDidReachTheEndOfTheList()
     func userDidTapOnElementAtIndexPath(indexPath: IndexPath)
+    var toInsert: CurrentValueSubject<IndexSet?, Never> { get }
+    var shoulReloadList: CurrentValueSubject<Bool, Never> { get }
 
 }
 
@@ -97,7 +138,7 @@ struct DateSection: DateSectionInterface {
     let id: String
     let sectionDate: Date
 
-    let orignalModelTransactions: [TransactionModel]
+    var orignalModelTransactions: [TransactionModel]
 
     private let transactionManager: TransactionManagerInterface
 
