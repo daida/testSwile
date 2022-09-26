@@ -16,12 +16,6 @@ class TransactionListViewController: UIViewController {
 
     private var cancellables = Set<AnyCancellable>()
 
-    private let titleLabel: SWKit.SWLabel = {
-        let dest = SWKit.SWLabel(style: .bigTitle)
-        dest.text = "Titres-resto"
-        return dest
-    }()
-
     private let tableView = UITableView()
 
     private let spinner = UIActivityIndicatorView()
@@ -52,23 +46,24 @@ class TransactionListViewController: UIViewController {
     }
 
     func setupView() {
-        self.view.addSubview(self.titleLabel)
+      //  self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.spinner)
     }
 
     func setupLayout() {
 
-        self.titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view).offset(63)
-            make.leading.equalTo(self.view).offset(20)
-        }
+//        self.titleLabel.snp.makeConstraints { make in
+//            make.top.equalTo(self.view).offset(63)
+//            make.leading.equalTo(self.view).offset(20)
+//        }
 
         self.tableView.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide)
 
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+//            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(self.view)
             make.bottom.equalTo(self.view.snp.bottom)
         }
 
@@ -126,11 +121,16 @@ class TransactionListViewController: UIViewController {
         self.setupLayout()
         self.setupViewModel()
         self.view.backgroundColor = SWKit.Colors.backgroundColor
+        self.title = NSLocalizedString("list.title", comment: "")
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.viewModel.viewDidAppear()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     required init?(coder: NSCoder) {

@@ -14,9 +14,10 @@
 "error.retry" = "Retry";
 
 
-"detail.titre_resto" = "Meal Coupon";
+"detail.titre_resto" = "Lunch Voucher";
 "detail.bill.split" = "Check split";
 "detail.like" = "Like";
 "detail.report" = "Report an issue";
 
 "detail.swich_account" = "Switch\naccount";
+"list.title" = "Lunch-voucher";

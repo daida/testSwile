@@ -18,7 +18,7 @@ class ViewControllerFactory: ViewControllerFactoryInterface {
         return TransactionDetailViewController(viewModel: viewModel)
     }
 
-    func generateAnimator() ->  UINavigationControllerDelegate {
+    func generateAnimator() ->  UIViewControllerTransitioningDelegate {
         return TransitionAnimator()
     }
 
@@ -27,7 +27,7 @@ class ViewControllerFactory: ViewControllerFactoryInterface {
 
 protocol ViewControllerFactoryInterface {
 
-    func generateAnimator() ->  UINavigationControllerDelegate
+    func generateAnimator() ->  UIViewControllerTransitioningDelegate
 
     func generateTransactionViewController(viewModel: TransactionListViewModelInterface) -> UIViewController
 

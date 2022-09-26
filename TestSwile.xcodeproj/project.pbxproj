@@ -10,7 +10,6 @@
 		A10EEBA528DB04DE00DCA882 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBA428DB04DE00DCA882 /* AppDelegate.swift */; };
 		A10EEBA728DB04DE00DCA882 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBA628DB04DE00DCA882 /* SceneDelegate.swift */; };
 		A10EEBAE28DB04DF00DCA882 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10EEBAD28DB04DF00DCA882 /* Assets.xcassets */; };
-		A10EEBB128DB04DF00DCA882 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10EEBAF28DB04DF00DCA882 /* LaunchScreen.storyboard */; };
 		A10EEBBC28DB04DF00DCA882 /* TestTransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBBB28DB04DF00DCA882 /* TestTransactionManager.swift */; };
 		A10EEBC628DB04DF00DCA882 /* TestSwileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBC528DB04DF00DCA882 /* TestSwileUITests.swift */; };
 		A10EEBD628DB061B00DCA882 /* TransactionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EEBD528DB061B00DCA882 /* TransactionCoordinator.swift */; };
@@ -51,6 +50,7 @@
 		A14E34E828DF73EE005DC65F /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E34E728DF73EE005DC65F /* TransitionAnimator.swift */; };
 		A156F58428DC81A80005145D /* MonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A156F58328DC81A80005145D /* MonthCell.swift */; };
 		A179E8D328E0C36F00D68762 /* TestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */; };
+		A179E8D528E1970A00D68762 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A179E8D428E1970A00D68762 /* Launch Screen.storyboard */; };
 		A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E128DDB44B0061D73C /* TransactionImageView.swift */; };
 		A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */; };
 		A1D989E928DDE0210061D73C /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E828DDE0210061D73C /* PriceView.swift */; };
@@ -115,7 +115,6 @@
 		A12283DE28E05388005AF079 /* SWKitButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWKitButtons.swift; sourceTree = "<group>"; };
 		A12283E028E053AD005AF079 /* SWLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLabel.swift; sourceTree = "<group>"; };
 		A12283E228E07C80005AF079 /* ArchiverManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiverManager.swift; sourceTree = "<group>"; };
-		A12283E628E08703005AF079 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A12283EA28E08753005AF079 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12283EC28E08766005AF079 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12283EE28E08DFF005AF079 /* APIMockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMockManager.swift; sourceTree = "<group>"; };
@@ -135,6 +134,7 @@
 		A14E34E728DF73EE005DC65F /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		A156F58328DC81A80005145D /* MonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCell.swift; sourceTree = "<group>"; };
 		A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetailViewModel.swift; sourceTree = "<group>"; };
+		A179E8D428E1970A00D68762 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		A1D989E128DDB44B0061D73C /* TransactionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageView.swift; sourceTree = "<group>"; };
 		A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageViewModel.swift; sourceTree = "<group>"; };
 		A1D989E828DDE0210061D73C /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
@@ -209,7 +209,6 @@
 				A10EEBA428DB04DE00DCA882 /* AppDelegate.swift */,
 				A10EEBA628DB04DE00DCA882 /* SceneDelegate.swift */,
 				A10EEBAD28DB04DF00DCA882 /* Assets.xcassets */,
-				A10EEBAF28DB04DF00DCA882 /* LaunchScreen.storyboard */,
 				A10EEBB228DB04DF00DCA882 /* Info.plist */,
 				A12283F028E08EC1005AF079 /* Ressources */,
 				A12283EB28E08753005AF079 /* Localizable.strings */,
@@ -348,6 +347,7 @@
 			children = (
 				A1D989F128DE27610061D73C /* Font */,
 				A12283F128E08ED9005AF079 /* mock.json */,
+				A179E8D428E1970A00D68762 /* Launch Screen.storyboard */,
 			);
 			path = Ressources;
 			sourceTree = "<group>";
@@ -532,8 +532,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A14E34E228DF52FD005DC65F /* Segma-SemiBold.otf in Resources */,
-				A10EEBB128DB04DF00DCA882 /* LaunchScreen.storyboard in Resources */,
 				A1D989F528DE2B070061D73C /* Segma-Bold.otf in Resources */,
+				A179E8D528E1970A00D68762 /* Launch Screen.storyboard in Resources */,
 				A12283F228E08ED9005AF079 /* mock.json in Resources */,
 				A12283E928E08753005AF079 /* Localizable.strings in Resources */,
 				A1D989F728DE2B0C0061D73C /* Segma-SemiBoldItalic.otf in Resources */,
@@ -646,14 +646,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A10EEBAF28DB04DF00DCA882 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A12283E628E08703005AF079 /* en */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		A12283EB28E08753005AF079 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -793,7 +785,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TestSwile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -823,7 +815,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TestSwile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (

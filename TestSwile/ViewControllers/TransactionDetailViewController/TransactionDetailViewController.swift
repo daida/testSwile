@@ -22,6 +22,7 @@ class TransactionDetailViewController: UIViewController {
 
     private let backTouchZone = UIView()
 
+
     private func setupLayout() {
         self.header.snp.makeConstraints { make in
             make.top.equalTo(self.view)
@@ -139,6 +140,7 @@ class TransactionDetailViewController: UIViewController {
         self.detailView = DetailTransactionInfoView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
         self.setup()
+        self.modalPresentationStyle = .fullScreen
     }
 
     required init?(coder: NSCoder) {

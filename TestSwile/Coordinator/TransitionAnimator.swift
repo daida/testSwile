@@ -19,7 +19,8 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
 
     func animateToDetailAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard
-            let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionListViewController,
+            let last = (transitionContext.viewController(forKey: .from) as? UINavigationController)?.viewControllers.last,
+            let fromViewController = last as? TransactionListViewController,
             let toViewController = transitionContext.viewController(forKey: .to) as? TransactionDetailViewController,
             let viewToAnimate = fromViewController.viewToAnimate,
             let frame = fromViewController.imageViewFrame else { return transitionContext.completeTransition(false) }
@@ -78,15 +79,17 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
     func animateToList( transitionContext: UIViewControllerContextTransitioning) {
         guard
             let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionDetailViewController,
-            let toViewController = transitionContext.viewController(forKey: .to) as?
-                TransactionListViewController,
+            let nav = transitionContext.viewController(forKey: .to) as?
+                UINavigationController,
+            let toViewController = nav.viewControllers.last as? TransactionListViewController,
         let destFrame = toViewController.imageViewFrame
         else { return transitionContext.completeTransition(false) }
 
         let header = fromViewController.headerCopy()
 
-        toViewController.view.alpha = 0
-        transitionContext.containerView.addSubview(toViewController.view)
+        nav.view.alpha = 0
+
+        transitionContext.containerView.addSubview(nav.view)
         toViewController.view.layoutIfNeeded()
 
         transitionContext.containerView.addSubview(header)
@@ -94,7 +97,7 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         let shrinckCellSequence = {
                 header.disableBigMode()
                 header.frame = destFrame
-                toViewController.view.alpha = 1.0
+                nav.view.alpha = 1.0
                 header.layoutIfNeeded()
         }
 
@@ -122,8 +125,7 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-
-        if transitionContext.viewController(forKey: .from) is TransactionListViewController {
+        if transitionContext.viewController(forKey: .from) is UINavigationController {
             self.animateToDetailAnimation(transitionContext)
         } else if transitionContext.viewController(forKey: .from) is TransactionDetailViewController {
             self.animateToList(transitionContext: transitionContext)
@@ -133,6 +135,10 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
     }
 }
 

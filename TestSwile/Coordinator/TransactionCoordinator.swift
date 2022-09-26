@@ -12,10 +12,10 @@ class TransactionCoordinator: Coordinator {
 
     var child: [Coordinator] = []
 
-    var animator: UINavigationControllerDelegate?
-
     private let financeManager: TransactionManagerInterface
     private let viewControllerFactory: ViewControllerFactoryInterface
+
+    private let animator: UIViewControllerTransitioningDelegate
 
     var navigationController: UINavigationController
 
@@ -25,6 +25,7 @@ class TransactionCoordinator: Coordinator {
         self.navigationController = navigationController
         self.viewControllerFactory = viewControllerFactory
         self.financeManager = financeManager
+        self.animator = self.viewControllerFactory.generateAnimator()
     }
 
     func start() {
@@ -32,19 +33,21 @@ class TransactionCoordinator: Coordinator {
     }
 
     func displayList() {
-        self.animator = self.viewControllerFactory.generateAnimator()
-        self.navigationController.delegate = self.animator
         let viewModel = TransactionListViewModel(manager: self.financeManager)
         viewModel.delegate = self
         let vc = self.viewControllerFactory.generateTransactionViewController(viewModel: viewModel)
         self.navigationController.setViewControllers([vc], animated: false)
     }
 
+    var vc: UIViewController?
+
     func displayDetail(transaction: TransactionModel) {
         let viewModel = TransactionDetailViewModel(model: transaction, manager: self.financeManager)
         let vc = self.viewControllerFactory.generateTransactionDetailViewController(viewModel: viewModel)
+        vc.transitioningDelegate = self.animator
         viewModel.delegate = self
-        self.navigationController.pushViewController(vc, animated: true)
+        self.navigationController.present(vc, animated: true)
+        self.vc = vc
     }
 
     func stop() {
@@ -60,6 +63,6 @@ extension TransactionCoordinator: TransactionListViewModelDelegate {
 
 extension TransactionCoordinator: TransactionDetailViewModelDelegate {
     func detailViewModelUserDidTapOnBackButton(_ viewModel: TransactionDetailViewModel) {
-        self.navigationController.popViewController(animated: true)
+        self.navigationController.dismiss(animated: true)
     }
 }

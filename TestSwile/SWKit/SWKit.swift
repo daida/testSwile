@@ -10,6 +10,26 @@ import UIKit
 
 struct SWKit {
 
+    static func setup() {
+
+        guard let largeFont = UIFont(name: "Segma-Bold", size: 34),
+        let smallFont = UIFont(name: "Segma-SemiBold", size: 20)
+        else { return }
+
+        let largeTitleAttributes = [
+            NSAttributedString.Key.foregroundColor: SWKit.Colors.titleColor,
+            NSAttributedString.Key.font: largeFont
+        ]
+
+        let smallTitleAttributes = [
+            NSAttributedString.Key.foregroundColor: SWKit.Colors.titleColor,
+            NSAttributedString.Key.font: smallFont
+        ]
+
+        UINavigationBar.appearance().titleTextAttributes = smallTitleAttributes
+        UINavigationBar.appearance().largeTitleTextAttributes = largeTitleAttributes
+    }
+
     enum CategoriesIcons: String {
         case bakery
         case burger
