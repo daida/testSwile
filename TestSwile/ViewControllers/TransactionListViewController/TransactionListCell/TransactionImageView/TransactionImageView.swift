@@ -126,7 +126,7 @@ class TransactionImageView: UIView {
 
     var cancelable = Set<AnyCancellable>()
 
-    private let accessoryView: AccessoryImageView = {
+	 let accessoryView: AccessoryImageView = {
         let dest = AccessoryImageView()
         return dest
     }()
@@ -156,6 +156,7 @@ class TransactionImageView: UIView {
     }
 
     func disableBigMode() {
+        self.backButton.alpha = 0
         self.bigBackground.alpha = 0
         self.circleBackgroundView.layer.cornerRadius = 23
         self.circleBackgroundView.layer.borderWidth = 2
@@ -248,6 +249,8 @@ class TransactionImageView: UIView {
 
     var imageCenter: Constraint?
 
+    private let backButton = SWKit.Button.SWBackButton()
+
     private func setupLayout() {
 
         self.bigBackground.snp.makeConstraints { make in
@@ -280,6 +283,15 @@ class TransactionImageView: UIView {
             self.trailingConstraint = make.trailing.equalTo(self.snp.trailing).offset(5).constraint
             self.bottomConstraint = make.bottom.equalTo(self.snp.bottom).constraint.update(offset: 5)
         }
+
+        self.backButton.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(30)
+            make.leading.equalTo(self).offset(20)
+        }
+    }
+
+    func revealBackButton() {
+        self.backButton.alpha = 1.0
     }
 
     private func setupView() {
@@ -289,6 +301,8 @@ class TransactionImageView: UIView {
         self.circleBackgroundView.addSubview(self.imageView)
         self.circleBackgroundView.addSubview(self.remoteImageView)
         self.addSubview(self.accessoryView)
+        self.addSubview(self.backButton)
+        self.backButton.alpha = 0
     }
 
     private func setup() {

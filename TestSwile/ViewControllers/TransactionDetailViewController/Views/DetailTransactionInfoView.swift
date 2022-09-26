@@ -43,7 +43,7 @@ class DetailTransactionInfoView: UIView {
         }
 
         self.dateTitle.snp.makeConstraints { make in
-            make.top.equalTo(self.nameTitle.snp.bottom).offset(4)
+            make.top.equalTo(self.nameTitle.snp.bottom).offset(8)
             make.leading.equalTo(self)
             make.trailing.equalTo(self)
             make.bottom.equalTo(self)

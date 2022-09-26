@@ -24,6 +24,7 @@ class TransactionDetailViewController: UIViewController {
 
 
     private func setupLayout() {
+        
         self.header.snp.makeConstraints { make in
             make.top.equalTo(self.view)
             make.leading.equalTo(self.view)
@@ -121,11 +122,6 @@ class TransactionDetailViewController: UIViewController {
 
         self.backTouchZone.addGestureRecognizer(tapGesture)
 
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     @objc func userDidTapBackZone(_ gesture: UITapGestureRecognizer) {

@@ -48,6 +48,7 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         }
 
         let firstDetailAnimation = {
+            viewToAnimate.revealBackButton()
             toViewController.firstAnimDone()
         }
 
@@ -87,6 +88,11 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
 
         let header = fromViewController.headerCopy()
 
+        let accessory = destCell.accessoryView
+
+        let headerAccessoryFrame = destCell.convert(destCell.accessoryView.frame, to: transitionContext.containerView)
+        
+
         header.layoutIfNeeded()
 
         nav.view.alpha = 0
@@ -97,6 +103,8 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         transitionContext.containerView.addSubview(header)
 
         transitionContext.containerView.addSubview(destCell)
+
+        
 
 
         destCell.frame = destFrame
