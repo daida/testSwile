@@ -74,7 +74,9 @@ class TransactionDetailViewController: UIViewController {
     }
 
     func displayHeader() {
+        self.header.alpha = 0
         self.header.isHidden = false
+        self.header.alpha = 1
     }
 
     func headerCopy() -> TransactionImageView {

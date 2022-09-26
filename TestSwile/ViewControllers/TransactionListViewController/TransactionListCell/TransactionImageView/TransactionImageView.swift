@@ -136,6 +136,24 @@ class TransactionImageView: UIView {
         self.bigBackground.alpha = 0
     }
 
+    func halfReveal() {
+        self.isHidden = false
+        self.circleBackgroundView.backgroundColor = UIColor.clear
+        self.circleBackgroundView.layer.borderColor = UIColor.clear.cgColor
+        self.accessoryView.isHidden = true
+    }
+
+    func revealImage() {
+        self.isHidden = false
+        self.circleBackgroundView.backgroundColor = self.viewModel?.backgroundColor
+        self.circleBackgroundView.layer.borderColor = self.viewModel?.borderColor.cgColor
+        self.accessoryView.isHidden = false
+    }
+
+    func hideContentImage() {
+        self.remoteImageView.alpha = 0
+        self.imageView.alpha = 0
+    }
 
     func disableBigMode() {
         self.bigBackground.alpha = 0

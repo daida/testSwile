@@ -72,6 +72,7 @@ class TransactionListViewController: UIViewController {
         }
     }
 
+
     func revealHiddenCell() {
         self.tableViewManager.revealHiddenCell()
     }

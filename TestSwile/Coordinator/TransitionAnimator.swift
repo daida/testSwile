@@ -11,7 +11,7 @@ import UIKit
 class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
                             UIViewControllerAnimatedTransitioning {
 
-    private let duration = 1.4
+    private let duration = 2.0
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return self.duration
@@ -48,7 +48,6 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         }
 
         let firstDetailAnimation = {
-            viewToAnimate.removeFromSuperview()
             toViewController.firstAnimDone()
         }
 
@@ -57,22 +56,21 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         }
 
         let transitionClosure: (Bool) -> Void = { _ in
+			viewToAnimate.removeFromSuperview()
+            toViewController.displayHeader()
             transitionContext.completeTransition(true)
         }
 
-        let firstDetailAnimationClosure: (Bool) -> Void = { _ in
-            UIView.animate(withDuration: (self.duration / 3.0),
-                           animations: lastDetailanimation, completion: transitionClosure)
-        }
+        UIView.animateKeyframes(withDuration: 1.8, delay: 0, options: .calculationModeLinear, animations: {
 
-        let cellGrowClosure: (Bool) -> Void = { _ in
-            toViewController.displayHeader()
-            UIView.animate(withDuration: (self.duration / 3.0),
-                           animations: firstDetailAnimation, completion: firstDetailAnimationClosure)
-        }
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.2, animations: cellGrowSequence)
 
-        UIView.animate(withDuration: (self.duration / 3.0),
-                       animations: cellGrowSequence, completion: cellGrowClosure)
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.2, animations: firstDetailAnimation)
+
+            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.2, animations: lastDetailanimation)
+
+        }, completion: transitionClosure)
+
 
     }
 
@@ -82,10 +80,14 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
             let nav = transitionContext.viewController(forKey: .to) as?
                 UINavigationController,
             let toViewController = nav.viewControllers.last as? TransactionListViewController,
-        let destFrame = toViewController.imageViewFrame
+        let destFrame = toViewController.imageViewFrame,
+            let destCell = toViewController.viewToAnimate
+
         else { return transitionContext.completeTransition(false) }
 
         let header = fromViewController.headerCopy()
+
+        header.layoutIfNeeded()
 
         nav.view.alpha = 0
 
@@ -94,11 +96,25 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
 
         transitionContext.containerView.addSubview(header)
 
+        transitionContext.containerView.addSubview(destCell)
+
+
+        destCell.frame = destFrame
+        destCell.disableBigMode()
+        destCell.halfReveal()
+        destCell.alpha = 0
+		destCell.layoutIfNeeded()
+
         let shrinckCellSequence = {
                 header.disableBigMode()
                 header.frame = destFrame
                 nav.view.alpha = 1.0
+	            destCell.alpha = 1.0
                 header.layoutIfNeeded()
+        }
+
+        let imageAlphaSequence = {
+            header.hideContentImage()
         }
 
         let hideDetailAnimation = {
@@ -106,20 +122,18 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         }
 
         let completeTransitionClosure: (Bool) -> Void = { _ in
-            toViewController.revealHiddenCell()
             header.removeFromSuperview()
+            destCell.removeFromSuperview()
+            toViewController.revealHiddenCell()
             transitionContext.completeTransition(true)
         }
 
-        let hideAnimationClosure: (Bool) -> Void = {_ in
-            UIView.animate(withDuration: (self.duration / 2.0),
-                           animations: shrinckCellSequence,
-                           completion: completeTransitionClosure)
-        }
 
-        UIView.animate(withDuration: (self.duration / 2.0),
-                       animations: hideDetailAnimation,
-                       completion: hideAnimationClosure)
+        UIView.animateKeyframes(withDuration: 1.2, delay: 0, options: .calculationModeLinear, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: hideDetailAnimation)
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.05, animations: imageAlphaSequence)
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: shrinckCellSequence)
+        }, completion: completeTransitionClosure)
 
     }
 

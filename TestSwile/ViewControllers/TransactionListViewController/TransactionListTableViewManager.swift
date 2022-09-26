@@ -37,6 +37,10 @@ class TransactionListTableViewManager: NSObject {
         self.lastSelectedCell?.hideImageView()
     }
 
+    func halfReveal() {
+        self.lastSelectedCell?.halfRevealImageView()
+    }
+
     private func setupTableView() {
         self.tableView.separatorStyle = .none
         self.tableView.register(TransactionListCell.self, forCellReuseIdentifier: TransactionListCell.identifier)

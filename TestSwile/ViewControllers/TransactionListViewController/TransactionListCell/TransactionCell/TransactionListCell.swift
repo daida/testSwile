@@ -34,7 +34,11 @@ class TransactionListCell: UITableViewCell {
     }
 
     func revealImageView() {
-        self.transactionImageView.isHidden = false
+        self.transactionImageView.revealImage()
+    }
+
+    func halfRevealImageView() {
+        self.transactionImageView.halfReveal()
     }
 
     private func setupLayout() {
