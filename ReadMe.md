@@ -17,7 +17,7 @@ and OOP (Object Oriented Programming) as much as possible.
 I have also tried to separate responsibilities, for example:
 - APIService provides only API call
 - RequestFactory generates API Request 
-- the TransactionManager parses raw data into Transaction models.
+- TransactionManager parses raw data into Transaction models.
 
 I have also created a separate class to handle the UITableView (delegate, datasource, register cell, style)
 
@@ -35,13 +35,13 @@ Regarding the viewModels viewController binding, I have used Combine CurrentValu
 
 For all asynchronous work i have used Apple Concurrency API async await.
 
-I have also created a tiny design system component, 
+I've also create a tiny design system component, 
 the SWKit which contain color, icons, custom button and label.
 
 ## Difficulties:
 
-The main difficulty was the transition from list to detail and the inverse transition
-I have done it by using UIViewControllerAnimatedTransitioning and UIViewControllerTransitioningDelegate
+The main difficulty was the transition from list to detail and the inverse transition animation.
+I have done it by using UIViewControllerAnimatedTransitioning and UIViewControllerTransitioningDelegate.
 
 For the animation i have use the animation Key frame API (UIView.animateKeyframes)
 
