@@ -278,8 +278,8 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
         }
 
         self.backButton.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(30)
-            make.leading.equalTo(self).offset(20)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(15)
+            make.leading.equalTo(self).offset(25)
         }
 
         self.spinner.snp.makeConstraints { make in

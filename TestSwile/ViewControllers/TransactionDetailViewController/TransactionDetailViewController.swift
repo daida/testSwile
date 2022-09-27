@@ -49,8 +49,8 @@ class TransactionDetailViewController: UIViewController, TransactionDetailAnimat
         }
 
         self.backButton.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(30)
-            make.leading.equalTo(self.view).offset(20)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(15)
+            make.leading.equalTo(self.view).offset(25)
         }
 
         self.backTouchZone.snp.makeConstraints { make in
