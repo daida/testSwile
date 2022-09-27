@@ -64,45 +64,6 @@ class TransactionManager: TransactionManagerInterface {
 
     // MARK: Public methods
 
-    /// Get a image already downloaded from the cache
-    /// - Parameter imageURL: image URL
-    /// - Returns: a cached image
-    func getCachedImage(imageURL: String) throws -> UIImage? {
-
-        do {
-            let data = try self.apiService.getCachedImage(imageURL: imageURL)
-            guard let image = UIImage(data: data) else { throw TransactionManagerError.wrongImageFormat }
-            return image
-        } catch {
-            if let apiError = error as? APIServiceError {
-                throw TransactionManagerError.apiServiceError(error: apiError)
-            } else {
-                throw TransactionManagerError.unknowError(error: error)
-            }
-        }
-
-    }
-
-    /// Get Image from a string URL
-    /// - Parameter imageURL: image URL to fetch
-    /// - Returns: The fetched image or an error is throw
-    func getImage(imageURL: String) async throws -> UIImage {
-        let ret = await self.apiService.getImage(imageURL: imageURL).result
-        switch ret {
-        case .success(let data):
-            guard let image = UIImage(data: data) else {
-                throw TransactionManagerError.wrongImageFormat
-            }
-        	return image
-        case .failure(let error):
-            if let apiError = error as? APIServiceError {
-                throw TransactionManagerError.apiServiceError(error: apiError)
-            } else {
-                throw TransactionManagerError.unknowError(error: error)
-            }
-        }
-    }
-
     /// Get Transactions models
     /// - Returns: Transaction model array (this method will throw an error if the model are not reachable no internet for instance)
     /// If therer is cached result there will be returned, the app alway try to get new result first and then fallback on cache model if an error occured
@@ -149,8 +110,6 @@ class TransactionManager: TransactionManagerInterface {
 
 protocol TransactionManagerInterface {
     func getTransactions() async throws -> [TransactionModel]
-    func getImage(imageURL: String) async throws -> UIImage
-    func getCachedImage(imageURL: String) throws -> UIImage?
 }
 
 // MARK: - TransactionManagerError
@@ -160,8 +119,6 @@ enum TransactionManagerError: Error {
 	case apiServiceError(error: APIServiceError)
 	case serialisationError(error: Error?)
 	case unknowError(error: Error)
-    case wrongImageFormat
-    case noImageInCache
 
     var text: String {
         switch self {

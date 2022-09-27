@@ -32,27 +32,4 @@ final class TestAPIService: XCTestCase {
         }
 
     }
-
-    func testGetImage() async {
-
-        let requestFactory = RequestFactory()
-
-        let apiService = APIService(requestFactory: requestFactory, internetChecker: InternetCheckerMock())
-
-        do {
-            _ = try await apiService.getImage(imageURL: "fhkejhf").value
-        } catch {
-            if let apiError = error as? APIServiceError {
-                switch apiError {
-                case .noInternet:
-                    break
-                default: fatalError()
-                }
-            } else {
-             fatalError()
-            }
-        }
-
-    }
-
 }

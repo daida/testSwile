@@ -35,21 +35,22 @@ class TransactionDetailViewModel: TransactionDetailViewModelInterface {
     private let model: TransactionModel
 
     /// Transaction manager
-    private let manager: TransactionManagerInterface
+    private let imageDownloader: ImageDownloaderServiceInterface
 
     /// TransactionDetailViewModel init
     /// - Parameters:
     ///   - model: Transaction model to display
     ///   - manager: Transaction manager
-    init(model: TransactionModel, manager: TransactionManagerInterface) {
+    init(model: TransactionModel, imageDownloader: ImageDownloaderServiceInterface) {
         self.model = model
-        self.manager = manager
+        self.imageDownloader = imageDownloader
 
         self.priceTitle = NumberFormatter.formatPrice(price: model.amount.value, currency: model.amount.currency.iso3) ?? ""
         self.subTitle = model.name
         self.dateTitle = DateFormatter.fullDateFormatter.string(from: model.date).capitalizedSentence
 
-        self.imageViewModel = TransactionImageViewModel(transaction: model, manager: self.manager)
+        self.imageViewModel = TransactionImageViewModel(transaction: model,
+                                                        imageDownloader: self.imageDownloader)
     }
 
     /// This method is called by the viewController when the user did tap on the back button

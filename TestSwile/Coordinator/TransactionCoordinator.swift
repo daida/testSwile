@@ -37,6 +37,8 @@ class TransactionCoordinator: Coordinator {
     /// Retive transactions models
     private let transactionManager: TransactionManagerInterface
 
+	private let imageDownloader: ImageDownloaderServiceInterface
+
     /// Instanciate viewController from viewModels
     private let viewControllerFactory: ViewControllerFactoryInterface
 
@@ -49,12 +51,14 @@ class TransactionCoordinator: Coordinator {
     // MARK: Init
 
     init(navigationController: UINavigationController = UINavigationController(),
-         financeManager: TransactionManagerInterface,
+         transactionManager: TransactionManagerInterface,
+         imageDownloader: ImageDownloaderServiceInterface,
          viewControllerFactory: ViewControllerFactoryInterface) {
         self.navigationController = navigationController
         self.viewControllerFactory = viewControllerFactory
-        self.transactionManager = financeManager
+        self.transactionManager = transactionManager
         self.animator = self.viewControllerFactory.generateAnimator()
+        self.imageDownloader = imageDownloader
     }
 
     // MARK: Public methods
@@ -66,7 +70,8 @@ class TransactionCoordinator: Coordinator {
 
     /// Display the transaction list
     private func displayList() {
-        let viewModel = TransactionListViewModel(manager: self.transactionManager)
+        let viewModel = TransactionListViewModel(manager: self.transactionManager,
+                                                 imageDownloader: self.imageDownloader)
         viewModel.delegate = self
         let vc = self.viewControllerFactory.generateTransactionViewController(viewModel: viewModel)
         self.navigationController.setViewControllers([vc], animated: false)
@@ -75,7 +80,8 @@ class TransactionCoordinator: Coordinator {
     /// Display transaction detail list corresponding to user selected transaction
     /// - Parameter transaction: user selected transaction
     private func displayDetail(transaction: TransactionModel) {
-        let viewModel = TransactionDetailViewModel(model: transaction, manager: self.transactionManager)
+        let viewModel = TransactionDetailViewModel(model: transaction,
+                                                   imageDownloader: self.imageDownloader)
         let vc = self.viewControllerFactory.generateTransactionDetailViewController(viewModel: viewModel)
         vc.transitioningDelegate = self.animator
         viewModel.delegate = self

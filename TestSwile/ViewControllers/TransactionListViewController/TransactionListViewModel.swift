@@ -22,6 +22,8 @@ class TransactionListViewModel: TransactionListViewModelInterface {
     /// This manager is used to fetch Transaction model from API (or from cache if there is no internet)
     private let manager: TransactionManagerInterface
 
+    private let imageDownloader: ImageDownloaderServiceInterface
+
     /// Combine Observable property describe if the spinner should be displayed
     let shouldDisplaySpinner = CurrentValueSubject<Bool, Never>(false)
 
@@ -61,8 +63,9 @@ class TransactionListViewModel: TransactionListViewModelInterface {
     /// TransactionListViewModel init
     /// - Parameter manager: This manager is used to fetch
     ///  Transaction model from API (or from cache if there is no internet)
-    init(manager: TransactionManagerInterface) {
+    init(manager: TransactionManagerInterface, imageDownloader: ImageDownloaderServiceInterface) {
         self.manager = manager
+        self.imageDownloader = imageDownloader
     }
 
     // MARK: Public methods
@@ -99,10 +102,10 @@ class TransactionListViewModel: TransactionListViewModelInterface {
             do {
                 let result = try await self.manager.getTransactions()
 
-                let dest = Dictionary(grouping: result) { DateSection(date: $0.date, transactionManager: self.manager) }
+                let dest = Dictionary(grouping: result) { DateSection(date: $0.date, imageDownloader: self.imageDownloader) }
 
 
-                self.originalTransactionsModels = dest.compactMap { DateSection(dateSection: $0.key, transactions: $0.value, transactionManager: self.manager) }
+                self.originalTransactionsModels = dest.compactMap { DateSection(dateSection: $0.key, transactions: $0.value, imageDownloader: self.imageDownloader) }
                     .sorted { $0.sectionDate > $1.sectionDate }
 
                 self.toAddElement = self.originalTransactionsModels
@@ -186,22 +189,22 @@ struct DateSection: DateSectionInterface {
     var orignalModelTransactions: [TransactionModel]
 
     /// manager
-    private let transactionManager: TransactionManagerInterface
+    private let imageDownloader: ImageDownloaderServiceInterface
 
     /// Public transaction cell view model
     var transactions: [TransactionListCellViewModelInterface] {
-        self.orignalModelTransactions.compactMap { TransactionListCellViewModel(model: $0, manager: self.transactionManager) }
+        self.orignalModelTransactions.compactMap { TransactionListCellViewModel(model: $0, imageDownloader: self.imageDownloader) }
     }
 
     /// DateSection init
     /// - Parameters:
     ///   - date: Section date
     ///   - transactionManager: manager
-    init(date: Date, transactionManager: TransactionManagerInterface) {
+    init(date: Date, imageDownloader: ImageDownloaderServiceInterface) {
         self.name = DateFormatter.monthDateFormater.string(from: date).capitalized
         self.id = DateFormatter.yearAndMonthFormatter.string(from: date)
         self.sectionDate = date
-        self.transactionManager = transactionManager
+        self.imageDownloader = imageDownloader
         self.orignalModelTransactions = []
     }
 
@@ -210,8 +213,8 @@ struct DateSection: DateSectionInterface {
     ///   - dateSection: Section date
     ///   - transactions: Month transaction (for instance march transaction models)
     ///   - transactionManager: manager
-    init(dateSection: DateSection, transactions: [TransactionModel], transactionManager: TransactionManagerInterface) {
-        self.transactionManager = transactionManager
+    init(dateSection: DateSection, transactions: [TransactionModel], imageDownloader: ImageDownloaderServiceInterface) {
+        self.imageDownloader = imageDownloader
         self.name = dateSection.name
         self.id = dateSection.id
         self.sectionDate = dateSection.sectionDate

@@ -10,32 +10,6 @@ import XCTest
 
 final class TestManager: XCTestCase {
 
-    func testGetImage() async {
-        let apiMock = APIMockManager()
-        let manager = TransactionManager(apiService: apiMock)
-
-        do {
-    		let dest = try await manager.getImage(imageURL: "ffefefew")
-            XCTAssertNotNil(dest)
-        } catch {
-            fatalError()
-        }
-
-    }
-
-    func testGetCachedImage() async {
-        let apiMock = APIMockManager()
-        let manager = TransactionManager(apiService: apiMock)
-
-        do {
-            let dest = try manager.getCachedImage(imageURL: "ffke;l")
-            XCTAssertNotNil(dest)
-        } catch {
-            fatalError()
-        }
-
-    }
-
     func testGetTransaction() async {
 
         let apiMock = APIMockManager()

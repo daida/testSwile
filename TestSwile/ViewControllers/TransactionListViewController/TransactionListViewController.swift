@@ -12,7 +12,7 @@ import Combine
 // MARK: - TransactionListViewController
 
 /// Display all transaction in a scrollable list
-class TransactionListViewController: UIViewController {
+class TransactionListViewController: UIViewController, TransactionListAnimatorInterface {
 
     // MARK: Private properties
 

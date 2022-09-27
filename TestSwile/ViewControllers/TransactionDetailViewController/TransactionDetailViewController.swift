@@ -11,7 +11,7 @@ import UIKit
 // MARK: - TransactionDetailViewController
 
 /// Display details of the Transaction
-class TransactionDetailViewController: UIViewController {
+class TransactionDetailViewController: UIViewController, TransactionDetailAnimatorInterface {
 
     // MARK: Public properties
 

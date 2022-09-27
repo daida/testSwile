@@ -31,8 +31,8 @@ class TransitionAnimator: NSObject {
     func animateToDetailAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard
             let last = (transitionContext.viewController(forKey: .from) as? UINavigationController)?.viewControllers.last,
-            let fromViewController = last as? TransactionListViewController,
-            let toViewController = transitionContext.viewController(forKey: .to) as? TransactionDetailViewController,
+            let fromViewController = last as? TransactionListAnimatorInterface,
+            let toViewController = transitionContext.viewController(forKey: .to) as? TransactionDetailAnimatorInterface,
             let viewToAnimate = fromViewController.viewToAnimate,
             let frame = fromViewController.imageViewFrame else { return transitionContext.completeTransition(false) }
 
@@ -87,10 +87,10 @@ class TransitionAnimator: NSObject {
     /// When the transition is done, completeTransition is called on then context object
     func animateToList( transitionContext: UIViewControllerContextTransitioning) {
         guard
-            let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionDetailViewController,
+            let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionDetailAnimatorInterface,
             let nav = transitionContext.viewController(forKey: .to) as?
                 UINavigationController,
-            let toViewController = nav.viewControllers.last as? TransactionListViewController,
+            let toViewController = nav.viewControllers.last as? TransactionListAnimatorInterface,
             let destFrame = toViewController.imageViewFrame,
             let destCell = toViewController.viewToAnimate
 
@@ -198,4 +198,26 @@ extension TransitionAnimator: UIViewControllerTransitioningDelegate, UIViewContr
     }
 }
 
+// Thoses protocols are defined to limit the coopling between
+// viewController and the UIViewControllerContextTransitioning 
 
+// MARK: - TransactionDetailAnimatorInterface
+
+protocol TransactionDetailAnimatorInterface: UIViewController {
+    var header: TransactionImageView { get }
+    func prepareForAnimation()
+    func startHideAnimation()
+    func displayHeader()
+    func generateHeader() -> TransactionImageView
+    func firstAnimDone()
+    func secondAnimDone()
+}
+
+// MARK: - TransactionListAnimatorInterface
+
+protocol TransactionListAnimatorInterface: UIViewController {
+    var imageViewFrame: CGRect? { get }
+    var viewToAnimate: TransactionImageView? { get }
+    func hideAnimatedImage()
+    func revealHiddenCell()
+}

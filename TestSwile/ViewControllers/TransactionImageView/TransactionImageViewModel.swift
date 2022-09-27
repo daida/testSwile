@@ -20,7 +20,7 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
     private let transaction: TransactionModel
 
     /// Transaction Manager
-    private let transactionManager: TransactionManagerInterface
+    private let imageDownloader: ImageDownloaderServiceInterface
 
     // MARK: Public properties
 
@@ -48,9 +48,9 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
     /// - Parameters:
     ///   - transaction: Transaction model to display
     ///   - manager: Transaction Manager
-    init(transaction: TransactionModel, manager: TransactionManagerInterface) {
+    init(transaction: TransactionModel, imageDownloader: ImageDownloaderServiceInterface) {
 
-        self.transactionManager = manager
+        self.imageDownloader = imageDownloader
 
         switch transaction.type {
         case "donation":
@@ -81,23 +81,23 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
         self.transaction = transaction
 
         if let remoteImageURL = transaction.largeIcon.url,
-           let image = try? self.transactionManager.getCachedImage(imageURL: remoteImageURL) {
+           let image = try? self.imageDownloader.getCachedImage(imageURL: remoteImageURL) {
             self.remoteImage.value = image
         }
 
         if let accessoryURL = transaction.smallIcon.url,
-           let image = try? self.transactionManager.getCachedImage(imageURL: accessoryURL) {
+           let image = try? self.imageDownloader.getCachedImage(imageURL: accessoryURL) {
             self.accessoryRemoteImage.value = image
         }
 
         Task {
             
             if let url = transaction.largeIcon.url {
-                self.remoteImage.value = try? await self.transactionManager.getImage(imageURL: url)
+                self.remoteImage.value = try? await self.imageDownloader.getImage(imageURL: url)
             }
 
             if let smallIcon = transaction.smallIcon.url {
-                self.accessoryRemoteImage.value = try? await self.transactionManager.getImage(imageURL: smallIcon)
+                self.accessoryRemoteImage.value = try? await self.imageDownloader.getImage(imageURL: smallIcon)
             }
         }
 

@@ -18,7 +18,7 @@ class TransactionListCellViewModel: TransactionListCellViewModelInterface {
     private let model: TransactionModel
 
     /// manager
-    private let manager: TransactionManagerInterface
+    private let imageDownloader: ImageDownloaderServiceInterface
 
     // MARK: Public properties
 
@@ -44,10 +44,10 @@ class TransactionListCellViewModel: TransactionListCellViewModelInterface {
     /// - Parameters:
     ///   - model: Transaction model to disply
     ///   - manager: manager
-    init(model: TransactionModel, manager: TransactionManagerInterface) {
+    init(model: TransactionModel, imageDownloader: ImageDownloaderServiceInterface) {
         self.model = model
         self.title = model.name
-        self.manager = manager
+        self.imageDownloader = imageDownloader
 
         if let message = model.message {
             self.subTitle = "\(DateFormatter.shortDateFormatter.string(from: model.date))・\(message)"
@@ -59,7 +59,7 @@ class TransactionListCellViewModel: TransactionListCellViewModelInterface {
 
         self.priceIsPositive = model.amount.value > 0
 
-        self.imageViewModel = TransactionImageViewModel(transaction: model, manager: manager)
+        self.imageViewModel = TransactionImageViewModel(transaction: model, imageDownloader: imageDownloader)
     }
 
 }

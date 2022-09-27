@@ -80,6 +80,7 @@ class TransactionListTableViewManager: NSObject {
         self.tableView.delegate = self
         self.tableView.rowHeight = 72
         self.tableView.sectionHeaderTopPadding = 0
+        self.tableView.isAccessibilityElement = false
         self.tableView.accessibilityIdentifier = "Transaction List"
         self.tableView.showsVerticalScrollIndicator = false
     }

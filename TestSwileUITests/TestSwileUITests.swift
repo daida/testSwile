@@ -14,23 +14,26 @@ final class TestSwileUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         XCTAssert(app.tables.matching(identifier: "Transaction List").element.exists)
-        XCTAssert(app.otherElements.matching(identifier: "Cell Image").element.exists)
-        XCTAssert(app.staticTexts.matching(identifier: "Cell Title").element.exists)
-        XCTAssert(app.staticTexts.matching(identifier: "Cell SubTitle").element.exists)
+
+        XCTAssert(app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .staticText).matching(identifier: "Cell Title").element.exists)
+
+        XCTAssert(app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .staticText).matching(identifier: "Cell SubTitle").element.exists)
+
+
+        XCTAssert(app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .other).matching(identifier: "Cell Image").element.exists)
         
     }
 
 
     func testOpenDetail() throws {
+
         let app = XCUIApplication()
         app.launch()
 
-        let tablesQuery = app.tables.matching(identifier: "Transaction List")
         XCTAssert(app.tables.matching(identifier: "Transaction List").element.exists)
 
-        tablesQuery.children(matching: .cell).element(boundBy: 3).tap()
+        app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .other).element(boundBy: 0).tap()
 
-        _ = app.otherElements.matching(identifier: "Transaction Detail").element.waitForExistence(timeout: 10)
         XCTAssert(app.otherElements.matching(identifier: "Transaction Detail").element.exists)
         XCTAssert(app.otherElements.matching(identifier: "Detail Titre Resto").element.exists)
         XCTAssert(app.otherElements.matching(identifier: "Detail Addition share").element.exists)
@@ -42,6 +45,7 @@ final class TestSwileUITests: XCTestCase {
         XCTAssert(app.staticTexts.matching(identifier: "Detail Date").element.exists)
 
         app.buttons.matching(identifier: "Back Button").element.tap()
-        _ = tablesQuery.element.waitForExistence(timeout: 10)
+
+        XCTAssert(app.tables.matching(identifier: "Transaction List").element.exists)
     }
 }

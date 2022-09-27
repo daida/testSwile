@@ -52,6 +52,11 @@
 		A179E8D328E0C36F00D68762 /* TestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */; };
 		A179E8D528E1970A00D68762 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A179E8D428E1970A00D68762 /* Launch Screen.storyboard */; };
 		A195E78828E1F5D200300214 /* AccessoryImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195E78728E1F5D200300214 /* AccessoryImageView.swift */; };
+		A195E78B28E2E6B600300214 /* ImageDownloaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195E78A28E2E6B600300214 /* ImageDownloaderService.swift */; };
+		A195E78D28E2EF4800300214 /* ImageDownloaderServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195E78C28E2EF4800300214 /* ImageDownloaderServiceMock.swift */; };
+		A195E78F28E2F15900300214 /* TestImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195E78E28E2F15900300214 /* TestImageDownloader.swift */; };
+		A195E79128E2F23B00300214 /* mockImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A195E79028E2F23B00300214 /* mockImage.jpg */; };
+		A195E79228E2F38300300214 /* mockImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A195E79028E2F23B00300214 /* mockImage.jpg */; };
 		A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E128DDB44B0061D73C /* TransactionImageView.swift */; };
 		A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */; };
 		A1D989E928DDE0210061D73C /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E828DDE0210061D73C /* PriceView.swift */; };
@@ -137,6 +142,10 @@
 		A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetailViewModel.swift; sourceTree = "<group>"; };
 		A179E8D428E1970A00D68762 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		A195E78728E1F5D200300214 /* AccessoryImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryImageView.swift; sourceTree = "<group>"; };
+		A195E78A28E2E6B600300214 /* ImageDownloaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderService.swift; sourceTree = "<group>"; };
+		A195E78C28E2EF4800300214 /* ImageDownloaderServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderServiceMock.swift; sourceTree = "<group>"; };
+		A195E78E28E2F15900300214 /* TestImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageDownloader.swift; sourceTree = "<group>"; };
+		A195E79028E2F23B00300214 /* mockImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mockImage.jpg; sourceTree = "<group>"; };
 		A1D989E128DDB44B0061D73C /* TransactionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageView.swift; sourceTree = "<group>"; };
 		A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageViewModel.swift; sourceTree = "<group>"; };
 		A1D989E828DDE0210061D73C /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
@@ -228,6 +237,7 @@
 				A12283FD28E0AD40005AF079 /* TestListViewModel.swift */,
 				A12283FF28E0BAD7005AF079 /* TestCellViewModel.swift */,
 				A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */,
+				A195E78E28E2F15900300214 /* TestImageDownloader.swift */,
 			);
 			path = TestSwileTests;
 			sourceTree = "<group>";
@@ -287,6 +297,7 @@
 		A10EEBE828DB08CA00DCA882 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				A195E78928E2E69E00300214 /* ImageDownloaderService */,
 				A10EEBF228DB354900DCA882 /* TransactionManager */,
 				A10EEBF128DB353200DCA882 /* APIService */,
 			);
@@ -342,6 +353,7 @@
 			children = (
 				A12283EE28E08DFF005AF079 /* APIMockManager.swift */,
 				A12283FB28E0AA0D005AF079 /* InternetCheckerMock.swift */,
+				A195E78C28E2EF4800300214 /* ImageDownloaderServiceMock.swift */,
 			);
 			path = APIMock;
 			sourceTree = "<group>";
@@ -349,6 +361,7 @@
 		A12283F028E08EC1005AF079 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
+				A195E79028E2F23B00300214 /* mockImage.jpg */,
 				A1D989F128DE27610061D73C /* Font */,
 				A12283F128E08ED9005AF079 /* mock.json */,
 				A179E8D428E1970A00D68762 /* Launch Screen.storyboard */,
@@ -384,6 +397,14 @@
 				A195E78728E1F5D200300214 /* AccessoryImageView.swift */,
 			);
 			path = TransactionImageView;
+			sourceTree = "<group>";
+		};
+		A195E78928E2E69E00300214 /* ImageDownloaderService */ = {
+			isa = PBXGroup;
+			children = (
+				A195E78A28E2E6B600300214 /* ImageDownloaderService.swift */,
+			);
+			path = ImageDownloaderService;
 			sourceTree = "<group>";
 		};
 		A1D989EA28DE19FE0061D73C /* AlertView */ = {
@@ -538,6 +559,7 @@
 				A1D989F528DE2B070061D73C /* Segma-Bold.otf in Resources */,
 				A179E8D528E1970A00D68762 /* Launch Screen.storyboard in Resources */,
 				A12283F228E08ED9005AF079 /* mock.json in Resources */,
+				A195E79128E2F23B00300214 /* mockImage.jpg in Resources */,
 				A12283E928E08753005AF079 /* Localizable.strings in Resources */,
 				A1D989F728DE2B0C0061D73C /* Segma-SemiBoldItalic.otf in Resources */,
 				A1D989F628DE2B0A0061D73C /* Segma-Medium.otf in Resources */,
@@ -549,6 +571,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A195E79228E2F38300300214 /* mockImage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +592,7 @@
 				A1D989F028DE1F420061D73C /* SWKit.swift in Sources */,
 				A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */,
 				A156F58428DC81A80005145D /* MonthCell.swift in Sources */,
+				A195E78D28E2EF4800300214 /* ImageDownloaderServiceMock.swift in Sources */,
 				A13AEA2228DF409A00E4E8F8 /* NumberFormatter.swift in Sources */,
 				A10EEBF528DB35BA00DCA882 /* TransactionModel.swift in Sources */,
 				A10EEBD828DB062500DCA882 /* Coordinator.swift in Sources */,
@@ -576,6 +600,7 @@
 				A10EEBE228DB068C00DCA882 /* TransactionListViewModel.swift in Sources */,
 				A14E34E428DF605F005DC65F /* DetailActionView.swift in Sources */,
 				A1D989E928DDE0210061D73C /* PriceView.swift in Sources */,
+				A195E78B28E2E6B600300214 /* ImageDownloaderService.swift in Sources */,
 				A12283E128E053AD005AF079 /* SWLabel.swift in Sources */,
 				A1EB3B7228DB413400BC9477 /* TransactionListCellViewModel.swift in Sources */,
 				A12283FC28E0AA0D005AF079 /* InternetCheckerMock.swift in Sources */,
@@ -622,6 +647,7 @@
 				A179E8D328E0C36F00D68762 /* TestDetailViewModel.swift in Sources */,
 				A12283FE28E0AD40005AF079 /* TestListViewModel.swift in Sources */,
 				A12283F628E0A660005AF079 /* TestRequestFactory.swift in Sources */,
+				A195E78F28E2F15900300214 /* TestImageDownloader.swift in Sources */,
 				A10EEBBC28DB04DF00DCA882 /* TestTransactionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

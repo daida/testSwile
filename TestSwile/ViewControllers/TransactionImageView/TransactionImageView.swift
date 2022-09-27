@@ -283,7 +283,7 @@ class TransactionImageView: UIView {
 
     // MARK: Init
 
-    /// Init
+    /// TransactionImageView init
     init() {
         super.init(frame: .zero)
         self.setup()

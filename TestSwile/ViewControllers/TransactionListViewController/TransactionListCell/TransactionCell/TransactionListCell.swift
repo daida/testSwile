@@ -108,6 +108,9 @@ class TransactionListCell: UITableViewCell {
         self.titleLabel.accessibilityIdentifier = "Cell Title"
         self.subTitleLabel.accessibilityIdentifier = "Cell SubTitle"
 
+        self.accessibilityIdentifier = "Transaction cell"
+        self.isAccessibilityElement = false
+
         self.addSubview(self.textView)
 
         self.addSubview(self.transactionImageView)

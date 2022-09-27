@@ -15,12 +15,13 @@ final class TestDetailViewModel: XCTestCase {
     func testDetailViewModel() async {
         let apiManager = APIMockManager()
         let manager = TransactionManager(apiService: apiManager)
+        let imageDownloader = ImageDownloaderServiceMock()
         do {
             let transaction = try await manager.getTransactions()
             let delegateFullFill = XCTestExpectation()
             let delegate = DetailDelegateTester(expect: delegateFullFill)
             guard let firstModel = transaction.first else { fatalError() }
-            let detailViewModel = TransactionDetailViewModel(model: firstModel, manager: manager)
+            let detailViewModel = TransactionDetailViewModel(model: firstModel, imageDownloader: imageDownloader)
             detailViewModel.delegate = delegate
             let price = NumberFormatter.formatPrice(price: -0.07, currency: "EUR")
             XCTAssertEqual(detailViewModel.priceTitle, price)

@@ -25,8 +25,10 @@ final class TestListViewModel: XCTestCase {
 
     	let apiManager = APIMockManager()
         let manager = TransactionManager(apiService: apiManager)
+        let imageDownloader = ImageDownloaderServiceMock()
 
-        let listViewModel = TransactionListViewModel(manager: manager)
+        let listViewModel = TransactionListViewModel(manager: manager,
+                                                     imageDownloader: imageDownloader)
 
         listViewModel.shouldDisplaySpinner.receive(on: DispatchQueue.main).sink { shouldDisplaySpinner in
             if shouldDisplaySpinner == true {
@@ -61,8 +63,9 @@ final class TestListViewModel: XCTestCase {
     func testViewDidAppearError() {
         let apiManager = APIMockManager(error: true)
         let manager = TransactionManager(apiService: apiManager)
+        let imageDownloader = ImageDownloaderServiceMock()
 
-        let listViewModel = TransactionListViewModel(manager: manager)
+        let listViewModel = TransactionListViewModel(manager: manager, imageDownloader: imageDownloader)
 
         let alertExpect = XCTestExpectation()
 
@@ -84,8 +87,10 @@ final class TestListViewModel: XCTestCase {
     func testPagination() {
         let apiManager = APIMockManager()
         let manager = TransactionManager(apiService: apiManager)
+        let imageDownloader = ImageDownloaderServiceMock()
 
-        let listViewModel = TransactionListViewModel(manager: manager)
+        let listViewModel = TransactionListViewModel(manager: manager,
+                                                     imageDownloader: imageDownloader)
 
         let paginationExpectation = XCTestExpectation()
 
@@ -113,8 +118,10 @@ final class TestListViewModel: XCTestCase {
 
         let apiManager = APIMockManager()
         let manager = TransactionManager(apiService: apiManager)
+        let imageDownloader = ImageDownloaderServiceMock()
 
-        let listViewModel = TransactionListViewModel(manager: manager)
+        let listViewModel = TransactionListViewModel(manager: manager,
+                                                     imageDownloader: imageDownloader)
         let delegateExpect = XCTestExpectation()
 
         let delegate = ListDelegateObject(expect: delegateExpect)

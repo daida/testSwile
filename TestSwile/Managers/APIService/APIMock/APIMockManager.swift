@@ -34,39 +34,4 @@ class APIMockManager: APIServiceInterface {
         }
         return dest
     }
-
-    /// Get Image Swift Concurrency TASK
-    /// - Parameter imageURL: image URL to retive
-    /// - Returns: Swift Concurrency TASK get raw image task
-    func getImage(imageURL: String) -> Task<Data, Error> {
-        let dest: Task<Data, Error> = Task {
-            if error == true {
-                throw APIServiceError.noInternet
-            }
-            guard let image = UIImage(named: "mockPicture") else {
-                throw APIServiceError.wrongResponse
-            }
-            guard let jpegData =  image.jpegData(compressionQuality: 1.0) else {
-                throw APIServiceError.wrongResponse
-            }
-            return jpegData
-        }
-        return dest
-    }
-
-    /// Get Cached image data
-    /// - Parameter imageURL: cached image URL
-    /// - Returns: Return an image data if the image is cached else an error is throw
-    func getCachedImage(imageURL: String) throws -> Data {
-        if error == true {
-            throw APIServiceError.noInternet
-        }
-        guard let image = UIImage(named: "mockPicture") else {
-            throw APIServiceError.wrongResponse
-        }
-        guard let jpegData =  image.jpegData(compressionQuality: 1.0) else {
-            throw APIServiceError.wrongResponse
-        }
-        return jpegData
-    }
 }

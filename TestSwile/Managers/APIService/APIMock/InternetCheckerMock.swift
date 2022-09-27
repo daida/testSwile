@@ -9,5 +9,10 @@ import Foundation
 
 /// Check if internet is alvailable (mock object will always return false)
 class InternetCheckerMock: InternetCheckerInterface {
-    var isConnected: Bool = false
+
+    init(isConnected: Bool = false) {
+        self.isConnected = isConnected
+    }
+
+    var isConnected: Bool
 }

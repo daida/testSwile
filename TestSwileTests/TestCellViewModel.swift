@@ -18,8 +18,9 @@ final class TestCellViewModel: XCTestCase {
 
         let apiManager = APIMockManager()
         let manager = TransactionManager(apiService: apiManager)
+        let imageDownloader = ImageDownloaderServiceMock()
 
-        let listViewModel = TransactionListViewModel(manager: manager)
+        let listViewModel = TransactionListViewModel(manager: manager,imageDownloader: imageDownloader)
 
         let imageViewModelExpect = XCTestExpectation()
         let remoteImage = XCTestExpectation()
@@ -58,8 +59,9 @@ final class TestCellViewModel: XCTestCase {
     func testCellViewModel() {
         let apiManager = APIMockManager()
         let manager = TransactionManager(apiService: apiManager)
+        let imageDownloader = ImageDownloaderServiceMock()
 
-        let listViewModel = TransactionListViewModel(manager: manager)
+        let listViewModel = TransactionListViewModel(manager: manager, imageDownloader: imageDownloader)
 
         let cellViewModelExpect = XCTestExpectation()
 

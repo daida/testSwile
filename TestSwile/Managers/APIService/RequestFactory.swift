@@ -10,7 +10,7 @@ import Foundation
 // MARK: - RequestFactory
 
 /// Generate request for the APIService
-class RequestFactory: RequestFactoryInterface {
+class RequestFactory: RequestFactoryApiInterface, RequestFactoryImageInterface {
 
     // MARK: Private properties
 
@@ -62,7 +62,11 @@ class RequestFactory: RequestFactoryInterface {
 
 // MARK: - RequestFactoryInterface
 
-protocol RequestFactoryInterface {
+protocol RequestFactoryApiInterface {
     func generateGetTransactionsRequest() -> URLRequest?
+
+}
+
+protocol RequestFactoryImageInterface {
     func generateGetImage(imageURL: String) -> URLRequest?
 }
