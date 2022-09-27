@@ -8,6 +8,7 @@
 import Foundation
 import Network
 
+/// Check if internet is alvailable
 class InternetChecker: InternetCheckerInterface {
 
     // MARK: - Private properties

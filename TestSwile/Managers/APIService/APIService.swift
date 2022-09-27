@@ -60,7 +60,7 @@ class APIService: APIServiceInterface {
 
     /// Get Image Swift Concurrency TASK
     /// - Parameter imageURL: image URL to retive
-    /// - Returns: Swift Concurrency TASK get image task
+    /// - Returns: Swift Concurrency TASK get image raw data task
     func getImage(imageURL: String) -> Task<Data, Error> {
 
         let dest: Task<Data, Error> = Task {
