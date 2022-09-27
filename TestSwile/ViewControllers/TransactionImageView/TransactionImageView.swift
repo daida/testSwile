@@ -27,7 +27,6 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
     private let circleBackgroundView: UIView = {
         let dest = UIView()
         dest.layer.cornerRadius = 23
-        dest.translatesAutoresizingMaskIntoConstraints = false
         dest.layer.borderWidth = 1
         dest.clipsToBounds = true
         return dest
@@ -37,7 +36,6 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
     private let imageView: UIImageView = {
         let dest = UIImageView(frame: .zero)
         dest.contentMode = .scaleAspectFit
-        dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
 
@@ -46,7 +44,6 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
         let dest = UIImageView(frame: .zero)
         dest.contentMode = .scaleAspectFit
         dest.backgroundColor = UIColor.clear
-        dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
 

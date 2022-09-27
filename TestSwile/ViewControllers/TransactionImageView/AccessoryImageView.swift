@@ -23,7 +23,6 @@ class AccessoryImageView: UIView, AccessoryTransactionImageViewAnimatorInterface
         dest.contentMode = .scaleAspectFit
         dest.layer.cornerRadius = 8
         dest.clipsToBounds = true
-        dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
 
