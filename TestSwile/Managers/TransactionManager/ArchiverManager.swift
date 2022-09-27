@@ -7,11 +7,22 @@
 
 import Foundation
 
+// MARK: - ArchiverManager
+
+/// Archvie and retrice Transaction model from the disk
+/// Archive format is JSON
+/// Archive and anarchive opperation are done asynchronously
 class ArchiverManager: ArchiverManagerInterface {
 
+    // MARK: Private properties
+
+    /// JSON decoder will be user to encode model to JSON format
     private let jsonEncoder: JSONEncoder
+
+    // JSON decoder will be used to decode model from JSON format
     private let jsonDecoder: JSONDecoder
 
+    /// Describe the archive directory
     private let archivePath: URL? = {
             try? FileManager.default.url(for: .documentDirectory,
                                          in: .userDomainMask,
@@ -19,11 +30,13 @@ class ArchiverManager: ArchiverManagerInterface {
                                          create: true).appendingPathComponent("transactions")
         }()
 
+    /// Describe the archive file paths
     private var archivefilePath: URL? {
            guard let folderPath = archivePath else { return nil }
            return folderPath.appendingPathComponent("transactions.json")
        }
 
+    /// Create archive directory if it doesn't exist
     private func createDirecoryIfNoPresent() {
 
             guard let archivePath = self.archivePath else { return }
@@ -33,6 +46,12 @@ class ArchiverManager: ArchiverManagerInterface {
             }
         }
 
+    // MARK: Init
+
+    /// Init the archiver with a JSONEncoder to persist models and jsonDecoder to retive models from the disk
+    /// - Parameters:
+    ///   - jsonEconder: JSON decoder will be user to encode model to JSON format
+    ///   - jsonDecoder: JSON decoder will be used to decode model from JSON format
     init(jsonEconder: JSONEncoder? = nil, jsonDecoder: JSONDecoder? = nil) {
         if let jsonEconder = jsonEconder {
             self.jsonEncoder = jsonEconder
@@ -49,7 +68,10 @@ class ArchiverManager: ArchiverManagerInterface {
         self.createDirecoryIfNoPresent()
     }
 
+    // MARK: Private methods
 
+    /// Archive transaction models to the disk
+    /// - Parameter transactions: Transaction model array to persist
     func archiveTransaction(transactions: [TransactionModel]) async throws {
 
         Task {
@@ -67,6 +89,8 @@ class ArchiverManager: ArchiverManagerInterface {
         }
     }
 
+    /// Retrive transaction from the disk
+    /// - Returns: stored transaction  model array
     func retriveTransaction() async throws -> [TransactionModel] {
         try await Task {
             guard let url = self.archivefilePath else {
@@ -82,11 +106,14 @@ class ArchiverManager: ArchiverManagerInterface {
 
 }
 
+// MARK: - ArchiverManagerError
+
 enum ArchiverManagerError: Error {
     case archiverError(Error?)
     case unarchiveError(Error?)
 }
 
+// MARK: - ArchiverManagerInterface
 
 protocol ArchiverManagerInterface {
     func archiveTransaction(transactions: [TransactionModel]) async throws 

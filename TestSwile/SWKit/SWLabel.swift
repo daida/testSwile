@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 extension SWKit {
-    
+
+    // MARK: - SWLabel
+
+    /// App Label Can be used with 5 different styles
+    /// Each will set font and color
     class SWLabel: UILabel {
 
         private let style: Style

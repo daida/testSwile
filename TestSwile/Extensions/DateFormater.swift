@@ -7,6 +7,10 @@
 
 import Foundation
 
+// MARK: - DateFormatter
+
+// Date formater are ressource consuming, it's better to create it once and reuse it.
+
 extension DateFormatter {
 
     static let isoFormater: ISO8601DateFormatter = {

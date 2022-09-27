@@ -51,6 +51,7 @@
 		A156F58428DC81A80005145D /* MonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A156F58328DC81A80005145D /* MonthCell.swift */; };
 		A179E8D328E0C36F00D68762 /* TestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */; };
 		A179E8D528E1970A00D68762 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A179E8D428E1970A00D68762 /* Launch Screen.storyboard */; };
+		A195E78828E1F5D200300214 /* AccessoryImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195E78728E1F5D200300214 /* AccessoryImageView.swift */; };
 		A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E128DDB44B0061D73C /* TransactionImageView.swift */; };
 		A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */; };
 		A1D989E928DDE0210061D73C /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E828DDE0210061D73C /* PriceView.swift */; };
@@ -135,6 +136,7 @@
 		A156F58328DC81A80005145D /* MonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCell.swift; sourceTree = "<group>"; };
 		A179E8D228E0C36F00D68762 /* TestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDetailViewModel.swift; sourceTree = "<group>"; };
 		A179E8D428E1970A00D68762 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		A195E78728E1F5D200300214 /* AccessoryImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryImageView.swift; sourceTree = "<group>"; };
 		A1D989E128DDB44B0061D73C /* TransactionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageView.swift; sourceTree = "<group>"; };
 		A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageViewModel.swift; sourceTree = "<group>"; };
 		A1D989E828DDE0210061D73C /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		A10EEBDD28DB066700DCA882 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A195E78628E1E23000300214 /* TransactionImageView */,
 				A10EEBE328DB06CA00DCA882 /* TransactionDetailViewController */,
 				A10EEBE028DB067E00DCA882 /* TransactionListViewController */,
 			);
@@ -263,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				A1EB3B6E28DB410600BC9477 /* TransactionListCell */,
+				A156F58328DC81A80005145D /* MonthCell.swift */,
 				A10EEBDE28DB067800DCA882 /* TransactionListViewController.swift */,
 				A10EEBE128DB068C00DCA882 /* TransactionListViewModel.swift */,
 				A1EB3B7828DB6BC300BC9477 /* TransactionListTableViewManager.swift */,
@@ -365,17 +369,19 @@
 		A156F58228DC81950005145D /* TransactionCell */ = {
 			isa = PBXGroup;
 			children = (
+				A1D989E828DDE0210061D73C /* PriceView.swift */,
 				A1EB3B6F28DB412700BC9477 /* TransactionListCell.swift */,
 				A1EB3B7128DB413400BC9477 /* TransactionListCellViewModel.swift */,
 			);
 			path = TransactionCell;
 			sourceTree = "<group>";
 		};
-		A1D989E328DDB4500061D73C /* TransactionImageView */ = {
+		A195E78628E1E23000300214 /* TransactionImageView */ = {
 			isa = PBXGroup;
 			children = (
 				A1D989E128DDB44B0061D73C /* TransactionImageView.swift */,
 				A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */,
+				A195E78728E1F5D200300214 /* AccessoryImageView.swift */,
 			);
 			path = TransactionImageView;
 			sourceTree = "<group>";
@@ -403,10 +409,7 @@
 		A1EB3B6E28DB410600BC9477 /* TransactionListCell */ = {
 			isa = PBXGroup;
 			children = (
-				A1D989E328DDB4500061D73C /* TransactionImageView */,
 				A156F58228DC81950005145D /* TransactionCell */,
-				A156F58328DC81A80005145D /* MonthCell.swift */,
-				A1D989E828DDE0210061D73C /* PriceView.swift */,
 			);
 			path = TransactionListCell;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				A14E34E128DF521D005DC65F /* String.swift in Sources */,
 				A1EB3B7528DB44D200BC9477 /* DateFormater.swift in Sources */,
 				A10EEBF928DB35E000DCA882 /* CurencyModel.swift in Sources */,
+				A195E78828E1F5D200300214 /* AccessoryImageView.swift in Sources */,
 				A12283EF28E08DFF005AF079 /* APIMockManager.swift in Sources */,
 				A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */,
 				A12283DD28E05348005AF079 /* SWKitColor.swift in Sources */,

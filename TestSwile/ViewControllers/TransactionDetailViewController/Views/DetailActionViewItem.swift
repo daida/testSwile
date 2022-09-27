@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 
+// MARK: - DetailActionViewItem
+
+/// Display individual action view
 class DetailActionViewItem: UIView {
 
+    /// Action Title view display a static label switch account
     private let actionTitle:SWKit.SWLabel = {
         let dest = SWKit.SWLabel(style: .actionTitle)
         dest.text = NSLocalizedString("detail.swich_account", comment: "")
@@ -18,6 +22,7 @@ class DetailActionViewItem: UIView {
         return dest
     }()
 
+    /// Display a circle background behind the imageView
     private let backGroundImageView: UIView = {
         let dest = UIView()
         dest.layer.cornerRadius = 12
@@ -25,23 +30,28 @@ class DetailActionViewItem: UIView {
         return dest
     }()
 
+    /// Display a line of 1 pixel at the bottom of the view
     private let separatorView: UIView = {
         let dest = UIView()
         dest.backgroundColor = SWKit.Colors.disabledColor
         return dest
     }()
 
+    /// Dislay the action logo view
     private let imageView: UIImageView = {
         let dest = UIImageView()
         dest.contentMode = .scaleAspectFit
         return dest
     }()
 
+    /// Display Action title
     private let title = SWKit.SWLabel(style: .title)
 
+    /// Store the action mode
     private let mode: Mode
 
-    func setupLayout() {
+    /// Setup view layout
+    private func setupLayout() {
 
         self.snp.makeConstraints { make in
             if self.mode.shouldDisplaySeparator == true {
@@ -83,7 +93,8 @@ class DetailActionViewItem: UIView {
 
     }
 
-    func setupView() {
+    /// Setup view hierarchy
+    private func setupView() {
         self.addSubview(self.backGroundImageView)
         self.backGroundImageView.addSubview(self.imageView)
         self.addSubview(self.title)
@@ -91,22 +102,26 @@ class DetailActionViewItem: UIView {
         self.addSubview(self.actionTitle)
     }
 
-    func setupModel() {
+    /// Setup viewModel
+    private func setupModel() {
         self.title.text = mode.text
         self.backGroundImageView.backgroundColor = mode.imageBackgroundColor
         self.backGroundImageView.layer.borderColor = mode.imageBackgroundBorderColor.cgColor
         self.imageView.image = mode.icon
         self.separatorView.isHidden = !mode.shouldDisplaySeparator
         self.actionTitle.isHidden = !mode.shouldDisplayAccountSwitch
-    }
-
-    func setup() {
-        self.setupView()
-        self.setupLayout()
-        self.setupModel()
         self.accessibilityIdentifier = self.mode.identifier
     }
 
+    /// Setup view hierarchy view model, and layout
+    private func setup() {
+        self.setupView()
+        self.setupLayout()
+        self.setupModel()
+    }
+
+    /// DetailActionViewItem
+    /// - Parameter mode: action mode to display (titreResto, additionShare, like, reportAProblem)
     init(mode: Mode) {
         self.mode = mode
         super.init(frame: .zero)
@@ -117,11 +132,13 @@ class DetailActionViewItem: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-
 }
+
+// MARK: - DetailActionViewItem
 
 extension DetailActionViewItem {
 
+    /// Describe Action
     enum Mode: CaseIterable {
 
         case titreResto
@@ -129,6 +146,7 @@ extension DetailActionViewItem {
         case like
         case reportAProblem
 
+        /// Describe the action image background color
         var imageBackgroundColor: UIColor {
             switch self {
             case .titreResto: return SWKit.Colors.mealVocherColor
@@ -138,6 +156,7 @@ extension DetailActionViewItem {
             }
         }
 
+        /// Describe the action image border color
         var imageBackgroundBorderColor: UIColor {
             switch self {
             case .titreResto: return SWKit.Colors.mealVocherBorderColor
@@ -147,6 +166,7 @@ extension DetailActionViewItem {
             }
         }
 
+        /// Describe the accessibility identifier for each action
         var identifier: String {
             switch self {
             case .titreResto: return "Detail Titre Resto"
@@ -157,6 +177,7 @@ extension DetailActionViewItem {
         }
         
 
+        /// Describe action image
         var icon: UIImage? {
             switch self {
             case .titreResto: return UIImage(named: "meal_voucher")
@@ -166,6 +187,7 @@ extension DetailActionViewItem {
             }
         }
 
+        /// Describe text image
         var text: String {
             switch self {
             case .titreResto: return NSLocalizedString("detail.titre_resto", comment: "")
@@ -175,6 +197,7 @@ extension DetailActionViewItem {
             }
         }
 
+        /// Describe if the static label switch account should be displayed
         var shouldDisplayAccountSwitch: Bool {
             switch self {
             case .titreResto: return true
@@ -184,6 +207,7 @@ extension DetailActionViewItem {
             }
         }
 
+        /// Describe if a separator should be dispalyed
         var shouldDisplaySeparator: Bool {
             switch self {
             case .titreResto: return true

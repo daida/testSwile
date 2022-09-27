@@ -7,7 +7,14 @@
 
 import Foundation
 
+// MARK: - AmountModel
+
+/// Describe the model amount with the value and the currency
 struct AmountModel: Codable {
+
+    /// Amount value
     let value: Float
+
+    /// Amount currency
     let currency: CurencyModel
 }

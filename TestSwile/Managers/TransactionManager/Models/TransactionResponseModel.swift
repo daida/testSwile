@@ -7,6 +7,12 @@
 
 import Foundation
 
+// MARK: - TransactionResponseModel
+
+/// Transaction Response model, contain an array of TransactionModel
 struct TransactionResponseModel: Codable {
+
+    /// Array of Transaction Model
     let transactions: [TransactionModel]
+
 }

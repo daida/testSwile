@@ -8,19 +8,39 @@
 import Foundation
 import UIKit
 
+// MARK: - TransactionListTableViewManager
+
+/// Handle TransactionListViewController tableView
 class TransactionListTableViewManager: NSObject {
 
+    // MARK: Private properties
+
+    /// Transaction listViewModel return cell viewModel and handle user interaction
     private let viewModel: TransactionListViewModelInterface
 
+    /// Transaction list tableView
     private let tableView: UITableView
 
+    // MARK: Public properties
 
+    /// Transaction ImageView frame (used fo animated transition)
+    /// This frame is in tableView corrdinate
     var imageViewFrame: CGRect?
+
+    /// TransactionImageView to animate (corresponding to user selection)
+    /// This is a copy from the imageView selected cell
     var viewToAnimate: TransactionImageView?
 
+    /// Store the user selected cell
     var lastSelectedCell: TransactionListCell?
 
+    // MARK: Init
 
+    /// TransactionListTableViewManager init
+    /// - Parameters:
+    ///   - viewModel: Transaction listViewModel return cell viewModel
+    ///   and handle user selection
+    ///   - tableView: TransactionList tableView
     init(viewModel: TransactionListViewModelInterface, tableView: UITableView) {
         self.viewModel = viewModel
         self.tableView = tableView
@@ -28,19 +48,28 @@ class TransactionListTableViewManager: NSObject {
         self.setupTableView()
     }
 
+    // MARK: Public methods
+
+    /// Reveal the last selected cell (used in the animated transition)
     func revealHiddenCell() {
         self.lastSelectedCell?.revealImageView()
         self.lastSelectedCell = nil
     }
 
+    /// Hide the user selected cell (used in the animated transition)
     func hideAnimatedImage() {
         self.lastSelectedCell?.hideImageView()
     }
 
+    /// Hide everything but the image in the selected cell imageView
+    /// hide background and accessoryview (right small image)
     func halfReveal() {
         self.lastSelectedCell?.halfRevealImageView()
     }
 
+    // MARK: Private methods
+
+    /// Register cell, set dataSource and delegat and configure the TableView
     private func setupTableView() {
         self.tableView.separatorStyle = .none
         self.tableView.register(TransactionListCell.self, forCellReuseIdentifier: TransactionListCell.identifier)
@@ -52,8 +81,11 @@ class TransactionListTableViewManager: NSObject {
         self.tableView.rowHeight = 72
         self.tableView.sectionHeaderTopPadding = 0
         self.tableView.accessibilityIdentifier = "Transaction List"
+        self.tableView.showsVerticalScrollIndicator = false
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension TransactionListTableViewManager: UITableViewDataSource {
 
@@ -77,6 +109,8 @@ extension TransactionListTableViewManager: UITableViewDataSource {
     }
 
 }
+
+// MARK: - UITableViewDelegate
 
 extension TransactionListTableViewManager: UITableViewDelegate {
 

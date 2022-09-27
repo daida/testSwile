@@ -9,17 +9,31 @@ import Foundation
 import UIKit
 import Combine
 
+// MARK: - TransactionListViewController
+
+/// Display all transaction in a scrollable list
 class TransactionListViewController: UIViewController {
 
+    // MARK: Private properties
+
+    /// Handle user interaction and describe how to display the viewController
     private let viewModel: TransactionListViewModelInterface
+
+    /// Handle tableView opperation (registerCell, dataSource and delegate)
     private let tableViewManager: TransactionListTableViewManager
 
+    /// Store cancellables from viewModel Combien observable property (CurrentValueSubject)
     private var cancellables = Set<AnyCancellable>()
 
+    /// Transaction list tableView
     private let tableView = UITableView()
 
+    /// This spinner view is displayed during the data request
     private let spinner = UIActivityIndicatorView()
 
+    // MARK: Public properties
+
+    /// Return the selected transaction image rect in TransactionListViewController coordinate
     var imageViewFrame: CGRect? {
         if let imagFrame = self.tableViewManager.imageViewFrame {
     		let dest = self.tableView.convert(imagFrame, to: self.view)            
@@ -29,14 +43,20 @@ class TransactionListViewController: UIViewController {
         }
     }
 
+    /// Return the view to animate during the transition animation
     var viewToAnimate: TransactionImageView? {
         return self.tableViewManager.viewToAnimate
     }
 
+    /// Hide the selected transaction image
     func hideAnimatedImage() {
         self.tableViewManager.hideAnimatedImage()
     }
 
+	// MARK: Init
+
+    /// TransactionListViewController init
+    /// - Parameter viewModel: Handle user interaction and describe how to display the viewController
     init(viewModel: TransactionListViewModelInterface) {
         self.viewModel = viewModel
         self.tableViewManager = TransactionListTableViewManager(viewModel: self.viewModel,
@@ -45,24 +65,24 @@ class TransactionListViewController: UIViewController {
         self.setup()
     }
 
-    func setupView() {
-      //  self.view.addSubview(self.titleLabel)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Private methods
+
+    /// Setup view hierarchy
+    private func setupView() {
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.spinner)
     }
 
-    func setupLayout() {
-
-//        self.titleLabel.snp.makeConstraints { make in
-//            make.top.equalTo(self.view).offset(63)
-//            make.leading.equalTo(self.view).offset(20)
-//        }
+    /// Setup layout
+    private func setupLayout() {
 
         self.tableView.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide)
-
-//            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.top.equalTo(self.view)
             make.bottom.equalTo(self.view.snp.bottom)
         }
@@ -72,12 +92,10 @@ class TransactionListViewController: UIViewController {
         }
     }
 
-
-    func revealHiddenCell() {
-        self.tableViewManager.revealHiddenCell()
-    }
-
-    func setupViewModel() {
+    /// Setup view model subscribe to viewModel observable property
+    /// All observable property are subscribe on the DispatchQue Main
+    /// in order to perform UI modification
+    private func setupViewModel() {
         
         self.viewModel.shouldReloadList.receive(on: DispatchQueue.main).sink { [weak self] shoulReloadList in
             guard let self = self else { return }
@@ -117,13 +135,23 @@ class TransactionListViewController: UIViewController {
 
     }
 
-    func setup() {
+    /// Setup view hierarchy, layout, viewModel, and set the navigationControllet title
+    private func setup() {
         self.setupView()
         self.setupLayout()
         self.setupViewModel()
         self.view.backgroundColor = SWKit.Colors.backgroundColor
         self.title = NSLocalizedString("list.title", comment: "")
     }
+
+    // MARK: Public methods
+
+    /// Reveal the selected transaction image (used during the transition animation)
+    func revealHiddenCell() {
+        self.tableViewManager.revealHiddenCell()
+    }
+
+    // MARK: UIViewController override
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -132,10 +160,6 @@ class TransactionListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
 }

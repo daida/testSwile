@@ -7,12 +7,26 @@
 
 import Foundation
 
+// MARK: - APIService
+
+/// Communicate with the End Point API
+/// Return Transaction model and image data
+/// This manager return RAW data (this manager will not do model or image parsing)
 class APIService: APIServiceInterface {
+
+    // MARK: Private properties
 
     private let requestFactory: RequestFactoryInterface
     private let internetChecker: InternetCheckerInterface
     private let urlSession: URLSession
 
+    // MARK: Init
+
+    /// APIService init
+    /// - Parameters:
+    ///   - urlSession: URLSession can be injected be a default is provided
+    ///   - requestFactory: Generate request for all API call
+    ///   - internetChecker: check if the internet is reachable
     init(urlSession: URLSession? = nil,
          requestFactory: RequestFactoryInterface,
          internetChecker: InternetCheckerInterface) {
@@ -28,6 +42,11 @@ class APIService: APIServiceInterface {
         self.internetChecker = internetChecker
     }
 
+    // MARK: Public properties
+
+    /// Get Cached image
+    /// - Parameter imageURL: cached image URL
+    /// - Returns: return an image if the image is cached else an error is throw
      func getCachedImage(imageURL: String) throws -> Data  {
         guard let imageRequest = self.requestFactory.generateGetImage(imageURL: imageURL) else {
             throw APIServiceError.wrongRequest
@@ -39,13 +58,16 @@ class APIService: APIServiceInterface {
          }
     }
 
+    /// Get Image Swift Concurrency TASK
+    /// - Parameter imageURL: image URL to retive
+    /// - Returns: Swift Concurrency TASK get image task
     func getImage(imageURL: String) -> Task<Data, Error> {
+
         let dest: Task<Data, Error> = Task {
 
             guard let imageRequest = self.requestFactory.generateGetImage(imageURL: imageURL) else {
                 throw APIServiceError.wrongRequest
             }
-
 
             guard self.internetChecker.isConnected == true else {
 
@@ -56,18 +78,19 @@ class APIService: APIServiceInterface {
                 }
             }
 
-
             do {
                 return try await self.urlSession.data(for: imageRequest).0
             } catch {
                 throw APIServiceError.apiError(error: error)
             }
-
-
         }
+
         return dest
     }
 
+    /// Get Transactions Swift Concurrency TASK
+    /// This task will return raw data
+    /// - Returns: Transactions Swift Concurrency TASK
     func getTransactions() -> Task<Data, Error> {
 
         let dest: Task<Data, Error> = Task {
@@ -104,11 +127,15 @@ class APIService: APIServiceInterface {
 
 }
 
+// MARK: - APIServiceInterface
+
 protocol APIServiceInterface {
     func getTransactions() -> Task<Data, Error>
     func getImage(imageURL: String) -> Task<Data, Error>
     func getCachedImage(imageURL: String) throws -> Data
 }
+
+// MARK: - APIServiceError
 
 enum APIServiceError: Error {
     case noInternet

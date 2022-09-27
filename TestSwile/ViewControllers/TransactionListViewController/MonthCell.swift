@@ -9,42 +9,55 @@ import Foundation
 import UIKit
 import SnapKit
 
+// MARK: - MonthViewCell
+
+/// Display month information, used as section cell
 class MonthViewCell: UITableViewHeaderFooterView {
 
-    static let identifier = "MonthViewCell"
+    // MARK: Public properties
 
+    /// Cell reueuse identifier
+    static let identifier = String(describing: MonthViewCell.self)
+
+    // MARK: Private properties
+
+    /// Display month
     private let monthLabel = SWKit.SWLabel(style: .subTitle)
 
-    func setupLayout() {
+    // MARK: Private methods
+
+    /// Setup view layout
+    private func setupLayout() {
         self.monthLabel.snp.makeConstraints { make in
             make.leading.equalTo(self).offset(20)
             make.trailing.equalTo(self)
             make.top.equalTo(self)
             make.bottom.equalTo(self)
         }
-
     }
 
-    func setupView() {
+    /// Setup view  hierarchy
+    private func setupView() {
         self.contentView.addSubview(self.monthLabel)
     }
 
-    func setup() {
+    /// Setup view hierarchy and layout
+    private func setup() {
         self.setupView()
         self.setupLayout()
     }
 
+    // MARK: Init
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         self.setup()
     }
 
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//
-//    }
+    // MARK: Public method
 
+    /// Configure cell (called from the cellForRowAtIndexPath tableView dataSource)
+    /// - Parameter month: month string to display
     func configure(month: String) {
         self.monthLabel.text = month
     }

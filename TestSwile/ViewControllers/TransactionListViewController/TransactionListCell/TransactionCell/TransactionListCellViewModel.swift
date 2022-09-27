@@ -7,17 +7,43 @@
 
 import Foundation
 
+// MARK: - TransactionListCellViewModel
+
+/// Contain transaction display (formated text and imageViewModel) cell information, 
 class TransactionListCellViewModel: TransactionListCellViewModelInterface {
 
+    // MARK: Private properties
+
+    /// Transaction model to display
     private let model: TransactionModel
+
+    /// manager
     private let manager: TransactionManagerInterface
+
+    // MARK: Public properties
+
+    /// Transaction image view model, describe image,
+    /// and style for the main image and the accessory image
     let imageViewModel: TransactionImageViewModelInterface
 
+    /// Transaction name
     let title: String
+
+    /// Transaction subtitle (date + message) 7 Mars ・Don à l'arrondi
     let subTitle: String
+
+    /// Transaction price with the localized currency position and the plus if it's required (+ 15 €)
     let price: String
+
+    /// Describe if the price is positive
     let priceIsPositive: Bool
 
+    // MARK: Init
+
+    /// TransactionListCellViewModel init
+    /// - Parameters:
+    ///   - model: Transaction model to disply
+    ///   - manager: manager
     init(model: TransactionModel, manager: TransactionManagerInterface) {
         self.model = model
         self.title = model.name
@@ -37,6 +63,8 @@ class TransactionListCellViewModel: TransactionListCellViewModelInterface {
     }
 
 }
+
+// MARK: - TransactionListCellViewModelInterface
 
 protocol TransactionListCellViewModelInterface {
     var title: String { get }

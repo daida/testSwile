@@ -7,21 +7,40 @@
 
 import Foundation
 
+// MARK: - TransactionDetailViewModel
+
+/// Describe how to display transaction detail and handle user interaction
 class TransactionDetailViewModel: TransactionDetailViewModelInterface {
 
+    // MARK: Public properties
+
+    /// Describe transaction image
     let imageViewModel: TransactionImageViewModelInterface
 
+    /// Describe the transaction price
     let priceTitle: String
 
+    /// Describe the transaction subtile (transaction name)
     let subTitle: String
 
+    /// Describe the transaction date in a long format (Mardi 23 Fevrier, 09:34)
     let dateTitle: String
 
+    /// ViewModel delegate, the viewModel communicate with the coordinator by this delegate
     weak var delegate: TransactionDetailViewModelDelegate?
 
+    // MARK: Private properties
+
+    /// Transaction model
     private let model: TransactionModel
+
+    /// Transaction manager
     private let manager: TransactionManagerInterface
 
+    /// TransactionDetailViewModel init
+    /// - Parameters:
+    ///   - model: Transaction model to display
+    ///   - manager: Transaction manager
     init(model: TransactionModel, manager: TransactionManagerInterface) {
         self.model = model
         self.manager = manager
@@ -33,15 +52,20 @@ class TransactionDetailViewModel: TransactionDetailViewModelInterface {
         self.imageViewModel = TransactionImageViewModel(transaction: model, manager: self.manager)
     }
 
+    /// This method is called by the viewController when the user did tap on the back button
     func userDidTapOnBackButton() {
         self.delegate?.detailViewModelUserDidTapOnBackButton(self)
     }
     
 }
 
+// MARK: - TransactionDetailViewModelDelegate
+
 protocol TransactionDetailViewModelDelegate: AnyObject {
     func detailViewModelUserDidTapOnBackButton(_ viewModel: TransactionDetailViewModel)
 }
+
+// MARK: - TransactionDetailViewModelInterface
 
 protocol TransactionDetailViewModelInterface {
 

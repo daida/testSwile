@@ -8,8 +8,14 @@
 import Foundation
 import UIKit
 
+// MARK: - DetailActionView
+
+/// Display user Action on the Detail View
 class DetailActionView: UIView {
 
+    // MARK: Private properties
+
+    /// All user action view are stored in this UIStackView
     private let stackView: UIStackView = {
         let dest = UIStackView()
         dest.axis = .vertical
@@ -18,6 +24,7 @@ class DetailActionView: UIView {
         return dest
     }()
 
+    /// Setup View layout
     private func setupLayout() {
         self.stackView.snp.makeConstraints { make in
             make.top.equalTo(self)
@@ -27,11 +34,14 @@ class DetailActionView: UIView {
         }
     }
 
+    /// Setup View hierarchy
     private func setupView() {
-    	self.addSubview(self.stackView)
+        self.addSubview(self.stackView)
     }
 
-	private func setup() {
+    /// setup view layout, hierarchy and populate the stackView
+    /// with Detail action item view
+    private func setup() {
         self.setupView()
         self.setupLayout()
 
@@ -40,6 +50,8 @@ class DetailActionView: UIView {
             .forEach { self.stackView.addArrangedSubview($0) }
 
     }
+
+    // MARK: Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)

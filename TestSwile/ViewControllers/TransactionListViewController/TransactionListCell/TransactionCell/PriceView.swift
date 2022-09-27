@@ -9,8 +9,14 @@ import Foundation
 import UIKit
 import SnapKit
 
+// MARK: PriceView
+
+/// Display transaction price
 class PriceView: UIView {
 
+    // MARK: Private properties
+
+    /// Display the Transaction price
     private let label: SWKit.SWLabel = {
         let dest = SWKit.SWLabel(style: .title)
         dest.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -18,10 +24,14 @@ class PriceView: UIView {
         return dest
     }()
 
-    var leadConstraint: Constraint?
-    var trailingConstraint: Constraint?
+    // Thoses constraints references are store to adapt the
+    // layout when the price is positive
 
-    func setupLayout() {
+    private var leadConstraint: Constraint?
+    private var trailingConstraint: Constraint?
+
+    /// Setup view layout
+    private func setupLayout() {
 
         self.label.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
@@ -36,16 +46,22 @@ class PriceView: UIView {
 
     }
 
-    func setupView() {
+    /// Setup view hierarchy
+    private func setupView() {
         self.addSubview(self.label)
         self.layer.cornerRadius = 9
     }
 
-    func setup() {
+    /// Setup view layout and hierarchy
+    private func setup() {
         self.setupView()
         self.setupLayout()
     }
 
+    /// Configure view with price text and a bool indicate if the price is positive
+    /// - Parameters:
+    ///   - text: price text to display
+    ///   - isPositivePrice: describe if the price is positive
     func configure(text: String, isPositivePrice: Bool) {
         self.label.text = text
 

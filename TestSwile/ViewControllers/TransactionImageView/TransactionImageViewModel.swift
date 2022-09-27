@@ -9,20 +9,45 @@ import Foundation
 import UIKit
 import Combine
 
+// MARK: TransactionImageViewModel
+
+/// TransactionImage ViewModel
 class TransactionImageViewModel: TransactionImageViewModelInterface {
 
+    // MARK: Private properties
+
+    /// Transaction model to display
     private let transaction: TransactionModel
+
+    /// Transaction Manager
     private let transactionManager: TransactionManagerInterface
 
+    // MARK: Public properties
+
+    /// Category image to display in the accessory view
     let acessoryPicto: UIImage?
+
+    // Category image to display
     let picto: UIImage?
 
+    /// Observable image to display (the image will be automaticaly dowloaded)
     let remoteImage = CurrentValueSubject<UIImage?, Never>(nil)
+
+    /// Observable accessory image to display in the accessory view (the image will be automaticaly dowloaded)
     let accessoryRemoteImage = CurrentValueSubject<UIImage?, Never>(nil)
 
+    /// Border color according to the model category
     let borderColor: UIColor
+
+    // BackgroundColor according to the model category
     let backgroundColor: UIColor
 
+    // MARK: Init
+
+    /// TransactionImageViewModel init
+    /// - Parameters:
+    ///   - transaction: Transaction model to display
+    ///   - manager: Transaction Manager
     init(transaction: TransactionModel, manager: TransactionManagerInterface) {
 
         self.transactionManager = manager
@@ -80,13 +105,14 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
 
 }
 
+// MARK: TransactionImageViewModelInterface
+
 protocol TransactionImageViewModelInterface {
 
     var acessoryPicto: UIImage? { get }
     var picto: UIImage? { get }
     var borderColor: UIColor { get }
     var backgroundColor: UIColor { get }
-
 
     var remoteImage: CurrentValueSubject<UIImage?, Never> { get }
     var accessoryRemoteImage: CurrentValueSubject<UIImage?, Never> { get }

@@ -8,15 +8,20 @@
 import Foundation
 import UIKit
 
+// MARK: - CoordinatorFactory
+
 class CoordinatorFactory {
 
-    func generateTransactionCoordinator(navigationController: UINavigationController? = nil,
-                                    transactionManager: TransactionManagerInterface? = nil,
-                                    viewControllerFactory: ViewControllerFactoryInterface? = nil) -> Coordinator {
+    // MARK: Public methods
+
+    func generateTransactionCoordinator(
+	navigationController: UINavigationController? = nil,
+	transactionManager: TransactionManagerInterface? = nil,
+	viewControllerFactory: ViewControllerFactoryInterface? = nil) -> Coordinator {
 
         let manager = transactionManager ?? TransactionManager(apiService:
-                                                        APIService(requestFactory: RequestFactory(),
-                                                                   internetChecker: InternetChecker()), archiverManager: ArchiverManager())
+                                                                	APIService(requestFactory: RequestFactory(),
+                                                                	internetChecker: InternetChecker()), archiverManager: ArchiverManager())
 
         let factory = viewControllerFactory ?? ViewControllerFactory()
 

@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 
-//struct SWKit {}
-
 extension SWKit {
 
+    // MARK: - Colors
+
+    /// App Color
+    /// 
     struct Colors {
 
         static let backgroundColor = UIColor.white

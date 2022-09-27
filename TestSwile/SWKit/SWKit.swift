@@ -8,8 +8,14 @@
 import Foundation
 import UIKit
 
+/// App Design System component
+/// Contain all graphical ressources, label, color, image and buttons.
+///
 struct SWKit {
 
+     // MARK: setup method
+
+    /// This methods setup the naviagtionBar title and large title font and color
     static func setup() {
 
         guard let largeFont = UIFont(name: "Segma-Bold", size: 34),
@@ -30,6 +36,9 @@ struct SWKit {
         UINavigationBar.appearance().largeTitleTextAttributes = largeTitleAttributes
     }
 
+    // MARK: CategoriesIcons
+
+    /// Describe image categoires icons
     enum CategoriesIcons: String {
         case bakery
         case burger
@@ -41,6 +50,7 @@ struct SWKit {
         case sushi
         case train
 
+        /// Return the corresponding UIImage
         var image: UIImage? {
             return UIImage(named: self.rawValue)
         }

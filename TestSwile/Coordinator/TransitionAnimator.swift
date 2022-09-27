@@ -8,15 +8,26 @@
 import Foundation
 import UIKit
 
-class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
-                            UIViewControllerAnimatedTransitioning {
+// MARK: TransitionAnimator
 
-    private let duration = 2.0
+/// This object will animate transition between list to detail animation
+/// and the reverse animation (dissmiss)
+class TransitionAnimator: NSObject {
 
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return self.duration
-    }
+    // MARK: Private properties
 
+    /// From list to detail transition animation duration
+    private let toDetailDuration = 1.8
+
+
+    /// From detail to list transition animation duration
+    private let toListDuration = 1.2
+
+    // MARK: Public methods
+
+    /// Perform the list to detail animation
+    /// - Parameter transitionContext: Contain contenView, from and to viewController
+    /// When the transition is done, completeTransition is called on then context object
     func animateToDetailAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard
             let last = (transitionContext.viewController(forKey: .from) as? UINavigationController)?.viewControllers.last,
@@ -42,7 +53,7 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
 
         let cellGrowSequence = {
             viewToAnimate.enableBigMode()
-            viewToAnimate.frame = toViewController.headerFrame
+            viewToAnimate.frame = toViewController.header.frame
             viewToAnimate.layoutIfNeeded()
             toViewController.view.alpha = 1.0
         }
@@ -53,47 +64,45 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         }
 
         let lastDetailanimation = {
-            toViewController.secoundAnimDone()
+            toViewController.secondAnimDone()
         }
 
         let transitionClosure: (Bool) -> Void = { _ in
-			viewToAnimate.removeFromSuperview()
+            viewToAnimate.removeFromSuperview()
             toViewController.displayHeader()
             transitionContext.completeTransition(true)
         }
 
-        UIView.animateKeyframes(withDuration: 1.8, delay: 0, options: .calculationModeLinear, animations: {
-
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.2, animations: cellGrowSequence)
-
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.2, animations: firstDetailAnimation)
-
-            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.2, animations: lastDetailanimation)
-
+        UIView.animateKeyframes(withDuration: self.toDetailDuration, delay: 0, options: .calculationModeLinear, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.1, animations: cellGrowSequence)
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3, animations: firstDetailAnimation)
+            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.3, animations: lastDetailanimation)
         }, completion: transitionClosure)
 
 
     }
 
+    /// Perform detail to list transition animation
+    /// - Parameter transitionContext: Contain contenView, from and to viewController
+    /// When the transition is done, completeTransition is called on then context object
     func animateToList( transitionContext: UIViewControllerContextTransitioning) {
         guard
             let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionDetailViewController,
             let nav = transitionContext.viewController(forKey: .to) as?
                 UINavigationController,
             let toViewController = nav.viewControllers.last as? TransactionListViewController,
-        let destFrame = toViewController.imageViewFrame,
+            let destFrame = toViewController.imageViewFrame,
             let destCell = toViewController.viewToAnimate
 
         else { return transitionContext.completeTransition(false) }
 
-        let header = fromViewController.headerCopy()
+        let header = fromViewController.generateHeader()
 
-        let accessory = destCell.accessoryView
-
-        let headerAccessoryFrame = destCell.convert(destCell.accessoryView.frame, to: transitionContext.containerView)
-        
+        let accessory = header.generateAccesoryView()
 
         header.layoutIfNeeded()
+
+        let headerAccessoryFrame = header.convert(header.accessoryView.frame, to: transitionContext.containerView)
 
         nav.view.alpha = 0
 
@@ -104,21 +113,32 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
 
         transitionContext.containerView.addSubview(destCell)
 
-        
+        accessory.removeFromSuperview()
+        accessory.snp.removeConstraints()
 
+        transitionContext.containerView.addSubview(accessory)
+        accessory.translatesAutoresizingMaskIntoConstraints = true
+        accessory.disableSizeConstraint()
+        accessory.enableBigMode()
+        accessory.frame = headerAccessoryFrame
+        accessory.layoutIfNeeded()
 
         destCell.frame = destFrame
         destCell.disableBigMode()
         destCell.halfReveal()
         destCell.alpha = 0
-		destCell.layoutIfNeeded()
+        destCell.layoutIfNeeded()
 
         let shrinckCellSequence = {
-                header.disableBigMode()
-                header.frame = destFrame
-                nav.view.alpha = 1.0
-	            destCell.alpha = 1.0
-                header.layoutIfNeeded()
+            accessory.enableSmallMode()
+            header.disableBigMode()
+            header.frame = destFrame
+            nav.view.alpha = 1.0
+            destCell.alpha = 1.0
+            accessory.frame = destCell.convert(destCell.accessoryView.frame,
+                                               to: transitionContext.containerView)
+            header.layoutIfNeeded()
+            accessory.layoutIfNeeded()
         }
 
         let imageAlphaSequence = {
@@ -137,12 +157,26 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         }
 
 
-        UIView.animateKeyframes(withDuration: 1.2, delay: 0, options: .calculationModeLinear, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: hideDetailAnimation)
-            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.05, animations: imageAlphaSequence)
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: shrinckCellSequence)
+        UIView.animateKeyframes(withDuration: self.toListDuration, delay: 0, options: .calculationModeLinear, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.4, animations: hideDetailAnimation)
+            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.05, animations: imageAlphaSequence)
+            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.3, animations: shrinckCellSequence)
         }, completion: completeTransitionClosure)
 
+    }
+
+}
+
+// MARK: - UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning
+
+extension TransitionAnimator: UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+
+        if transitionContext?.viewController(forKey: .from) is UINavigationController {
+            return self.toDetailDuration
+        } else {
+            return self.toListDuration
+        }
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -163,12 +197,5 @@ class TransitionAnimator: NSObject, UIViewControllerTransitioningDelegate,
         return self
     }
 }
-
-extension TransitionAnimator: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return self
-    }
-}
-
 
 

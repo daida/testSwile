@@ -7,8 +7,16 @@
 
 import Foundation
 
+// MARK: NumberFormatter
+
 extension NumberFormatter {
-    
+
+    /// Format a Price string with a currency code
+    /// The method output will depend of the user current locale
+    /// - Parameters:
+    ///   - price: price amount
+    ///   - currency: currency code
+    /// - Returns: formated price str
 	static func formatPrice(price: Float, currency: String) -> String? {
 
         let numberFormater = NumberFormatter()

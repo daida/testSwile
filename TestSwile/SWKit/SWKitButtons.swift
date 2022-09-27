@@ -11,6 +11,10 @@ import UIKit
 extension SWKit {
 
     struct Button {
+
+        // MARK: - SWBackButton
+
+        /// Customized Back button
         class SWBackButton: UIButton {
 
             override init(frame: CGRect) {

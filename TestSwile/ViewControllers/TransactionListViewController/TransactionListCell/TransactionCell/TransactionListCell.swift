@@ -9,38 +9,62 @@ import Foundation
 import UIKit
 import SnapKit
 
+// MARK: - TransactionListCell
+
+/// Display Transaction in a list
 class TransactionListCell: UITableViewCell {
 
-    static let identifier = "TransactionListCell"
+    // MARK: Public property
 
+    /// ReueseIdentifier for the UITableView register
+    static let identifier = String(describing: TransactionListCell.self)
+
+    // MARK: Private property
+
+    /// Cell viewModel describe how to display the transaction
     private var viewModel: TransactionListCellViewModelInterface?
 
+    /// Display transaction name
     private let titleLabel = SWKit.SWLabel(style: .title)
 
+    /// Display transaction date and message
     private let subTitleLabel = SWKit.SWLabel(style: .subTitle)
 
+    /// Display transaction image and accessory image (the small view in the corner)
     private let transactionImageView = TransactionImageView()
 
+    /// Display transaction price
     private let priceView: PriceView = PriceView()
 
+    /// Group title and subtile view in the same view in order to center them more easly
     private let textView = UIView()
 
+    /// Return the transaction image frame, usefull in the transition animation
     var imageViewFrame: CGRect {
         return self.transactionImageView.frame
     }
 
+    // MARK: Public methods
+
+    /// Hide the imageView (usefull in the transition animation)
     func hideImageView() {
         self.transactionImageView.isHidden = true
     }
 
+    /// Reveal the imageView (usefull in the transition animation)
     func revealImageView() {
         self.transactionImageView.revealImage()
     }
 
+    /// Hal reveal image, this method will only display the category image or the remote image and will
+    /// hide background and accessory view
     func halfRevealImageView() {
         self.transactionImageView.halfReveal()
     }
 
+    // MARK: Private methods
+
+    /// Setup view layout
     private func setupLayout() {
 
         self.textView.snp.makeConstraints { make in
@@ -77,6 +101,7 @@ class TransactionListCell: UITableViewCell {
         }
     }
 
+    /// Setup view hierarchy
     private func setupView() {
 
         self.transactionImageView.accessibilityIdentifier = "Cell Image"
@@ -94,18 +119,19 @@ class TransactionListCell: UITableViewCell {
         self.subTitleLabel.lineBreakMode = .byTruncatingTail
     }
 
+    /// Setup view layout and hierarchy
     private func setup() {
         self.setupView()
         self.setupLayout()
     }
 
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+    // MARK: UITableViewCell override methods
 
-    }
+    // Those method are overrided and are empty because we don't want to change cell color on select and highlight
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {}
+    override func setSelected(_ selected: Bool, animated: Bool) {}
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        
-    }
+    // MARK: Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -117,6 +143,10 @@ class TransactionListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Public method
+
+    /// Configure the Transaction cell with cell viewModel
+    /// - Parameter viewModel: Cell viewModel describe how to display the transaction
     func configure(viewModel: TransactionListCellViewModelInterface) {
         self.viewModel = viewModel
         self.titleLabel.text = viewModel.title

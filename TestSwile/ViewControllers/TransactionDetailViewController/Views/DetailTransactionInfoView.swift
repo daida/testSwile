@@ -8,15 +8,24 @@
 import Foundation
 import UIKit
 
+// MARK: - DetailTransactionInfoView
+
+/// Display the Transaction price, date and name on the Detail view
 class DetailTransactionInfoView: UIView {
 
+    // MARK: Private properties
+
+    /// Display the transaction price
     private let priceTitleLabel = SWKit.SWLabel(style: .bigTitle)
 
+    /// Displat the transaction name
     private let nameTitle = SWKit.SWLabel(style: .impactTitle)
 
+    /// Display the transaction date
     private let dateTitle = SWKit.SWLabel(style: .subTitle)
 
-    func setup() {
+    /// Setup view hierarchy and layout
+    private func setup() {
 
         self.priceTitleLabel.textAlignment = .center
         self.nameTitle.textAlignment = .center
@@ -50,6 +59,10 @@ class DetailTransactionInfoView: UIView {
         }
     }
 
+    // MARK: Init
+
+    /// DetailTransactionInfoView Init
+    /// - Parameter viewModel: DetailTransactionInfoView viewModel
     init(viewModel: TransactionDetailViewModelInterface) {
         self.priceTitleLabel.text = viewModel.priceTitle
         self.nameTitle.text = viewModel.subTitle

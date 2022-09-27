@@ -8,38 +8,70 @@
 import Foundation
 import Combine
 
+// MARK: - TransactionListViewModel
+
+/// Handle user interaction and describe how to display the TransactionListViewController
 class TransactionListViewModel: TransactionListViewModelInterface {
 
+    // MARK: Public properties
+
+    /// This delegate is used to communicate with the Coordinator,
+    ///	this delegate object is called when the user select a transaction
     weak var delegate: TransactionListViewModelDelegate?
 
+    /// This manager is used to fetch Transaction model from API (or from cache if there is no internet)
     private let manager: TransactionManagerInterface
 
+    /// Combine Observable property describe if the spinner should be displayed
     let shouldDisplaySpinner = CurrentValueSubject<Bool, Never>(false)
 
+    /// Transaction cell view model, group in DateSection object in order to group them in section
+    /// for instance DateSectionInterface march wiill contain 3 transactions
+    /// This will be used to describe section / item in the tableView
+    /// Transaction object is cellViewModel TransactionListCellViewModelInterface
     var transactionModel: [DateSectionInterface] = []
 
+    /// Combine CurrentValueSubject describe sections to insert in the TableView
     var toInsert = CurrentValueSubject<IndexSet?, Never>(nil)
 
+    /// Combine CurrentValueSubject describe if the tableView should reload
     var shouldReloadList = CurrentValueSubject<Bool, Never>(false)
 
+    /// AlertModel, when this model is set, an AlerView is displayed with the alertModel information
+    /// action handle are also hanldle in this model
     let alertModel = CurrentValueSubject<AlertModel?, Never>(nil)
 
+    // MARK: Private properties
+
+    /// Contain Section to add when the user reach the end of the tableView
     private var toAddElement: [DateSection]?
 
+    /// Contain the concrete implementation of DateSection who contain original Transaction model
+    /// This property is not visible by the viewController (because it's a model)
+    /// When this property is set, the public property transactionModel is set with DateSectionInterface
+    /// DateSectionInterface does'nt allow acces to the Model (but allow access to cellViewModel)
     private var originalTransactionsModels: [DateSection] = [] {
         didSet {
             self.transactionModel = self.originalTransactionsModels.compactMap { $0 as DateSectionInterface }
         }
     }
 
-    private var refreshTask: Task<Void, Error>?
+    // MARK: Init
 
+    /// TransactionListViewModel init
+    /// - Parameter manager: This manager is used to fetch
+    ///  Transaction model from API (or from cache if there is no internet)
     init(manager: TransactionManagerInterface) {
         self.manager = manager
     }
 
+    // MARK: Public methods
 
+    /// This method is called when the user did reach the end of the list
+    /// some transactions will be add and the toInsert observable property will be set,
+    /// so the viewController will add the corresponding section in the transaction tableView
     func userDidReachTheEndOfTheList() {
+        
         if let toAddElement = toAddElement {
 
             let lastCount = self.originalTransactionsModels.count
@@ -52,19 +84,14 @@ class TransactionListViewModel: TransactionListViewModelInterface {
                 indexSet.add(element.offset + (lastCount))
             }
 
-        	let dest = IndexSet(indexSet)
-
-            refreshTask?.cancel()
-
-            self.refreshTask = Task {
-                try await Task.sleep(nanoseconds: UInt64(1.0) * NSEC_PER_SEC)
-                try Task.checkCancellation()
-                self.toInsert.value = dest
-            }
-
+            let dest = IndexSet(indexSet)
+            self.toInsert.value = dest
         }
     }
 
+    /// This method is called from the viewDidApear viewController method
+    /// it will call getTransaction method from the transaction manager, and will update viewModel observable accordingly
+    /// Model will be group in DateSection object (in order to group model by month)
     func viewDidAppear() {
         Task {
             guard self.originalTransactionsModels.isEmpty == true else { return }
@@ -79,6 +106,11 @@ class TransactionListViewModel: TransactionListViewModelInterface {
                     .sorted { $0.sectionDate > $1.sectionDate }
 
                 self.toAddElement = self.originalTransactionsModels
+
+                for _ in 0...30 {
+                    self.toAddElement?.append(contentsOf: self.originalTransactionsModels)
+                }
+
                 self.shouldReloadList.value = true
 
             } catch {
@@ -106,13 +138,16 @@ class TransactionListViewModel: TransactionListViewModelInterface {
         }
     }
 
+    /// This method is called when the user did tap on indexPath
+    /// - Parameter indexPath: user indexPath selection
     func userDidTapOnElementAtIndexPath(indexPath: IndexPath) {
         let model = self.originalTransactionsModels[indexPath.section].orignalModelTransactions[indexPath.item]
         self.delegate?.transactionListViewModel(self, userDidTapOnTransaction: model)
     }
 
-
 }
+
+// MARK: - TransactionListViewModelInterface
 
 protocol TransactionListViewModelInterface {
     func viewDidAppear()
@@ -123,8 +158,9 @@ protocol TransactionListViewModelInterface {
     func userDidTapOnElementAtIndexPath(indexPath: IndexPath)
     var toInsert: CurrentValueSubject<IndexSet?, Never> { get }
     var shouldReloadList: CurrentValueSubject<Bool, Never> { get }
-
 }
+
+// MARK: - DateSectionInterface
 
 protocol DateSectionInterface {
     var name: String { get }
@@ -132,20 +168,35 @@ protocol DateSectionInterface {
 
 }
 
+// MARK: - DateSection
+
+/// Describle month section and contain corrsponding Transaction models
 struct DateSection: DateSectionInterface {
 
+    /// Month name
     let name: String
+
+    /// Date section id (used for Equatable conformance)
     let id: String
+
+    /// Section date used to sort sections
     let sectionDate: Date
 
+    /// Concrete TransactionModel model array
     var orignalModelTransactions: [TransactionModel]
 
+    /// manager
     private let transactionManager: TransactionManagerInterface
 
+    /// Public transaction cell view model
     var transactions: [TransactionListCellViewModelInterface] {
         self.orignalModelTransactions.compactMap { TransactionListCellViewModel(model: $0, manager: self.transactionManager) }
     }
 
+    /// DateSection init
+    /// - Parameters:
+    ///   - date: Section date
+    ///   - transactionManager: manager
     init(date: Date, transactionManager: TransactionManagerInterface) {
         self.name = DateFormatter.monthDateFormater.string(from: date).capitalized
         self.id = DateFormatter.yearAndMonthFormatter.string(from: date)
@@ -154,6 +205,11 @@ struct DateSection: DateSectionInterface {
         self.orignalModelTransactions = []
     }
 
+    /// DateSection init
+    /// - Parameters:
+    ///   - dateSection: Section date
+    ///   - transactions: Month transaction (for instance march transaction models)
+    ///   - transactionManager: manager
     init(dateSection: DateSection, transactions: [TransactionModel], transactionManager: TransactionManagerInterface) {
         self.transactionManager = transactionManager
         self.name = dateSection.name
@@ -174,6 +230,8 @@ extension DateSection: Hashable {
         hasher.combine(id)
     }
 }
+
+// MARK: - TransactionListViewModelDelegate
 
 protocol TransactionListViewModelDelegate: AnyObject {
     func transactionListViewModel(_ viewModel: TransactionListViewModel, userDidTapOnTransaction: TransactionModel)
