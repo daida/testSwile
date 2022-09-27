@@ -45,7 +45,8 @@ class TransactionDetailViewModel: TransactionDetailViewModelInterface {
         self.model = model
         self.imageDownloader = imageDownloader
 
-        self.priceTitle = NumberFormatter.formatPrice(price: model.amount.value, currency: model.amount.currency.iso3) ?? ""
+        self.priceTitle = NumberFormatter.formatPrice(price: model.amount.value,
+                                                      currency: model.amount.currency.iso3) ?? ""
         self.subTitle = model.name
         self.dateTitle = DateFormatter.fullDateFormatter.string(from: model.date).capitalizedSentence
 
@@ -57,7 +58,7 @@ class TransactionDetailViewModel: TransactionDetailViewModelInterface {
     func userDidTapOnBackButton() {
         self.delegate?.detailViewModelUserDidTapOnBackButton(self)
     }
-    
+
 }
 
 // MARK: - TransactionDetailViewModelDelegate

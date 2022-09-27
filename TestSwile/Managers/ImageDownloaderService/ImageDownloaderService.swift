@@ -18,7 +18,7 @@ class ImageDownloaderService: ImageDownloaderServiceInterface {
     /// URLSession used to retrive image, can be injected
     private let urlSession: URLSession
 
-    /// Genetate image request
+    /// Generate image requests
     private let requestFactory: RequestFactoryImageInterface
 
     /// Check if internet is reachable
@@ -39,7 +39,7 @@ class ImageDownloaderService: ImageDownloaderServiceInterface {
     ///   - urlSession: URLSession used to retrive image, can be injected
     init(requestFactory: RequestFactoryImageInterface,
          internetChecker: InternetCheckerInterface,
-         urlSession: URLSession? = nil)  {
+         urlSession: URLSession? = nil) {
         self.requestFactory = requestFactory
         self.internetChecker = internetChecker
         if let urlSession = urlSession {
@@ -50,7 +50,8 @@ class ImageDownloaderService: ImageDownloaderServiceInterface {
                                  diskCapacity: Constant.cachedSizeDisk,
                                  diskPath: nil)
 
-            // UseFull for REST API call so we are sure we get server response and not some previous response cached
+            // UseFull for REST API call so we are sure we get server fresh
+            // response and not some previous response cached
             conf.requestCachePolicy = .useProtocolCachePolicy
             conf.urlCache = cache
             self.urlSession = URLSession(configuration: conf)
@@ -60,7 +61,7 @@ class ImageDownloaderService: ImageDownloaderServiceInterface {
     // MARK: Public methods
 
     /// Get Image by using Swift Concurrency  urlSession method
-    /// - Parameter imageURL: image URL to retive
+    /// - Parameter imageURL: image URL to retrieve
     /// - Returns: UIImage, if the image can't be reach an error is throw
     func getImage(imageURL: String) async throws -> UIImage {
 
@@ -89,7 +90,7 @@ class ImageDownloaderService: ImageDownloaderServiceInterface {
     }
 
     /// Get Image from URLSession cache
-    /// - Parameter imageURL: image URL to retrive
+    /// - Parameter imageURL: image URL to retrieve
     /// - Returns: cached image
     func getCachedImage(imageURL: String) throws -> UIImage {
         guard let imageRequest = self.requestFactory.generateGetImage(imageURL: imageURL) else {

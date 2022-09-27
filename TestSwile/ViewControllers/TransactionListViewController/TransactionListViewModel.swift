@@ -74,7 +74,7 @@ class TransactionListViewModel: TransactionListViewModelInterface {
     /// some transactions will be add and the toInsert observable property will be set,
     /// so the viewController will add the corresponding section in the transaction tableView
     func userDidReachTheEndOfTheList() {
-        
+
         if let toAddElement = toAddElement {
 
             let lastCount = self.originalTransactionsModels.count
@@ -93,7 +93,8 @@ class TransactionListViewModel: TransactionListViewModelInterface {
     }
 
     /// This method is called from the viewDidApear viewController method
-    /// it will call getTransaction method from the transaction manager, and will update viewModel observable accordingly
+    /// it will call getTransaction method from the transaction manager,
+    ///  and will update viewModel observable accordingly
     /// Model will be group in DateSection object (in order to group model by month)
     func viewDidAppear() {
         Task {
@@ -102,16 +103,23 @@ class TransactionListViewModel: TransactionListViewModelInterface {
             do {
                 let result = try await self.manager.getTransactions()
 
-                let dest = Dictionary(grouping: result) { DateSection(date: $0.date, imageDownloader: self.imageDownloader) }
+                let dest = Dictionary(grouping: result) { DateSection(date: $0.date,
+                                                                      imageDownloader: self.imageDownloader) }
 
-
-                self.originalTransactionsModels = dest.compactMap { DateSection(dateSection: $0.key, transactions: $0.value, imageDownloader: self.imageDownloader) }
+                self.originalTransactionsModels = dest
+                    .compactMap { DateSection(dateSection: $0.key,
+                                              transactions: $0.value,
+                                              imageDownloader: self.imageDownloader) }
                     .sorted { $0.sectionDate > $1.sectionDate }
 
                 self.toAddElement = self.originalTransactionsModels
 
                 for _ in 0...30 {
                     self.toAddElement?.append(contentsOf: self.originalTransactionsModels)
+                }
+
+                if let toAddElement = toAddElement {
+                    self.originalTransactionsModels = toAddElement
                 }
 
                 self.shouldReloadList.value = true
@@ -121,18 +129,17 @@ class TransactionListViewModel: TransactionListViewModelInterface {
                 let title = NSLocalizedString("error.title", comment: "")
                 let subtitle: String
 
-
                 if let mangerError = error as? TransactionManagerError {
                     subtitle = mangerError.text
                 } else {
                     subtitle = NSLocalizedString("error.unknow", comment: "")
                 }
 
-
-                let retry = AlertModel.ButtonAction(name: NSLocalizedString("error.retry", comment: "")) { [weak self] in
-                    self?.viewDidAppear()
-                }
-
+                let retry = AlertModel
+                    .ButtonAction(name: NSLocalizedString("error.retry",
+                                                          comment: "")) { [weak self] in
+                        self?.viewDidAppear()
+                    }
 
                 let alertModel = AlertModel(title: title, subTitle: subtitle, okAction: retry)
                 self.alertModel.value = alertModel
@@ -193,7 +200,8 @@ struct DateSection: DateSectionInterface {
 
     /// Public transaction cell view model
     var transactions: [TransactionListCellViewModelInterface] {
-        self.orignalModelTransactions.compactMap { TransactionListCellViewModel(model: $0, imageDownloader: self.imageDownloader) }
+        self.orignalModelTransactions
+            .compactMap { TransactionListCellViewModel(model: $0, imageDownloader: self.imageDownloader) }
     }
 
     /// DateSection init
@@ -223,7 +231,7 @@ struct DateSection: DateSectionInterface {
 }
 
 extension DateSection: Equatable {
-    static func ==(lhs: DateSection, rhs: DateSection) -> Bool {
+    static func == (lhs: DateSection, rhs: DateSection) -> Bool {
         return lhs.id == rhs.id
     }
 }

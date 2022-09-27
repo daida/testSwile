@@ -97,7 +97,8 @@ class TransactionCoordinator: Coordinator {
 // MARK: - TransactionListViewModelDelegate
 
 extension TransactionCoordinator: TransactionListViewModelDelegate {
-    func transactionListViewModel(_ viewModel: TransactionListViewModel, userDidTapOnTransaction transaction: TransactionModel) {
+    func transactionListViewModel(_ viewModel: TransactionListViewModel,
+                                  userDidTapOnTransaction transaction: TransactionModel) {
         self.displayDetail(transaction: transaction)
     }
 }

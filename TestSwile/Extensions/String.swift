@@ -17,6 +17,5 @@ extension String {
         let remainingLetters = self.dropFirst().lowercased()
         return firstLetter + remainingLetters
     }
-    
-}
 
+}

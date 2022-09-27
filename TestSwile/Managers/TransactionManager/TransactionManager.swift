@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - TransactionManager
 
-/// Handle Transaction fetching parsing and storing also used to retrieve transaction image.
+/// Handle Transaction fetching parsing and storing.
 class TransactionManager: TransactionManagerInterface {
 
     // MARK: Private properties
@@ -65,8 +65,10 @@ class TransactionManager: TransactionManagerInterface {
     // MARK: Public methods
 
     /// Get Transactions models
-    /// - Returns: Transaction model array (this method will throw an error if the model are not reachable no internet for instance)
-    /// If therer is cached result there will be returned, the app alway try to get new result first and then fallback on cache model if an error occured
+    /// - Returns: Transaction model array
+    /// (this method will throw an error if the model are not reachable no internet for instance)
+    /// If therer is cached result there will be returned, the app alway
+    /// try to get new result first and then fallback on cache model if an error occured
     func getTransactions() async throws -> [TransactionModel] {
 
         self.previousGetTransactionTask?.cancel()
@@ -115,7 +117,7 @@ protocol TransactionManagerInterface {
 // MARK: - TransactionManagerError
 
 enum TransactionManagerError: Error {
-    
+
 	case apiServiceError(error: APIServiceError)
 	case serialisationError(error: Error?)
 	case unknowError(error: Error)

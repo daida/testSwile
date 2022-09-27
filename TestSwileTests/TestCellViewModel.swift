@@ -20,7 +20,8 @@ final class TestCellViewModel: XCTestCase {
         let manager = TransactionManager(apiService: apiManager)
         let imageDownloader = ImageDownloaderServiceMock()
 
-        let listViewModel = TransactionListViewModel(manager: manager,imageDownloader: imageDownloader)
+        let listViewModel = TransactionListViewModel(manager: manager,
+                                                     imageDownloader: imageDownloader)
 
         let imageViewModelExpect = XCTestExpectation()
         let remoteImage = XCTestExpectation()
@@ -30,7 +31,7 @@ final class TestCellViewModel: XCTestCase {
             if shouldReloadList == true {
                 guard let firstSection = listViewModel.transactionModel.first,
                       let firstCellViewModel = firstSection.transactions.first else { fatalError() }
-               XCTAssertEqual(firstCellViewModel.imageViewModel.acessoryPicto, SWKit.CategoriesIcons.meal_voucher.image)
+               XCTAssertEqual(firstCellViewModel.imageViewModel.acessoryPicto, SWKit.CategoriesIcons.mealVoucher.image)
                 XCTAssertEqual(firstCellViewModel.imageViewModel.borderColor, SWKit.Colors.donationBorderColor)
                 XCTAssertEqual(firstCellViewModel.imageViewModel.backgroundColor, SWKit.Colors.donationColor)
                 XCTAssertEqual(firstCellViewModel.imageViewModel.picto, nil)
@@ -42,7 +43,8 @@ final class TestCellViewModel: XCTestCase {
                 }.store(in: &self.cancellables)
                 imageViewModelExpect.fulfill()
 
-                guard let lastCellViewModel = listViewModel.transactionModel.last?.transactions.last else { fatalError() }
+                guard let lastCellViewModel = listViewModel.transactionModel
+                    .last?.transactions.last else { fatalError() }
 
                 lastCellViewModel.imageViewModel.remoteImage.receive(on: DispatchQueue.main).sink { image in
                     if image != nil {
@@ -70,7 +72,8 @@ final class TestCellViewModel: XCTestCase {
                 guard let firstSection = listViewModel.transactionModel.first,
                       let firstCellViewModel = firstSection.transactions.first else { fatalError() }
                 XCTAssertEqual(firstCellViewModel.title, "Restos du coeur")
-                guard let date = DateFormatter.isoFormater.date(from: "2021-03-07T14:04:45.000+01:00") else { fatalError() }
+                guard let date = DateFormatter
+                    .isoFormater.date(from: "2021-03-07T14:04:45.000+01:00") else { fatalError() }
                 let str = DateFormatter.shortDateFormatter.string(from: date) + "・" + "Don à l'arrondi"
                 XCTAssertEqual(firstCellViewModel.subTitle, str)
 

@@ -121,7 +121,9 @@ extension TransactionListTableViewManager: UITableViewDelegate {
         if let castedCell = tableView.cellForRow(at: indexPath) as? TransactionListCell {
             self.imageViewFrame = castedCell.convert(castedCell.imageViewFrame, to: self.tableView)
             self.viewToAnimate = TransactionImageView()
-            self.viewToAnimate?.configure(viewModel: self.viewModel.transactionModel[indexPath.section].transactions[indexPath.item].imageViewModel)
+            self.viewToAnimate?
+                .configure(viewModel: self.viewModel.transactionModel[indexPath.section]
+                    .transactions[indexPath.item].imageViewModel)
             self.lastSelectedCell = castedCell
 
         }

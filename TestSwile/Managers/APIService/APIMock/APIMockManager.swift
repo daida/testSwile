@@ -29,7 +29,8 @@ class APIMockManager: APIServiceInterface {
             if error == true {
                 throw APIServiceError.noInternet
             }
-            guard let url = Bundle.main.url(forResource: "mock", withExtension: "json") else { throw APIServiceError.wrongResponse }
+            guard let url = Bundle.main.url(forResource: "mock",
+                                            withExtension: "json") else { throw APIServiceError.wrongResponse }
         	return try Data(contentsOf: url)
         }
         return dest

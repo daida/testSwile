@@ -35,7 +35,10 @@ final class TestManager: XCTestCase {
             XCTAssertEqual(first.smallIcon.url, nil)
             XCTAssertEqual(first.smallIcon.category, "meal_voucher")
 
+            // swiftlint:disable line_length
+
             XCTAssertEqual(first.largeIcon.url, "https://res.cloudinary.com/hbnjrwllw/image/upload/v1583240999/neobank/charity/cdaa7851-da33-4b3c-8e01-228c4b085ac3.png")
+            // swiftlint:enable line_length
             XCTAssertEqual(first.largeIcon.category, "donation")
             XCTAssertEqual(dest.count, 8)
         } catch {

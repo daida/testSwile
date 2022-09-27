@@ -57,6 +57,7 @@
 		A195E78F28E2F15900300214 /* TestImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195E78E28E2F15900300214 /* TestImageDownloader.swift */; };
 		A195E79128E2F23B00300214 /* mockImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A195E79028E2F23B00300214 /* mockImage.jpg */; };
 		A195E79228E2F38300300214 /* mockImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A195E79028E2F23B00300214 /* mockImage.jpg */; };
+		A195E79528E32B2F00300214 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = A195E79428E32B2F00300214 /* ReadMe.md */; };
 		A1D989E228DDB44B0061D73C /* TransactionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E128DDB44B0061D73C /* TransactionImageView.swift */; };
 		A1D989E528DDB46B0061D73C /* TransactionImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */; };
 		A1D989E928DDE0210061D73C /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D989E828DDE0210061D73C /* PriceView.swift */; };
@@ -146,6 +147,7 @@
 		A195E78C28E2EF4800300214 /* ImageDownloaderServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderServiceMock.swift; sourceTree = "<group>"; };
 		A195E78E28E2F15900300214 /* TestImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageDownloader.swift; sourceTree = "<group>"; };
 		A195E79028E2F23B00300214 /* mockImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mockImage.jpg; sourceTree = "<group>"; };
+		A195E79428E32B2F00300214 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		A1D989E128DDB44B0061D73C /* TransactionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageView.swift; sourceTree = "<group>"; };
 		A1D989E428DDB46B0061D73C /* TransactionImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageViewModel.swift; sourceTree = "<group>"; };
 		A1D989E828DDE0210061D73C /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		A10EEB9828DB04DE00DCA882 = {
 			isa = PBXGroup;
 			children = (
+				A195E79428E32B2F00300214 /* ReadMe.md */,
 				A10EEBA328DB04DE00DCA882 /* TestSwile */,
 				A10EEBBA28DB04DF00DCA882 /* TestSwileTests */,
 				A10EEBC428DB04DF00DCA882 /* TestSwileUITests */,
@@ -455,6 +458,7 @@
 				A10EEB9D28DB04DE00DCA882 /* Sources */,
 				A10EEB9E28DB04DE00DCA882 /* Frameworks */,
 				A10EEB9F28DB04DE00DCA882 /* Resources */,
+				A195E79328E3258D00300214 /* Run Swiftlint if it's installed */,
 			);
 			buildRules = (
 			);
@@ -559,6 +563,7 @@
 				A1D989F528DE2B070061D73C /* Segma-Bold.otf in Resources */,
 				A179E8D528E1970A00D68762 /* Launch Screen.storyboard in Resources */,
 				A12283F228E08ED9005AF079 /* mock.json in Resources */,
+				A195E79528E32B2F00300214 /* ReadMe.md in Resources */,
 				A195E79128E2F23B00300214 /* mockImage.jpg in Resources */,
 				A12283E928E08753005AF079 /* Localizable.strings in Resources */,
 				A1D989F728DE2B0C0061D73C /* Segma-SemiBoldItalic.otf in Resources */,
@@ -583,6 +588,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A195E79328E3258D00300214 /* Run Swiftlint if it's installed */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint if it's installed";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A10EEB9D28DB04DE00DCA882 /* Sources */ = {

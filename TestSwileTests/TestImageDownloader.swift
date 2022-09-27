@@ -13,7 +13,8 @@ import Combine
 final class TestImageDownloader: XCTestCase {
 
     func testImageDownloader() {
-        guard let url = Bundle(for: TestImageDownloader.self).url(forResource: "mockImage", withExtension: "jpg") else { fatalError() }
+        guard let url = Bundle(for: TestImageDownloader.self)
+            .url(forResource: "mockImage", withExtension: "jpg") else { fatalError() }
         let imageDownloader = ImageDownloaderService(requestFactory: RequestFactory(),
                                                      internetChecker:
                                                         InternetCheckerMock(isConnected: true))

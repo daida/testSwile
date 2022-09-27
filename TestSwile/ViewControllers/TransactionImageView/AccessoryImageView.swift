@@ -13,7 +13,7 @@ import SnapKit
 // MARK: - AccessoryImageView
 
 /// Display the image in the right corner of the TransactionImageView
-class AccessoryImageView: UIView {
+class AccessoryImageView: UIView, AccessoryTransactionImageViewAnimatorInterface {
 
     // MARK: Private Properties
 

@@ -58,7 +58,8 @@ extension SWKit {
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.lineHeightMultiple = 1.11
                 paragraphStyle.lineBreakMode = .byTruncatingTail
-                self.attributedText = NSMutableAttributedString(string: newValue ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+                self.attributedText = NSMutableAttributedString(
+                    string: newValue ?? "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
             }
         }
 

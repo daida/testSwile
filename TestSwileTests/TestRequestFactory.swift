@@ -13,15 +13,15 @@ final class TestRequestFactory: XCTestCase {
 
     func testGetImage() {
         let requestFactory = RequestFactory()
-
+        // swiftlint:disable line_length
        let request = requestFactory.generateGetImage(imageURL: "https://res.cloudinary.com/hbnjrwllw/image/upload/v1583240999/neobank/charity/cdaa7851-da33-4b3c-8e01-228c4b085ac3.png")
-
+        // swiftlint:enable line_length
         XCTAssertEqual(request?.httpMethod, "GET")
 
         XCTAssertEqual(request?.cachePolicy, .useProtocolCachePolicy)
-
+        // swiftlint:disable line_length
         guard let url = URL(string: "https://res.cloudinary.com/hbnjrwllw/image/upload/v1583240999/neobank/charity/cdaa7851-da33-4b3c-8e01-228c4b085ac3.png") else { fatalError() }
-
+        // swiftlint:enable line_length
         XCTAssertEqual(request?.url, url)
     }
 
@@ -30,10 +30,10 @@ final class TestRequestFactory: XCTestCase {
 
         let request = requestFactory.generateGetTransactionsRequest()
         XCTAssertEqual(request?.httpMethod, "GET")
+        // swiftlint:disable line_length
         guard let url = URL(string: "https://gist.githubusercontent.com/Aurazion/365d587f5917d1478bf03bacabdc69f3/raw/3c92b70e1dc808c8be822698f1cbff6c95ba3ad3/transactions.json") else { fatalError() }
-
+        // swiftlint:enable line_length
         XCTAssertEqual(request?.url, url)
     }
-
 
 }

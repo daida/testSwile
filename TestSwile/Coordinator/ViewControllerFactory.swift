@@ -33,18 +33,18 @@ class ViewControllerFactory: ViewControllerFactoryInterface {
     /// Generate a UIViewControllerTransitioningDelegate
     /// animated the transition between the list to detail transaction, and the inverse animation
     /// This UIViewControllerTransitioningDelegate should be set on the list viewController
-    /// - Returns: list to detail UIViewControllerTransitioningDelegate should be set on the transitioningDelegate list property 
-    func generateAnimator() ->  UIViewControllerTransitioningDelegate {
+    /// - Returns: list to detail UIViewControllerTransitioningDelegate
+    ///  should be set on the transitioningDelegate list property 
+    func generateAnimator() -> UIViewControllerTransitioningDelegate {
         return TransitionAnimator()
     }
 }
 
 // MARK: - ViewControllerFactoryInterface
 
-
 protocol ViewControllerFactoryInterface {
 
-    func generateAnimator() ->  UIViewControllerTransitioningDelegate
+    func generateAnimator() -> UIViewControllerTransitioningDelegate
 
     func generateTransactionViewController(viewModel: TransactionListViewModelInterface) -> UIViewController
 

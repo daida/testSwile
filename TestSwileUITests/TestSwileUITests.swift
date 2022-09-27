@@ -9,21 +9,24 @@ import XCTest
 
 final class TestSwileUITests: XCTestCase {
 
-
     func testCellElements() throws {
         let app = XCUIApplication()
         app.launch()
         XCTAssert(app.tables.matching(identifier: "Transaction List").element.exists)
 
-        XCTAssert(app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .staticText).matching(identifier: "Cell Title").element.exists)
+        XCTAssert(app.tables["Transaction List"]
+            .children(matching: .cell).matching(identifier: "Transaction cell")
+            .element(boundBy: 2).children(matching: .staticText).matching(identifier: "Cell Title").element.exists)
 
-        XCTAssert(app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .staticText).matching(identifier: "Cell SubTitle").element.exists)
+        XCTAssert(app.tables["Transaction List"]
+            .children(matching: .cell).matching(identifier: "Transaction cell")
+            .element(boundBy: 2).children(matching: .staticText).matching(identifier: "Cell SubTitle").element.exists)
 
-
-        XCTAssert(app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .other).matching(identifier: "Cell Image").element.exists)
-        
+        XCTAssert(app.tables["Transaction List"]
+            .children(matching: .cell)
+            .matching(identifier: "Transaction cell")
+            .element(boundBy: 2).children(matching: .other).matching(identifier: "Cell Image").element.exists)
     }
-
 
     func testOpenDetail() throws {
 
@@ -32,7 +35,9 @@ final class TestSwileUITests: XCTestCase {
 
         XCTAssert(app.tables.matching(identifier: "Transaction List").element.exists)
 
-        app.tables["Transaction List"].children(matching: .cell).matching(identifier: "Transaction cell").element(boundBy: 2).children(matching: .other).element(boundBy: 0).tap()
+        app.tables["Transaction List"].children(matching: .cell)
+            .matching(identifier: "Transaction cell")
+            .element(boundBy: 2).children(matching: .other).element(boundBy: 0).tap()
 
         XCTAssert(app.otherElements.matching(identifier: "Transaction Detail").element.exists)
         XCTAssert(app.otherElements.matching(identifier: "Detail Titre Resto").element.exists)

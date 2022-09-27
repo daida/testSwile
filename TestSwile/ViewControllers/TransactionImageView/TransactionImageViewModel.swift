@@ -54,7 +54,7 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
 
         switch transaction.type {
         case "donation":
-            self.borderColor = SWKit.Colors.donationBorderColor
+            self.borderColor =  SWKit.Colors.donationBorderColor
             self.backgroundColor = SWKit.Colors.donationColor
         case "meal_voucher":
             self.borderColor = SWKit.Colors.mealVocherBorderColor
@@ -91,7 +91,7 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
         }
 
         Task {
-            
+
             if let url = transaction.largeIcon.url {
                 self.remoteImage.value = try? await self.imageDownloader.getImage(imageURL: url)
             }

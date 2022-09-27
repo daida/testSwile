@@ -12,13 +12,13 @@ import SnapKit
 
 /// Image view used in cell and Detail view
 /// Also used in the transition
-class TransactionImageView: UIView {
+class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
 
     // MARK: Private properties
 
     /// Transaction ImageViewModel
     /// this is a var property because this view is used in UITableViewCell
-    private var viewModel: TransactionImageViewModelInterface? = nil
+    private var viewModel: TransactionImageViewModelInterface?
 
     /// Combine observable property subscription are canceled when the viewModel change
     private var cancelable = Set<AnyCancellable>()
@@ -28,7 +28,7 @@ class TransactionImageView: UIView {
         let dest = UIView()
         dest.layer.cornerRadius = 23
         dest.translatesAutoresizingMaskIntoConstraints = false
-        dest.layer.borderWidth = 2
+        dest.layer.borderWidth = 1
         dest.clipsToBounds = true
         return dest
     }()
@@ -67,7 +67,7 @@ class TransactionImageView: UIView {
     // MARK: Public properties
 
     /// Display the accesory view (right small icon )
-    let accessoryView: AccessoryImageView = {
+    private let accessoryView: AccessoryImageView = {
         let dest = AccessoryImageView()
         return dest
     }()
@@ -109,7 +109,7 @@ class TransactionImageView: UIView {
         self.circleBackgroundView.layer.cornerRadius = 23
         self.circleBackgroundView.layer.borderWidth = 2
 
-        self.accessoryView.snp.makeConstraints { make in
+        self.accessoryView.snp.makeConstraints { _ in
             self.accessoryTrailingConstraint?.update(offset: 5)
             self.accessoryBottomConstraint?.update(offset: 5)
         }
@@ -121,7 +121,6 @@ class TransactionImageView: UIView {
             self.imageViewWidth = make.width.equalTo(28).constraint
             self.imageViewHeight = make.height.equalTo(28).constraint
         }
-
 
         self.remoteImageView.snp.removeConstraints()
 
@@ -136,7 +135,7 @@ class TransactionImageView: UIView {
 
     /// Generate an accessoryView equal to the view one
     /// - Returns: an AccessoryView configured like the one in the view
-    func generateAccesoryView() -> AccessoryImageView {
+    func generateAccesoryView() -> AccessoryTransactionImageViewAnimatorInterface {
 		let dest = AccessoryImageView()
 
         if self.viewModel?.acessoryPicto != nil {
@@ -171,7 +170,7 @@ class TransactionImageView: UIView {
         }
 
         self.remoteImageView.snp.removeConstraints()
-        
+
         self.remoteImageView.snp.makeConstraints { make in
             make.center.equalTo(self.imageView)
             make.width.equalTo(self.imageView)
@@ -182,6 +181,10 @@ class TransactionImageView: UIView {
     /// Display the back button used in the list to detail transition
     func revealBackButton() {
         self.backButton.alpha = 1.0
+    }
+
+    func hideBackButton() {
+        self.backButton.alpha = 0.0
     }
 
     /// Configure the view with the corresponding viewModel
@@ -195,7 +198,6 @@ class TransactionImageView: UIView {
         self.viewModel = viewModel
         self.imageView.image = viewModel.picto
         self.accessoryView.setImage(viewModel.acessoryPicto)
-
 
         self.circleBackgroundView.backgroundColor = viewModel.backgroundColor
         self.circleBackgroundView.layer.borderColor = viewModel.borderColor.cgColor
@@ -220,6 +222,12 @@ class TransactionImageView: UIView {
         }.store(in: &self.cancelable)
     }
 
+    // MARK: Public properties
+
+    /// Return the accessory frame in transactionImage coorinates
+    var accessoryViewFrame: CGRect {
+        self.accessoryView.frame
+    }
 
     // MARK: Private methods
 

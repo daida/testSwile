@@ -9,9 +9,10 @@ import Foundation
 
 // MARK: - ArchiverManager
 
-/// Archvie and retrice Transaction model from the disk
+/// Archvie and retrieve Transaction model from the disk
 /// Archive format is JSON
-/// Archive and anarchive opperation are done asynchronously
+/// Archive and unarchive opperation are done asynchronously
+/// by using Swift Concurency
 class ArchiverManager: ArchiverManagerInterface {
 
     // MARK: Private properties
@@ -41,8 +42,10 @@ class ArchiverManager: ArchiverManagerInterface {
 
             guard let archivePath = self.archivePath else { return }
 
-            if FileManager.default.fileExists(atPath: archivePath.path, isDirectory: nil) == false {
-                try? FileManager.default.createDirectory(at: archivePath, withIntermediateDirectories: true)
+            if FileManager.default.fileExists(atPath: archivePath.path,
+                                              isDirectory: nil) == false {
+                try? FileManager.default.createDirectory(at: archivePath,
+                                                         withIntermediateDirectories: true)
             }
         }
 
@@ -53,18 +56,9 @@ class ArchiverManager: ArchiverManagerInterface {
     ///   - jsonEconder: JSON decoder will be user to encode model to JSON format
     ///   - jsonDecoder: JSON decoder will be used to decode model from JSON format
     init(jsonEconder: JSONEncoder? = nil, jsonDecoder: JSONDecoder? = nil) {
-        if let jsonEconder = jsonEconder {
-            self.jsonEncoder = jsonEconder
-        } else {
-            self.jsonEncoder = JSONEncoder()
-        }
 
-        if let jsonDecoder = jsonDecoder {
-            self.jsonDecoder = jsonDecoder
-        } else {
-            self.jsonDecoder = JSONDecoder()
-        }
-
+        self.jsonEncoder = jsonEconder ?? JSONEncoder()
+        self.jsonDecoder = jsonDecoder ?? JSONDecoder()
         self.createDirecoryIfNoPresent()
     }
 
@@ -74,34 +68,33 @@ class ArchiverManager: ArchiverManagerInterface {
     /// - Parameter transactions: Transaction model array to persist
     func archiveTransaction(transactions: [TransactionModel]) async throws {
 
-        Task {
-            guard let url = self.archivefilePath else  {
-                throw ArchiverManagerError.archiverError(nil)
-            }
-            
-            do {
-                let data = try self.jsonEncoder.encode(transactions)
-                try data.write(to: url)
-            } catch {
-                throw ArchiverManagerError.archiverError(error)
-            }
-
+        guard let url = self.archivefilePath else {
+            throw ArchiverManagerError.archiverError(nil)
         }
+
+        do {
+            let data = try self.jsonEncoder.encode(transactions)
+            try data.write(to: url)
+        } catch {
+            throw ArchiverManagerError.archiverError(error)
+        }
+
     }
 
     /// Retrive transaction from the disk
     /// - Returns: stored transaction  model array
     func retriveTransaction() async throws -> [TransactionModel] {
-        try await Task {
-            guard let url = self.archivefilePath else {
-                throw ArchiverManagerError.unarchiveError(nil)
-            }
-            do {
-                let data = try Data(contentsOf: url)
-                let tansaction = try self.jsonDecoder.decode([TransactionModel].self, from: data)
-                return tansaction
-            }
-        }.value
+        guard let url = self.archivefilePath else {
+
+            throw ArchiverManagerError.unarchiveError(nil)
+        }
+        do {
+            let data = try Data(contentsOf: url)
+            let tansaction = try self.jsonDecoder.decode([TransactionModel].self, from: data)
+            return tansaction
+        } catch {
+            throw ArchiverManagerError.unarchiveError(error)
+        }
     }
 
 }
@@ -116,6 +109,6 @@ enum ArchiverManagerError: Error {
 // MARK: - ArchiverManagerInterface
 
 protocol ArchiverManagerInterface {
-    func archiveTransaction(transactions: [TransactionModel]) async throws 
+    func archiveTransaction(transactions: [TransactionModel]) async throws
     func retriveTransaction() async throws -> [TransactionModel]
 }

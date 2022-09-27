@@ -11,7 +11,6 @@ import XCTest
 
 final class TestModelArchiver: XCTestCase {
 
-
     func testArchiveObject() async {
 
         let api = APIMockManager()

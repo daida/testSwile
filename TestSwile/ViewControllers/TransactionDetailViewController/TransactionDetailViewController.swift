@@ -16,7 +16,7 @@ class TransactionDetailViewController: UIViewController, TransactionDetailAnimat
     // MARK: Public properties
 
     /// Header view, it the same contain in the Transaction list cell
-    let header = TransactionImageView()
+    private let header = TransactionImageView()
 
     // MARK: Private properties
 
@@ -40,7 +40,7 @@ class TransactionDetailViewController: UIViewController, TransactionDetailAnimat
 
     /// Setup view layout
     private func setupLayout() {
-        
+
         self.header.snp.makeConstraints { make in
             make.top.equalTo(self.view)
             make.leading.equalTo(self.view)
@@ -71,6 +71,13 @@ class TransactionDetailViewController: UIViewController, TransactionDetailAnimat
         }
     }
 
+    // MARK: Public properties
+
+    /// Return the header frame in viewController coordinates
+    var headerFrame: CGRect {
+        self.header.frame
+    }
+
     // MARK: Public method
 
     /// This method is call during the transition process
@@ -88,7 +95,7 @@ class TransactionDetailViewController: UIViewController, TransactionDetailAnimat
     /// This method is called during the transition process
     /// It should hide all view and set a translation transform to the detail view
     func startHideAnimation() {
-        self.header.isHidden = true
+        self.header.alpha = 0
         self.detailView.alpha = 0
         self.detailView.transform = CGAffineTransform(translationX: 0, y: 20)
         self.detailAction.alpha = 0
@@ -105,11 +112,12 @@ class TransactionDetailViewController: UIViewController, TransactionDetailAnimat
     /// This method will generate a header identical to the detail view header
     /// usefull to perform the transition to the list
     /// - Returns: a new header configured as the detail view header
-    func generateHeader() -> TransactionImageView {
+    func generateHeader() -> TransactionImageViewAnimatorInterface {
         let dest = TransactionImageView()
         dest.configure(viewModel: self.viewModel.imageViewModel)
         dest.activateBackgroundAlpha()
         dest.enableBigMode()
+        dest.revealBackButton()
         dest.frame = self.header.frame
         return dest
     }

@@ -14,7 +14,7 @@ import UIKit
 class DetailActionViewItem: UIView {
 
     /// Action Title view display a static label switch account
-    private let actionTitle:SWKit.SWLabel = {
+    private let actionTitle: SWKit.SWLabel = {
         let dest = SWKit.SWLabel(style: .actionTitle)
         dest.text = NSLocalizedString("detail.swich_account", comment: "")
         dest.numberOfLines = 2
@@ -175,7 +175,6 @@ extension DetailActionViewItem {
             case .reportAProblem: return "Detail problem"
             }
         }
-        
 
         /// Describe action image
         var icon: UIImage? {

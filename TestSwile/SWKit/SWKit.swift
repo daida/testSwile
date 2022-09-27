@@ -44,7 +44,7 @@ struct SWKit {
         case burger
         case computer
         case gift
-        case meal_voucher
+        case mealVoucher = "meal_voucher"
         case mobility
         case supermarket
         case sushi

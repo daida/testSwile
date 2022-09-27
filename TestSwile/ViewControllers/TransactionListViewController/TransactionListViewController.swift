@@ -36,7 +36,7 @@ class TransactionListViewController: UIViewController, TransactionListAnimatorIn
     /// Return the selected transaction image rect in TransactionListViewController coordinate
     var imageViewFrame: CGRect? {
         if let imagFrame = self.tableViewManager.imageViewFrame {
-    		let dest = self.tableView.convert(imagFrame, to: self.view)            
+    		let dest = self.tableView.convert(imagFrame, to: self.view)
             return dest
         } else {
             return nil
@@ -96,7 +96,7 @@ class TransactionListViewController: UIViewController, TransactionListAnimatorIn
     /// All observable property are subscribe on the DispatchQue Main
     /// in order to perform UI modification
     private func setupViewModel() {
-        
+
         self.viewModel.shouldReloadList.receive(on: DispatchQueue.main).sink { [weak self] shoulReloadList in
             guard let self = self else { return }
             if shoulReloadList == true {
@@ -115,7 +115,12 @@ class TransactionListViewController: UIViewController, TransactionListAnimatorIn
 
         self.viewModel.shouldDisplaySpinner.receive(on: DispatchQueue.main).sink { [weak self] shouldDisplaySpinner in
             guard let self = self else { return }
-            shouldDisplaySpinner == true ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+
+            if shouldDisplaySpinner == true {
+                self.spinner.startAnimating()
+            } else {
+                self.spinner.stopAnimating()
+            }
 
             if shouldDisplaySpinner == false {
                 self.tableView.alpha = 0.0

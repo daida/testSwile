@@ -39,7 +39,6 @@ final class TestDetailViewModel: XCTestCase {
 
 }
 
-
 class DetailDelegateTester: TransactionDetailViewModelDelegate {
 
     let expect: XCTestExpectation
@@ -52,6 +51,4 @@ class DetailDelegateTester: TransactionDetailViewModelDelegate {
         self.expect.fulfill()
     }
 
-
 }
-

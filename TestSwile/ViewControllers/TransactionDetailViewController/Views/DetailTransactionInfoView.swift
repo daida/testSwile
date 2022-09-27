@@ -30,7 +30,7 @@ class DetailTransactionInfoView: UIView {
         self.priceTitleLabel.textAlignment = .center
         self.nameTitle.textAlignment = .center
         self.dateTitle.textAlignment = .center
-        
+
         self.addSubview(self.priceTitleLabel)
         self.addSubview(self.nameTitle)
         self.addSubview(self.dateTitle)

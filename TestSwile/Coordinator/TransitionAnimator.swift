@@ -19,7 +19,6 @@ class TransitionAnimator: NSObject {
     /// From list to detail transition animation duration
     private let toDetailDuration = 1.8
 
-
     /// From detail to list transition animation duration
     private let toListDuration = 1.2
 
@@ -30,7 +29,9 @@ class TransitionAnimator: NSObject {
     /// When the transition is done, completeTransition is called on then context object
     func animateToDetailAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard
-            let last = (transitionContext.viewController(forKey: .from) as? UINavigationController)?.viewControllers.last,
+            let last = (transitionContext
+                .viewController(forKey: .from) as? UINavigationController)?
+                .viewControllers.last,
             let fromViewController = last as? TransactionListAnimatorInterface,
             let toViewController = transitionContext.viewController(forKey: .to) as? TransactionDetailAnimatorInterface,
             let viewToAnimate = fromViewController.viewToAnimate,
@@ -38,7 +39,7 @@ class TransitionAnimator: NSObject {
 
         transitionContext.containerView.addSubview(toViewController.view)
         toViewController.view.layoutIfNeeded()
-        
+
         transitionContext.containerView.addSubview(viewToAnimate)
         fromViewController.hideAnimatedImage()
         viewToAnimate.frame = frame
@@ -53,7 +54,7 @@ class TransitionAnimator: NSObject {
 
         let cellGrowSequence = {
             viewToAnimate.enableBigMode()
-            viewToAnimate.frame = toViewController.header.frame
+            viewToAnimate.frame = toViewController.headerFrame
             viewToAnimate.layoutIfNeeded()
             toViewController.view.alpha = 1.0
         }
@@ -73,12 +74,14 @@ class TransitionAnimator: NSObject {
             transitionContext.completeTransition(true)
         }
 
-        UIView.animateKeyframes(withDuration: self.toDetailDuration, delay: 0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: self.toDetailDuration,
+                                delay: 0,
+                                options: .calculationModeLinear,
+                                animations: {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.1, animations: cellGrowSequence)
             UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3, animations: firstDetailAnimation)
             UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.3, animations: lastDetailanimation)
         }, completion: transitionClosure)
-
 
     }
 
@@ -87,7 +90,8 @@ class TransitionAnimator: NSObject {
     /// When the transition is done, completeTransition is called on then context object
     func animateToList( transitionContext: UIViewControllerContextTransitioning) {
         guard
-            let fromViewController = transitionContext.viewController(forKey: .from) as? TransactionDetailAnimatorInterface,
+            let fromViewController = transitionContext
+                .viewController(forKey: .from) as? TransactionDetailAnimatorInterface,
             let nav = transitionContext.viewController(forKey: .to) as?
                 UINavigationController,
             let toViewController = nav.viewControllers.last as? TransactionListAnimatorInterface,
@@ -102,7 +106,7 @@ class TransitionAnimator: NSObject {
 
         header.layoutIfNeeded()
 
-        let headerAccessoryFrame = header.convert(header.accessoryView.frame, to: transitionContext.containerView)
+        let headerAccessoryFrame = header.convert(header.accessoryViewFrame, to: transitionContext.containerView)
 
         nav.view.alpha = 0
 
@@ -112,6 +116,8 @@ class TransitionAnimator: NSObject {
         transitionContext.containerView.addSubview(header)
 
         transitionContext.containerView.addSubview(destCell)
+
+        header.layoutIfNeeded()
 
         accessory.removeFromSuperview()
         accessory.snp.removeConstraints()
@@ -135,7 +141,7 @@ class TransitionAnimator: NSObject {
             header.frame = destFrame
             nav.view.alpha = 1.0
             destCell.alpha = 1.0
-            accessory.frame = destCell.convert(destCell.accessoryView.frame,
+            accessory.frame = destCell.convert(destCell.accessoryViewFrame,
                                                to: transitionContext.containerView)
             header.layoutIfNeeded()
             accessory.layoutIfNeeded()
@@ -146,6 +152,7 @@ class TransitionAnimator: NSObject {
         }
 
         let hideDetailAnimation = {
+            header.hideBackButton()
             fromViewController.startHideAnimation()
         }
 
@@ -156,8 +163,10 @@ class TransitionAnimator: NSObject {
             transitionContext.completeTransition(true)
         }
 
-
-        UIView.animateKeyframes(withDuration: self.toListDuration, delay: 0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: self.toListDuration,
+                                delay: 0,
+                                options: .calculationModeLinear,
+                                animations: {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.4, animations: hideDetailAnimation)
             UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.05, animations: imageAlphaSequence)
             UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.3, animations: shrinckCellSequence)
@@ -188,8 +197,9 @@ extension TransitionAnimator: UIViewControllerTransitioningDelegate, UIViewContr
         }
     }
 
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController,
+                             presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self
     }
 
@@ -199,16 +209,17 @@ extension TransitionAnimator: UIViewControllerTransitioningDelegate, UIViewContr
 }
 
 // Thoses protocols are defined to limit the coopling between
-// viewController and the UIViewControllerContextTransitioning 
+// viewController and the UIViewControllerContextTransitioning
+// also between view and the UIViewControllerContextTransitioning
 
 // MARK: - TransactionDetailAnimatorInterface
 
 protocol TransactionDetailAnimatorInterface: UIViewController {
-    var header: TransactionImageView { get }
+    var headerFrame: CGRect { get }
     func prepareForAnimation()
     func startHideAnimation()
     func displayHeader()
-    func generateHeader() -> TransactionImageView
+    func generateHeader() -> TransactionImageViewAnimatorInterface
     func firstAnimDone()
     func secondAnimDone()
 }
@@ -220,4 +231,27 @@ protocol TransactionListAnimatorInterface: UIViewController {
     var viewToAnimate: TransactionImageView? { get }
     func hideAnimatedImage()
     func revealHiddenCell()
+}
+
+// MARK: - TransactionImageViewAnimatorInterface
+
+protocol TransactionImageViewAnimatorInterface: UIView {
+    func activateBackgroundAlpha()
+    func halfReveal()
+    func revealImage()
+    func hideContentImage()
+    func disableBigMode()
+    func generateAccesoryView() -> AccessoryTransactionImageViewAnimatorInterface
+    func enableBigMode()
+    func revealBackButton()
+    func hideBackButton()
+    var accessoryViewFrame: CGRect { get }
+}
+
+// MARK: - AccessoryTransactionImageViewAnimatorInterface
+
+protocol AccessoryTransactionImageViewAnimatorInterface: UIView {
+    func disableSizeConstraint()
+    func enableBigMode()
+    func enableSmallMode()
 }

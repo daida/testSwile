@@ -16,10 +16,11 @@ class RequestFactory: RequestFactoryApiInterface, RequestFactoryImageInterface {
 
     /// Request Factory constant
     private struct Constant {
-
+        // swiftlint:disable line_length
         /// Default Transaction EndPoint
         static let endPoint = "https://gist.githubusercontent.com/Aurazion/365d587f5917d1478bf03bacabdc69f3/raw/3c92b70e1dc808c8be822698f1cbff6c95ba3ad3/transactions.json"
     }
+    // swiftlint:enable line_length
 
     /// API EndPoint
     private let endPoint: String

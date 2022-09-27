@@ -43,7 +43,7 @@ final class TestListViewModel: XCTestCase {
                 expectShouldReloadList.fulfill()
             }
 
-            if listViewModel.transactionModel.count == 3 {
+            if listViewModel.transactionModel.count >= 3 {
                 guard let date = DateFormatter.isoFormater.date(from: "2021-03-07T14:04:45.000+01:00") else {
                     fatalError()
                 }
@@ -77,7 +77,6 @@ final class TestListViewModel: XCTestCase {
                 XCTAssertEqual(alertModel?.buttonActions.first?.name, NSLocalizedString("error.retry", comment: ""))
             }
 
-
         }.store(in: &cancellables)
 
         listViewModel.viewDidAppear()
@@ -110,7 +109,6 @@ final class TestListViewModel: XCTestCase {
 
         }.store(in: &self.cancellables)
 
-
         wait(for: [paginationExpectation], timeout: 20)
     }
 
@@ -140,7 +138,6 @@ final class TestListViewModel: XCTestCase {
     }
 
 }
-
 
 class ListDelegateObject: TransactionListViewModelDelegate {
 

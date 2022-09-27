@@ -13,14 +13,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var coordinator: Coordinator?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
         guard let aScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: aScene)
 
         // This method will set NavigationController naviagtion title style
         SWKit.setup()
 
-        // Retrive transaction coordinator as Coordinator object (the sceneDelegate doesn't know the concrete type of the transaction Coordinator)
+        // Retrive transaction coordinator as Coordinator
+        // object (the sceneDelegate doesn't know the concrete type of the transaction Coordinator)
 		let coordinator = CoordinatorFactory().generateTransactionCoordinator()
         coordinator.start()
 
@@ -31,4 +34,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
 }
-
