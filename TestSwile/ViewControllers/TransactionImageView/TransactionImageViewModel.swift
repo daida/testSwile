@@ -27,6 +27,9 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
     /// Category image to display in the accessory view
     let acessoryPicto: UIImage?
 
+    /// Describe if the loader should be display
+    let shouldDisplaySpinner = CurrentValueSubject<Bool, Never>(false)
+
     // Category image to display
     let picto: UIImage?
 
@@ -42,6 +45,12 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
     // BackgroundColor according to the model category
     let backgroundColor: UIColor
 
+    /// For some transaction type (donation and  payment, the background color is white
+    /// it don't look good in big mode (detail page) so for those
+    /// categories the background color is changed in big mode (detail)
+    /// These property refer to this color (for other categories, this color = backgrounColor)
+    let bigBackgroundColor: UIColor
+
     // MARK: Init
 
     /// TransactionImageViewModel init
@@ -56,21 +65,27 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
         case "donation":
             self.borderColor =  SWKit.Colors.donationBorderColor
             self.backgroundColor = SWKit.Colors.donationColor
+            self.bigBackgroundColor = SWKit.Colors.alternativeBackgroundColor
         case "meal_voucher":
             self.borderColor = SWKit.Colors.mealVocherBorderColor
             self.backgroundColor = SWKit.Colors.mealVocherColor
+            self.bigBackgroundColor = SWKit.Colors.mealVocherColor
         case "gift":
             self.borderColor = SWKit.Colors.giftBorderColor
             self.backgroundColor = SWKit.Colors.giftColor
+            self.bigBackgroundColor = SWKit.Colors.giftColor
         case "mobility":
             self.borderColor = SWKit.Colors.mobilityBorderColor
             self.backgroundColor = SWKit.Colors.mobilityColor
+            self.bigBackgroundColor = SWKit.Colors.mobilityColor
         case "payment":
             self.borderColor = SWKit.Colors.paymentBorderColor
             self.backgroundColor = SWKit.Colors.paymentColor
+            self.bigBackgroundColor = SWKit.Colors.alternativeBackgroundColor
         default:
             self.borderColor = SWKit.Colors.mealVocherBorderColor
             self.backgroundColor = SWKit.Colors.mealVocherColor
+            self.bigBackgroundColor = SWKit.Colors.mealVocherColor
         }
 
         let acessPictoType = SWKit.CategoriesIcons(rawValue: transaction.smallIcon.category)
@@ -92,8 +107,10 @@ class TransactionImageViewModel: TransactionImageViewModelInterface {
 
         Task {
 
-            if let url = transaction.largeIcon.url {
+            if let url = transaction.largeIcon.url, self.remoteImage.value == nil {
+                self.shouldDisplaySpinner.value = true
                 self.remoteImage.value = try? await self.imageDownloader.getImage(imageURL: url)
+                self.shouldDisplaySpinner.value = false
             }
 
             if let smallIcon = transaction.smallIcon.url {
@@ -113,7 +130,10 @@ protocol TransactionImageViewModelInterface {
     var picto: UIImage? { get }
     var borderColor: UIColor { get }
     var backgroundColor: UIColor { get }
+    var bigBackgroundColor: UIColor { get }
 
     var remoteImage: CurrentValueSubject<UIImage?, Never> { get }
     var accessoryRemoteImage: CurrentValueSubject<UIImage?, Never> { get }
+
+    var shouldDisplaySpinner: CurrentValueSubject<Bool, Never> { get }
 }

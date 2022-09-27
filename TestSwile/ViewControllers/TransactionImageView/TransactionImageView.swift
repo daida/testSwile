@@ -53,6 +53,9 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
     /// Full view background (used in transition animation)
     private let bigBackground = UIView()
 
+    /// Display spinner during image loading
+    private let spinner = UIActivityIndicatorView()
+
     // Constraint Reference used in animation transition
 
     private var accessoryTrailingConstraint: Constraint?
@@ -73,7 +76,8 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
 
     /// Setup a full size backgroundView with the alpha to 0 (used for the transition animation)
     func activateBackgroundAlpha() {
-        self.bigBackground.backgroundColor = self.viewModel?.backgroundColor
+        self.bigBackground.backgroundColor = self.viewModel?.bigBackgroundColor
+        self.circleBackgroundView.backgroundColor = self.viewModel?.bigBackgroundColor
         self.bigBackground.alpha = 0
     }
 
@@ -95,6 +99,7 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
 
     /// Hide the image content (usefull during the detail to list transition)
     func hideContentImage() {
+        self.spinner.stopAnimating()
         self.remoteImageView.alpha = 0
         self.imageView.alpha = 0
     }
@@ -103,6 +108,7 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
     func disableBigMode() {
         self.backButton.alpha = 0
         self.bigBackground.alpha = 0
+        self.circleBackgroundView.backgroundColor = self.viewModel?.backgroundColor
         self.circleBackgroundView.layer.cornerRadius = 23
         self.circleBackgroundView.layer.borderWidth = 2
 
@@ -188,6 +194,7 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
     /// - Parameter viewModel: imageViewModel
     func configure(viewModel: TransactionImageViewModelInterface) {
 
+        self.spinner.stopAnimating()
         self.remoteImageView.image = nil
 
         self.cancelable.removeAll()
@@ -216,6 +223,14 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
         viewModel.accessoryRemoteImage.receive(on: DispatchQueue.main).sink { [weak self] image in
             guard let self = self else { return }
             self.accessoryView.setRemoteImage(image)
+        }.store(in: &self.cancelable)
+
+        viewModel.shouldDisplaySpinner.receive(on: DispatchQueue.main).sink { [weak self] shouldDisplaySpinner in
+            if shouldDisplaySpinner == true {
+                self?.spinner.startAnimating()
+            } else {
+                self?.spinner.stopAnimating()
+            }
         }.store(in: &self.cancelable)
     }
 
@@ -266,6 +281,10 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(30)
             make.leading.equalTo(self).offset(20)
         }
+
+        self.spinner.snp.makeConstraints { make in
+            make.center.equalTo(self)
+        }
     }
 
     /// Setup view hierarchy
@@ -278,6 +297,8 @@ class TransactionImageView: UIView, TransactionImageViewAnimatorInterface {
         self.addSubview(self.accessoryView)
         self.addSubview(self.backButton)
         self.backButton.alpha = 0
+        self.addSubview(self.spinner)
+        self.spinner.stopAnimating()
     }
 
     /// Setup view and hierarchy
